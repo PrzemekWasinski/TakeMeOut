@@ -1,31 +1,39 @@
 {
   "Files": [
     {
-      "Id": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG",
-      "PackagePath": "staticwebassets/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG"
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\61ac56f3-c9dc-4a3b-9377-6dff53248311.png",
+      "PackagePath": "staticwebassets\\uploads\\61ac56f3-c9dc-4a3b-9377-6dff53248311.png"
     },
     {
-      "Id": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG",
-      "PackagePath": "staticwebassets/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG"
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\71e8a281-47e2-4a6b-9f51-b58851468018.png",
+      "PackagePath": "staticwebassets\\uploads\\71e8a281-47e2-4a6b-9f51-b58851468018.png"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\7efa4617-739f-442c-81c6-90548fcbcd91.JPG",
+      "PackagePath": "staticwebassets\\uploads\\7efa4617-739f-442c-81c6-90548fcbcd91.JPG"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG",
+      "PackagePath": "staticwebassets\\uploads\\b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssets.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.EatMeOut.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EatMeOut.props",
       "PackagePath": "build\\EatMeOut.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.EatMeOut.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EatMeOut.props",
       "PackagePath": "buildMultiTargeting\\EatMeOut.props"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.EatMeOut.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EatMeOut.props",
       "PackagePath": "buildTransitive\\EatMeOut.props"
     }
   ],

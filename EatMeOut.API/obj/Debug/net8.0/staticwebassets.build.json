@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Hes/o/ZoVw9z4p/5Tz/zhmA6N0g3+tzJHPPYOxPvMsE=",
+  "Hash": "lKHYiYvCCQ/7OBVsO51iJGRcxUncwN1l9/pE9odbQLw=",
   "Source": "EatMeOut",
   "BasePath": "_content/EatMeOut",
   "Mode": "Default",
@@ -8,21 +8,21 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "EatMeOut/wwwroot",
+      "Name": "EatMeOut\\wwwroot",
       "Source": "EatMeOut",
-      "ContentRoot": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
       "BasePath": "_content/EatMeOut",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG",
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\61ac56f3-c9dc-4a3b-9377-6dff53248311.png",
       "SourceId": "EatMeOut",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
       "BasePath": "_content/EatMeOut",
-      "RelativePath": "uploads/4d671342-ffaf-4c59-91cc-29f07be214bf#[.{fingerprint}]?.JPG",
+      "RelativePath": "uploads/61ac56f3-c9dc-4a3b-9377-6dff53248311#[.{fingerprint}]?.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,19 +31,19 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "zm5drgm2pb",
-      "Integrity": "NYeLPDGFmOaPMqCXSGBXwNZ4qx4UpXIl0uJIBTsy0W4=",
+      "Fingerprint": "qlb3z3rhx3",
+      "Integrity": "fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG"
+      "OriginalItemSpec": "wwwroot\\uploads\\61ac56f3-c9dc-4a3b-9377-6dff53248311.png"
     },
     {
-      "Identity": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG",
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\71e8a281-47e2-4a6b-9f51-b58851468018.png",
       "SourceId": "EatMeOut",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
       "BasePath": "_content/EatMeOut",
-      "RelativePath": "uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210#[.{fingerprint}]?.JPG",
+      "RelativePath": "uploads/71e8a281-47e2-4a6b-9f51-b58851468018#[.{fingerprint}]?.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,17 +52,59 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "t1cb1tlrgf",
-      "Integrity": "P6lAy/K17yi1RaEdxxUPO7vh/AJnezhC0gxFvOLmmIs=",
+      "Fingerprint": "qlb3z3rhx3",
+      "Integrity": "fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG"
+      "OriginalItemSpec": "wwwroot\\uploads\\71e8a281-47e2-4a6b-9f51-b58851468018.png"
+    },
+    {
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\7efa4617-739f-442c-81c6-90548fcbcd91.JPG",
+      "SourceId": "EatMeOut",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "RelativePath": "uploads/7efa4617-739f-442c-81c6-90548fcbcd91#[.{fingerprint}]?.JPG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1697m9d7mg",
+      "Integrity": "KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\7efa4617-739f-442c-81c6-90548fcbcd91.JPG"
+    },
+    {
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG",
+      "SourceId": "EatMeOut",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "RelativePath": "uploads/b343b136-7ea7-41d0-a3ab-10b552c1ab1b#[.{fingerprint}]?.JPG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1697m9d7mg",
+      "Integrity": "KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG"
     }
   ],
   "Endpoints": [
     {
-      "Route": "uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG",
-      "AssetFile": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG",
+      "Route": "uploads/61ac56f3-c9dc-4a3b-9377-6dff53248311.png",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\61ac56f3-c9dc-4a3b-9377-6dff53248311.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -71,19 +113,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1896415"
+          "Value": "13232"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/jpeg"
+          "Value": "image/png"
         },
         {
           "Name": "ETag",
-          "Value": "\"NYeLPDGFmOaPMqCXSGBXwNZ4qx4UpXIl0uJIBTsy0W4=\""
+          "Value": "\"fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 12:27:53 GMT"
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -93,13 +135,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-NYeLPDGFmOaPMqCXSGBXwNZ4qx4UpXIl0uJIBTsy0W4="
+          "Value": "sha256-fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII="
         }
       ]
     },
     {
-      "Route": "uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.zm5drgm2pb.JPG",
-      "AssetFile": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG",
+      "Route": "uploads/61ac56f3-c9dc-4a3b-9377-6dff53248311.qlb3z3rhx3.png",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\61ac56f3-c9dc-4a3b-9377-6dff53248311.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -108,19 +150,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1896415"
+          "Value": "13232"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/jpeg"
+          "Value": "image/png"
         },
         {
           "Name": "ETag",
-          "Value": "\"NYeLPDGFmOaPMqCXSGBXwNZ4qx4UpXIl0uJIBTsy0W4=\""
+          "Value": "\"fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 12:27:53 GMT"
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -130,21 +172,21 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "zm5drgm2pb"
+          "Value": "qlb3z3rhx3"
         },
         {
           "Name": "label",
-          "Value": "uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG"
+          "Value": "uploads/61ac56f3-c9dc-4a3b-9377-6dff53248311.png"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-NYeLPDGFmOaPMqCXSGBXwNZ4qx4UpXIl0uJIBTsy0W4="
+          "Value": "sha256-fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII="
         }
       ]
     },
     {
-      "Route": "uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG",
-      "AssetFile": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG",
+      "Route": "uploads/71e8a281-47e2-4a6b-9f51-b58851468018.png",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\71e8a281-47e2-4a6b-9f51-b58851468018.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -153,19 +195,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2029976"
+          "Value": "13232"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/jpeg"
+          "Value": "image/png"
         },
         {
           "Name": "ETag",
-          "Value": "\"P6lAy/K17yi1RaEdxxUPO7vh/AJnezhC0gxFvOLmmIs=\""
+          "Value": "\"fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 12:27:53 GMT"
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -175,13 +217,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-P6lAy/K17yi1RaEdxxUPO7vh/AJnezhC0gxFvOLmmIs="
+          "Value": "sha256-fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII="
         }
       ]
     },
     {
-      "Route": "uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.t1cb1tlrgf.JPG",
-      "AssetFile": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG",
+      "Route": "uploads/71e8a281-47e2-4a6b-9f51-b58851468018.qlb3z3rhx3.png",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\71e8a281-47e2-4a6b-9f51-b58851468018.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -190,19 +232,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2029976"
+          "Value": "13232"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/jpeg"
+          "Value": "image/png"
         },
         {
           "Name": "ETag",
-          "Value": "\"P6lAy/K17yi1RaEdxxUPO7vh/AJnezhC0gxFvOLmmIs=\""
+          "Value": "\"fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 12:27:53 GMT"
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -212,15 +254,179 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "t1cb1tlrgf"
+          "Value": "qlb3z3rhx3"
         },
         {
           "Name": "label",
-          "Value": "uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG"
+          "Value": "uploads/71e8a281-47e2-4a6b-9f51-b58851468018.png"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-P6lAy/K17yi1RaEdxxUPO7vh/AJnezhC0gxFvOLmmIs="
+          "Value": "sha256-fjxpoiPghTUiW9sP5qsG4wj/25iVqLeo3lY2Lpy2rII="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/7efa4617-739f-442c-81c6-90548fcbcd91.1697m9d7mg.JPG",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\7efa4617-739f-442c-81c6-90548fcbcd91.JPG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2030381"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1697m9d7mg"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/7efa4617-739f-442c-81c6-90548fcbcd91.JPG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/7efa4617-739f-442c-81c6-90548fcbcd91.JPG",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\7efa4617-739f-442c-81c6-90548fcbcd91.JPG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2030381"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/b343b136-7ea7-41d0-a3ab-10b552c1ab1b.1697m9d7mg.JPG",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2030381"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1697m9d7mg"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b343b136-7ea7-41d0-a3ab-10b552c1ab1b.JPG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2030381"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 23 Mar 2025 12:53:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KVSWTHxzxFA1VAoPFUB9EgjDAKQj/r7sRMhUHRY5kMA="
         }
       ]
     }

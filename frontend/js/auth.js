@@ -1,6 +1,6 @@
 import API_URL from './config.js';
 
-// Authentication functions
+//Authentication functions
 async function loginUser() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -118,6 +118,11 @@ async function loginRestaurant() {
 }
 
 async function registerRestaurant() {
+    // Get the submit button and disable it immediately
+    const submitButton = document.getElementById('submit-signup');
+    submitButton.disabled = true;
+    submitButton.textContent = "Processing...";
+   
     // Step 1 Fields
     const ownerName = document.getElementById('ownerName').value;
     const restaurantName = document.getElementById('restaurantName').value;
@@ -142,15 +147,50 @@ async function registerRestaurant() {
         closingTimes[day] = document.getElementById(`${day.toLowerCase()}Close`).value;
     });
 
-    // Validation Check
+    // Regex patterns for validation
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const phonePattern = /^\d{10,15}$/;
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    // Basic field validation
     if (!ownerName || !restaurantName || !email || !password || !confirmPassword || !phone || !address || !cuisineType || !coverImg || !bannerImg) {
         alert('Please fill out all required fields and upload images.');
+        // Re-enable the button on validation failure
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign Up";
+        return { success: false };
+    }
+
+    // Email validation
+    if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address.');
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign Up";
+        return { success: false };
+    }
+
+    // Phone validation
+    if (!phonePattern.test(phone)) {
+        alert('Please enter a valid phone number (10-15 digits).');
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign Up";
+        return { success: false };
+    }
+
+    // Password validation
+    if (!passwordPattern.test(password)) {
+        alert('Password must be at least 8 characters and include both letters and numbers.');
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign Up";
         return { success: false };
     }
 
     // Password Confirmation Check
     if (password !== confirmPassword) {
         alert('Passwords do not match.');
+        // Re-enable the button on validation failure
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign Up";
         return { success: false };
     }
 
@@ -183,11 +223,17 @@ async function registerRestaurant() {
             return { success: true, navigateTo: 'restaurant-login' };
         } else {
             alert('Registration failed: ' + (data.message || 'Unknown error'));
+            // Re-enable the button on server error
+            submitButton.disabled = false;
+            submitButton.textContent = "Sign Up";
             return { success: false, error: data };
         }
     } catch (error) {
         console.error('Error registering restaurant:', error);
         alert('Network error during registration. Please try again later.');
+        // Re-enable the button on network error
+        submitButton.disabled = false;
+        submitButton.textContent = "Sign Up";
         return { success: false, error };
     }
 }
@@ -226,4 +272,4 @@ export {
     registerRestaurant, 
     logout, 
     fetchUserData 
-}; 
+};

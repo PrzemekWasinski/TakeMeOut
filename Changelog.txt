@@ -1,20 +1,42 @@
-- Updated Database (Added OwnerName, OpeningTimes, ClosingTimes, CoverIMG, BannerIMG, Menu, Orders)
-- Updated Restaurant class & Controller to accommodate new entries
-- Updated Orders Controller (temporarily to use the Orders entry in the Restaurants table to prevent errors)
-- Initialised a bunch of shit with empty string to prevent errors & default secret token (very secure will fix later)
+Earlier (Date Unknown)
+(Przemek)
+- Created desktop app with login and registration
+(Samy)
+- Added Restaurant signup, and profile template
 
+(Przemek)
+- Moved from Desktop to Web App
+(Alex)
+- Designed front end with Registration, Login, Restaurant Signup, Restaurant Login, Orders template, Menu template
+
+
+22/03/2025
+(Samy)
+- Updated Database (Added OwnerName, OpeningTimes, ClosingTimes, CoverIMG, BannerIMG, Menu, Orders)
+- Updated Restaurant Class & Controller to accommodate new entries
+- Updated Orders Controller (temporarily to use the Orders entry in the Restaurants table to prevent errors)
+- Initialised entries with empty string to prevent errors & default secret token (Not Secure, will fix later)
 - Changed Restaurant signup to 2 step process, uses the new fields on the first page, second page has image uploads and operating hours
-- Changed navbar to show owner name
+- Changed navbar to show owner name instead of restaurant name
 - Added Restaurant Profile which displays info and allows editing and saving
+- Fixed Restaurant Profile alignment
+
+23/03/2025
+(Alex)
+- Made JS modular
+(Przemek) 
+- Updated Restaurant Registration to prevent multiple entries if signup button was clicked too many times whilst loading
+- Added regex for Restaurant signup
 
 
 To Do
-- Add back clock icon for picking hours on signup (idk what happened to it)
+- Fix clock icon
+- Update address for restaurant signup
 - Build Menu system
 - Make restaurants show up on user side
 - Make menu show when clicking on a restaurant
 - Make order system (add items to basket, add details such as address etc, increment or remove items from basket, edit items maybe, place order)
-- Add basket and money (credit) to user database (£100 default)
+- Add basket and money (credit) to user database (Â£100 default)
 - Make placed orders appear on restaurant side and let them clear them
 
-Basically done after that 
+Let me kow if you need any adjustments! 🚀
