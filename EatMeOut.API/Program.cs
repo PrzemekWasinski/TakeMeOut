@@ -3,8 +3,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.IO;
 
-var builder = WebApplication.CreateBuilder(args);
+// Set the content root path explicitly
+var contentRoot = Directory.GetCurrentDirectory();
+var webApplicationOptions = new WebApplicationOptions
+{
+    ContentRootPath = contentRoot,
+    Args = args,
+    ApplicationName = typeof(Program).Assembly.FullName
+};
+
+var builder = WebApplication.CreateBuilder(webApplicationOptions);
 
 // Backend will listen on port 5215
 
@@ -59,6 +69,9 @@ var app = builder.Build();
 
 // Enable CORS Middleware
 app.UseCors("AllowAll");
+
+// Enable static file serving for images in wwwroot
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {

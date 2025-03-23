@@ -3,72 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EatMeOut</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add custom styles -->
+    <title>EatMeOut - Food Delivery</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100">
-    <!-- Main content container -->
-    <div id="main-content">
-        <!-- Navigation Bar -->
-        <nav class="bg-white shadow-lg">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="flex justify-between items-center py-4">
-                    <div class="text-2xl font-bold text-black cursor-pointer hover:text-gray-700" onclick="showHome()">EatMeOut</div>
-                    <div id="nav-buttons" class="flex space-x-4">
-                        <!-- This will be dynamically updated based on login status -->
-                    </div>
-                </div>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" onclick="showHome()" class="text-xl font-bold">EatMeOut</a>
+                <nav class="ml-8 hidden md:block">
+                    <a href="#" onclick="showHome()" class="text-gray-700 px-4 py-2 hover:text-black">Home</a>
+                    <a href="#" onclick="loadContent('about')" class="text-gray-700 px-4 py-2 hover:text-black">About</a>
+                    <a href="#" onclick="loadContent('partner')" class="text-gray-700 px-4 py-2 hover:text-black">Partner with us</a>
+                </nav>
             </div>
-        </nav>
-
-        <!-- Dynamic Content Area -->
-        <div id="dynamic-content" class="page-transition">
-            <!-- Content will be loaded here -->
+            <div id="nav-buttons" class="flex items-center space-x-4">
+                <!-- The nav buttons will be dynamically inserted by JavaScript -->
+            </div>
         </div>
+    </header>
 
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-8">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div>
-                        <h4 class="text-lg font-bold mb-4">Get to Know Us</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" onclick="event.preventDefault(); loadContent('about')" class="hover:text-gray-300">About Us</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold mb-4">Let Us Help You</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" onclick="event.preventDefault(); loadContent('account')" class="hover:text-gray-300">Account Details</a></li>
-                            <li><a href="#" onclick="event.preventDefault(); loadContent('orders')" class="hover:text-gray-300">Order History</a></li>
-                            <li><a href="#" onclick="event.preventDefault(); loadContent('help')" class="hover:text-gray-300">Help</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold mb-4">Doing Business</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" onclick="event.preventDefault(); loadContent('partner')" class="hover:text-gray-300">Become a Partner</a></li>
-                            <li><a href="#" onclick="event.preventDefault(); loadContent('restaurant-signup')" class="hover:text-gray-300">Restaurant Sign Up</a></li>
-                        </ul>
-                    </div>
+    <!-- Main Content Area -->
+    <main id="dynamic-content" class="min-h-screen">
+        <!-- The dynamic content will be loaded here via JavaScript -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">EatMeOut</h3>
+                    <p class="text-gray-400">The ultimate food delivery platform connecting you with the best restaurants in your area.</p>
                 </div>
-                <div class="mt-8 text-center">
-                    <p>© 2025 EatMeOut. All rights reserved.</p>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="showHome()" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" onclick="loadContent('about')" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#" onclick="loadContent('partner')" class="text-gray-400 hover:text-white">Partner with us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Email: info@eatmeout.com</li>
+                        <li>Phone: (123) 456-7890</li>
+                        <li>Address: 123 Food St, Delivery City</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">Facebook</a>
+                        <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+                        <a href="#" class="text-gray-400 hover:text-white">Instagram</a>
+                    </div>
                 </div>
             </div>
-        </footer>
-    </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                &copy; 2023 EatMeOut. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
-    <!-- Add custom scripts -->
-    <script>
-        // Check if script.js loads correctly
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
-            return false;
-        };
-    </script>
-    <script src="./script.js" onerror="console.error('Failed to load script.js')"></script>
+    <!-- Load JS modules -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

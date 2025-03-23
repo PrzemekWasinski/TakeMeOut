@@ -1,111 +1,31 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\0a2b26fb-c079-4cf3-9c18-18b981e40a60.jpg",
-      "PackagePath": "staticwebassets\\uploads\\0a2b26fb-c079-4cf3-9c18-18b981e40a60.jpg"
+      "Id": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG",
+      "PackagePath": "staticwebassets/uploads/4d671342-ffaf-4c59-91cc-29f07be214bf.JPG"
     },
     {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\175bf85c-8bb3-4526-adb5-0fa6e00d1111.jpg",
-      "PackagePath": "staticwebassets\\uploads\\175bf85c-8bb3-4526-adb5-0fa6e00d1111.jpg"
+      "Id": "/Users/alex/Downloads/EatMeOut/EatMeOut/EatMeOut.API/wwwroot/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG",
+      "PackagePath": "staticwebassets/uploads/b526e3d7-e3ee-4e2a-a3bf-4a30c5a48210.JPG"
     },
     {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\2145129c-40a0-4d36-a2af-6a69695d20ee.jpg",
-      "PackagePath": "staticwebassets\\uploads\\2145129c-40a0-4d36-a2af-6a69695d20ee.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\2a881607-0b36-42a5-bd14-d6b6eba76c17.jpg",
-      "PackagePath": "staticwebassets\\uploads\\2a881607-0b36-42a5-bd14-d6b6eba76c17.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\312698ba-c31c-4948-9ac6-921722a5a051.jpeg",
-      "PackagePath": "staticwebassets\\uploads\\312698ba-c31c-4948-9ac6-921722a5a051.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\32aae676-0e23-4ae2-8154-a05be051bdf2.jpg",
-      "PackagePath": "staticwebassets\\uploads\\32aae676-0e23-4ae2-8154-a05be051bdf2.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\337054b2-51df-4b4b-8e6d-a5ceb29035e1.jpg",
-      "PackagePath": "staticwebassets\\uploads\\337054b2-51df-4b4b-8e6d-a5ceb29035e1.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\33a995c5-023c-42d0-9c01-3d44d7d0bf86.jpeg",
-      "PackagePath": "staticwebassets\\uploads\\33a995c5-023c-42d0-9c01-3d44d7d0bf86.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\492e4545-e6e9-4c65-a0fe-7c902e128a18.gif",
-      "PackagePath": "staticwebassets\\uploads\\492e4545-e6e9-4c65-a0fe-7c902e128a18.gif"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\4d502062-1646-4ccc-9910-2b3cc2400a9d.jpg",
-      "PackagePath": "staticwebassets\\uploads\\4d502062-1646-4ccc-9910-2b3cc2400a9d.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\5796156f-663f-47dc-9c21-9b16eec8cfa6.jpg",
-      "PackagePath": "staticwebassets\\uploads\\5796156f-663f-47dc-9c21-9b16eec8cfa6.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\588791eb-0813-4035-a2bc-3bed8efe5adf.jpg",
-      "PackagePath": "staticwebassets\\uploads\\588791eb-0813-4035-a2bc-3bed8efe5adf.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\754127d8-b305-470b-9bcb-5800fe713190.gif",
-      "PackagePath": "staticwebassets\\uploads\\754127d8-b305-470b-9bcb-5800fe713190.gif"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\7c97261a-e3cf-46ef-aa33-40e5c8cb8de6.jpg",
-      "PackagePath": "staticwebassets\\uploads\\7c97261a-e3cf-46ef-aa33-40e5c8cb8de6.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\8c30e120-771d-4b74-a93d-b6dc2298a78e.gif",
-      "PackagePath": "staticwebassets\\uploads\\8c30e120-771d-4b74-a93d-b6dc2298a78e.gif"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\a54cda9c-1e87-4f92-9c5d-14f8227dd03b.jpg",
-      "PackagePath": "staticwebassets\\uploads\\a54cda9c-1e87-4f92-9c5d-14f8227dd03b.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\b37a1141-1bbb-40d1-9109-08438d9a9c4b.jpg",
-      "PackagePath": "staticwebassets\\uploads\\b37a1141-1bbb-40d1-9109-08438d9a9c4b.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\b67603c3-21d3-4523-a487-9286e8a1b4e5.gif",
-      "PackagePath": "staticwebassets\\uploads\\b67603c3-21d3-4523-a487-9286e8a1b4e5.gif"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\dac4a6ae-f3dd-421d-b083-1875bc9d35d9.jpg",
-      "PackagePath": "staticwebassets\\uploads\\dac4a6ae-f3dd-421d-b083-1875bc9d35d9.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\e18e4b91-e511-4699-b39a-9c613a220e81.jpg",
-      "PackagePath": "staticwebassets\\uploads\\e18e4b91-e511-4699-b39a-9c613a220e81.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\e3489675-13bb-4ccc-bdc9-c34b21d81fb7.jpg",
-      "PackagePath": "staticwebassets\\uploads\\e3489675-13bb-4ccc-bdc9-c34b21d81fb7.jpg"
-    },
-    {
-      "Id": "C:\\Users\\smaw2\\Desktop\\eatme\\EatMeOut.API\\wwwroot\\uploads\\fd349193-91e3-4e9c-9400-0a028ff64589.jpg",
-      "PackagePath": "staticwebassets\\uploads\\fd349193-91e3-4e9c-9400-0a028ff64589.jpg"
-    },
-    {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssets.props",
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
     {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EatMeOut.props",
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.EatMeOut.props",
       "PackagePath": "build\\EatMeOut.props"
     },
     {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EatMeOut.props",
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.EatMeOut.props",
       "PackagePath": "buildMultiTargeting\\EatMeOut.props"
     },
     {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EatMeOut.props",
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.EatMeOut.props",
       "PackagePath": "buildTransitive\\EatMeOut.props"
     }
   ],

@@ -61,13 +61,23 @@ namespace EatMeOut.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new { message = "Invalid restaurant data" });
+                    var errors = string.Join("; ", ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage));
+                    Console.WriteLine($"ModelState validation failed: {errors}");
+                    return BadRequest(new { message = $"Invalid restaurant data: {errors}" });
                 }
 
                 if (restaurantDto.Password != restaurantDto.ConfirmPassword)
                 {
                     return BadRequest(new { message = "Passwords do not match" });
                 }
+
+                // Log the received data for debugging
+                Console.WriteLine($"Received registration data: Email={restaurantDto.Email}, " +
+                    $"Name={restaurantDto.RestaurantName}, " +
+                    $"HasCoverImg={restaurantDto.CoverIMG != null}, " +
+                    $"HasBannerImg={restaurantDto.BannerIMG != null}");
 
                 var existingRestaurant = await _context.Restaurants
                     .FirstOrDefaultAsync(r => r.Email == restaurantDto.Email);
