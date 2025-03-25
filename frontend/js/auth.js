@@ -102,8 +102,17 @@ async function loginRestaurant() {
         if (response.ok) {
             localStorage.setItem("restaurantToken", data.token);
             localStorage.setItem("restaurantName", data.restaurantName);
+            localStorage.setItem("restaurantId", data.restaurantId);
             localStorage.setItem("ownerName", data.ownerName); 
             localStorage.setItem("isRestaurant", "true");
+            
+            // Decode JWT and store the email
+            const payload = JSON.parse(atob(data.token.split('.')[1]));
+            const email = payload?.email || payload?.Email;
+            if (email) {
+                localStorage.setItem("restaurantEmail", email);
+            }
+
             
             return { success: true, data, ownerName: data.ownerName };
         } else {
@@ -118,11 +127,10 @@ async function loginRestaurant() {
 }
 
 async function registerRestaurant() {
-    // Get the submit button and disable it immediately
     const submitButton = document.getElementById('submit-signup');
     submitButton.disabled = true;
     submitButton.textContent = "Processing...";
-   
+
     // Step 1 Fields
     const ownerName = document.getElementById('ownerName').value;
     const restaurantName = document.getElementById('restaurantName').value;
@@ -130,11 +138,20 @@ async function registerRestaurant() {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const phone = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
+    
+    // Step 2 (New Address Fields)
+    const doorNumber = document.getElementById('doorNumber').value;
+    const road = document.getElementById('road').value;
+    const city = document.getElementById('city').value;
+    const postcode = document.getElementById('postcode').value;
+
+    // Concatenate full address
+    const address = `${doorNumber}, ${road}, ${city}, ${postcode}`;
+
     const cuisineType = document.getElementById('cuisineType').value;
     const description = document.getElementById('description').value;
 
-    // Step 2 Fields
+    // Step 3 Fields
     const coverImg = document.getElementById('coverImg').files[0];
     const bannerImg = document.getElementById('bannerImg').files[0];
 
@@ -153,15 +170,13 @@ async function registerRestaurant() {
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
 
     // Basic field validation
-    if (!ownerName || !restaurantName || !email || !password || !confirmPassword || !phone || !address || !cuisineType || !coverImg || !bannerImg) {
+    if (!ownerName || !restaurantName || !email || !password || !confirmPassword || !phone || !doorNumber || !road || !city || !postcode || !cuisineType || !coverImg || !bannerImg) {
         alert('Please fill out all required fields and upload images.');
-        // Re-enable the button on validation failure
         submitButton.disabled = false;
         submitButton.textContent = "Sign Up";
         return { success: false };
     }
 
-    // Email validation
     if (!emailPattern.test(email)) {
         alert('Please enter a valid email address.');
         submitButton.disabled = false;
@@ -169,7 +184,6 @@ async function registerRestaurant() {
         return { success: false };
     }
 
-    // Phone validation
     if (!phonePattern.test(phone)) {
         alert('Please enter a valid phone number (10-15 digits).');
         submitButton.disabled = false;
@@ -177,7 +191,6 @@ async function registerRestaurant() {
         return { success: false };
     }
 
-    // Password validation
     if (!passwordPattern.test(password)) {
         alert('Password must be at least 8 characters and include both letters and numbers.');
         submitButton.disabled = false;
@@ -185,16 +198,13 @@ async function registerRestaurant() {
         return { success: false };
     }
 
-    // Password Confirmation Check
     if (password !== confirmPassword) {
         alert('Passwords do not match.');
-        // Re-enable the button on validation failure
         submitButton.disabled = false;
         submitButton.textContent = "Sign Up";
         return { success: false };
     }
 
-    // Prepare Form Data for Image Upload
     const formData = new FormData();
     formData.append("OwnerName", ownerName);
     formData.append("RestaurantName", restaurantName);
@@ -223,7 +233,6 @@ async function registerRestaurant() {
             return { success: true, navigateTo: 'restaurant-login' };
         } else {
             alert('Registration failed: ' + (data.message || 'Unknown error'));
-            // Re-enable the button on server error
             submitButton.disabled = false;
             submitButton.textContent = "Sign Up";
             return { success: false, error: data };
@@ -231,7 +240,6 @@ async function registerRestaurant() {
     } catch (error) {
         console.error('Error registering restaurant:', error);
         alert('Network error during registration. Please try again later.');
-        // Re-enable the button on network error
         submitButton.disabled = false;
         submitButton.textContent = "Sign Up";
         return { success: false, error };

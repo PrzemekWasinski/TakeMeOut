@@ -1,5 +1,6 @@
 using EatMeOut.API.Data;
 using EatMeOut.API.Models;
+using EatMeOut.API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -40,7 +41,7 @@ namespace EatMeOut.API.Controllers
             new Claim(ClaimTypes.NameIdentifier, restaurant.Id.ToString()),
             new Claim(ClaimTypes.Email, restaurant.Email),
             new Claim(ClaimTypes.Name, restaurant.RestaurantName),
-            new Claim("RestaurantId", restaurant.Id.ToString()) 
+            new Claim("RestaurantId", restaurant.Id.ToString())
         }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
@@ -87,8 +88,8 @@ namespace EatMeOut.API.Controllers
                     return BadRequest(new { message = "A restaurant with this email already exists" });
                 }
 
-                string coverImageUrl = restaurantDto.CoverIMG != null ? await SaveFile(restaurantDto.CoverIMG) : string.Empty;
-                string bannerImageUrl = restaurantDto.BannerIMG != null ? await SaveFile(restaurantDto.BannerIMG) : string.Empty;
+                string coverImageUrl = restaurantDto.CoverIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.CoverIMG) : string.Empty;
+                string bannerImageUrl = restaurantDto.BannerIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.BannerIMG) : string.Empty;
 
                 var restaurant = new Restaurant
                 {
@@ -105,12 +106,11 @@ namespace EatMeOut.API.Controllers
                     ClosingTimes = restaurantDto.ClosingTimes ?? string.Empty,
                     CoverIMG = coverImageUrl,
                     BannerIMG = bannerImageUrl,
-                    Menu = restaurantDto.Menu ?? string.Empty,
-                    Orders = restaurantDto.Orders ?? string.Empty
                 };
 
                 _context.Restaurants.Add(restaurant);
                 await _context.SaveChangesAsync();
+
 
                 return Ok(new { message = "Restaurant registration successful" });
             }
@@ -204,8 +204,6 @@ namespace EatMeOut.API.Controllers
                     ClosingTimes = closingTimes,
                     CoverIMG = restaurant.CoverIMG,
                     BannerIMG = restaurant.BannerIMG,
-                    Menu = restaurant.Menu,
-                    Orders = restaurant.Orders
                 });
             }
             catch (Exception ex)
@@ -250,11 +248,11 @@ namespace EatMeOut.API.Controllers
 
             if (updatedRestaurantDto.CoverIMG != null)
             {
-                restaurant.CoverIMG = await SaveFile(updatedRestaurantDto.CoverIMG);
+                restaurant.CoverIMG = await FileUploadHelper.SaveFile(updatedRestaurantDto.CoverIMG);
             }
             if (updatedRestaurantDto.BannerIMG != null)
             {
-                restaurant.BannerIMG = await SaveFile(updatedRestaurantDto.BannerIMG);
+                restaurant.BannerIMG = await FileUploadHelper.SaveFile(updatedRestaurantDto.BannerIMG);
             }
 
             _context.Restaurants.Update(restaurant);
@@ -269,29 +267,11 @@ namespace EatMeOut.API.Controllers
             return userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
         }
 
-        private async Task<string> SaveFile(IFormFile file)
-        {
-            if (file == null || file.Length == 0)
-                return string.Empty;
-
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-            Directory.CreateDirectory(uploadsFolder);
-
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(fileStream);
-            }
-
-            return "/uploads/" + fileName;
-        }
     }
 
 
-// Updated DTO to use IFormFile for images
-public class RestaurantRegisterDto
+    // Updated DTO to use IFormFile for images
+    public class RestaurantRegisterDto
     {
         public string OwnerName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -304,8 +284,6 @@ public class RestaurantRegisterDto
         public string Description { get; set; } = string.Empty;
         public string OpeningTimes { get; set; } = string.Empty;
         public string ClosingTimes { get; set; } = string.Empty;
-        public string Menu { get; set; } = string.Empty;
-        public string Orders { get; set; } = string.Empty;
 
         // Allow file uploads
         public IFormFile? CoverIMG { get; set; }
@@ -317,4 +295,4 @@ public class RestaurantRegisterDto
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }
-}   
+}

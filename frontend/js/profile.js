@@ -3,7 +3,7 @@ import { previewImage } from './navigation.js';
 
 function loadProfilePage() {
     document.getElementById("dynamic-content").innerHTML = `
-        <div class="max-w-screen-xl mx-auto px-16 pt-40 pb-16 slide-up bg-white shadow-md rounded-md">>
+        <div class="max-w-screen-xl mx-auto px-16 pt-40 pb-16 slide-up bg-white shadow-md rounded-md">
             <h1 class="text-3xl font-bold mb-6 text-center">Restaurant Profile</h1>
             <form id="restaurant-profile-form" class="space-y-4">
                 
@@ -29,10 +29,25 @@ function loadProfilePage() {
                                 <label class="block text-sm font-medium text-gray-700">Phone</label>
                                 <input type="text" id="Phone" class="input-field editable" readonly>
                             </div>
+
+                            <!-- Split Address Fields -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Address</label>
-                                <input type="text" id="Address" class="input-field editable" readonly>
+                                <label class="block text-sm font-medium text-gray-700">Door Number</label>
+                                <input type="text" id="Door" class="input-field editable" readonly>
                             </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Road</label>
+                                <input type="text" id="Road" class="input-field editable" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">City</label>
+                                <input type="text" id="City" class="input-field editable" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Postcode</label>
+                                <input type="text" id="Postcode" class="input-field editable" readonly>
+                            </div>
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Cuisine Type</label>
                                 <input type="text" id="CuisineType" class="input-field editable" readonly>
@@ -139,24 +154,30 @@ function populateProfileFields(data) {
     document.getElementById("RestaurantName").value = data.restaurantName || "N/A";
     document.getElementById("Email").value = data.email || "N/A";
     document.getElementById("Phone").value = data.phone || "N/A";
-    document.getElementById("Address").value = data.address || "N/A";
+
+    // Split address into separate fields
+    const [door = "", road = "", city = "", postcode = ""] = (data.address || "").split(',').map(p => p.trim());
+    document.getElementById("Door").value = door;
+    document.getElementById("Road").value = road;
+    document.getElementById("City").value = city;
+    document.getElementById("Postcode").value = postcode;
+
     document.getElementById("CuisineType").value = data.cuisineType || "N/A";
     document.getElementById("Description").value = data.description || "N/A";
 
-    // Ensure JSON Parsing is correct for Opening and Closing Times
+    // Times
     const openingTimes = typeof data.openingTimes === "string" ? JSON.parse(data.openingTimes) : data.openingTimes;
     const closingTimes = typeof data.closingTimes === "string" ? JSON.parse(data.closingTimes) : data.closingTimes;
-
-    console.log("Parsed Opening Times:", openingTimes);
-    console.log("Parsed Closing Times:", closingTimes);
-
     populateOperatingHours(openingTimes, closingTimes);
 
+    // Image previews
     if (data.coverIMG) {
         document.getElementById("coverPreview").style.backgroundImage = `url('${data.coverIMG}')`;
+        document.getElementById("coverPreview").style.backgroundSize = 'cover';
     }
     if (data.bannerIMG) {
         document.getElementById("bannerPreview").style.backgroundImage = `url('${data.bannerIMG}')`;
+        document.getElementById("bannerPreview").style.backgroundSize = 'cover';
     }
 
     document.getElementById("edit-profile").addEventListener("click", enableProfileEditing);
@@ -214,54 +235,54 @@ async function saveProfile() {
         return;
     }
 
-    // Create FormData object to handle images
     const formData = new FormData();
-    
-    // Add text fields
+
+    // Text fields
     formData.append("OwnerName", document.getElementById("OwnerName").value);
     formData.append("RestaurantName", document.getElementById("RestaurantName").value);
-    formData.append("Email", document.getElementById("Email").value); // Make sure to include email
+    formData.append("Email", document.getElementById("Email").value);
     formData.append("Phone", document.getElementById("Phone").value);
-    formData.append("Address", document.getElementById("Address").value);
     formData.append("CuisineType", document.getElementById("CuisineType").value);
     formData.append("Description", document.getElementById("Description").value);
-    
-    // Get opening and closing times
+
+    // Rebuild full address
+    const door = document.getElementById("Door").value.trim();
+    const road = document.getElementById("Road").value.trim();
+    const city = document.getElementById("City").value.trim();
+    const postcode = document.getElementById("Postcode").value.trim();
+    const address = [door, road, city, postcode].filter(Boolean).join(", ");
+    formData.append("Address", address);
+
+    // Opening/Closing times
     const openingTimes = getUpdatedTimes("Open");
     const closingTimes = getUpdatedTimes("Close");
     formData.append("OpeningTimes", JSON.stringify(openingTimes));
     formData.append("ClosingTimes", JSON.stringify(closingTimes));
-    
-    // Add images if selected
+
+    // Optional image uploads
     const coverImg = document.getElementById("CoverIMG").files[0];
-    if (coverImg) {
-        formData.append("CoverIMG", coverImg);
-    }
-    
+    if (coverImg) formData.append("CoverIMG", coverImg);
+
     const bannerImg = document.getElementById("BannerIMG").files[0];
-    if (bannerImg) {
-        formData.append("BannerIMG", bannerImg);
-    }
+    if (bannerImg) formData.append("BannerIMG", bannerImg);
 
     try {
         const response = await fetch(`${API_URL}/restaurants/profile/update`, {
             method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
+            headers: { Authorization: `Bearer ${token}` },
             body: formData
         });
 
+        const result = await response.json();
         if (response.ok) {
             alert("Profile updated successfully!");
             loadProfilePage();
         } else {
-            const error = await response.json();
-            alert(`Failed to update profile: ${error.message || "Unknown error"}`);
+            alert(`Failed to update profile: ${result.message || "Unknown error"}`);
         }
     } catch (error) {
         console.error("Error updating profile:", error);
-        alert("Error updating profile. Check console for details.");
+        alert("Error updating profile. See console for details.");
     }
 }
 

@@ -21,6 +21,7 @@ import {
 } from './navigation.js';
 import { loadProfilePage } from './profile.js';
 import { createOrder, selectRestaurant } from './orders.js';
+import './menu.js';
 
 // Save original home content when page loads
 let originalHomeContent;

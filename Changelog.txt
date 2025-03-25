@@ -27,16 +27,42 @@ Earlier (Date Unknown)
 (Przemek) 
 - Updated Restaurant Registration to prevent multiple entries if signup button was clicked too many times whilst loading
 - Added regex for Restaurant signup
+(Samy)
+- Added Address (Door Number, Road, City, Postcode) to Restaurant Signup, changed to 3 pages, concatenates to store in address
+- Fixed clock icon issue on signup
 
+24/03/2025
+(Samy)
+- Updated Database
+(Removed Menu & Orders entry in Restaurants Table)
+(Added MenuCategories table with ID, RestaurantID, RestaurantEmail, Name, DisplayOrder, MenuCategoryID)
+(Added MenuItems table with ID, RestaurantID, MenuCategoryID, Name, Description, Price, Ingredients, Calories, IsVegan, IsAvaliable)
+- Updated RestaurantController (To accommodate removed Menu & Orders)
+- Added menu.js and Added MenuController.cs (Manages adding categories, items, editing, deleting them and getting the full menu)
+- Temporarily commented out OrderController code until further edits
 
+25/03/2025
+(Samy)
+- Added Image upload to menu items
+- Editing & Deletion of menu categories works
+- Editing & Deletion of menu items works
+
+ 
 To Do
-- Fix clock icon
-- Update address for restaurant signup
-- Build Menu system
-- Make restaurants show up on user side
-- Make menu show when clicking on a restaurant
+
+- Fix reordering of menu categories (use icon)
+- Fix reordering of menu items (use icon) (display order issues)
+
+- Make sure images are displaying on profile and for menu items correctly
+
+- Make Restaurants and their details show up on user side
+- Make Menu show up when clicking on a restaurant
 - Make order system (add items to basket, add details such as address etc, increment or remove items from basket, edit items maybe, place order)
-- Add basket and money (credit) to user database (Â£100 default)
+- Add basket and money (credit) to user database (£100 default)
 - Make placed orders appear on restaurant side and let them clear them
 
-Let me kow if you need any adjustments! 🚀
+QOL but also ToDo
+- Function that averages cost of each category, then the average of that and displays £, ££, or £££ based on a price limit on user side
+- Time to Delivery using map API
+
+- Ensure that code is clean, optimised, modular and encapsulated. EG switchcase in navigation.js should call the function elsewhere

@@ -1,0 +1,180 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuItem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Models\\MenuItem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\MenuController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Controllers\\MenuController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Controllers\\RestaurantController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuCategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Models\\MenuCategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Data\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Data\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Controllers\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Controllers\\OrderController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Models\\Order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EatMeOut.API\\Models\\Restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 241,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Restaurant.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Restaurant.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Models\\Restaurant.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Restaurant.cs",
+              "RelativeToolTip": "EatMeOut.API\\Models\\Restaurant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:05:13.446Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Models\\Order.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Order.cs",
+              "RelativeToolTip": "EatMeOut.API\\Models\\Order.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:02:32.441Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MenuController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\MenuController.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Controllers\\MenuController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\MenuController.cs",
+              "RelativeToolTip": "EatMeOut.API\\Controllers\\MenuController.cs",
+              "ViewState": "AgIAABABAAAAAAAAAAAYwCoBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:31:54.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "EatMeOut.API\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAgwBsAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:26:42.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "EatMeOut.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:15:14.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MenuCategory.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuCategory.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Models\\MenuCategory.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuCategory.cs",
+              "RelativeToolTip": "EatMeOut.API\\Models\\MenuCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:14:07.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MenuItem.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuItem.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Models\\MenuItem.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuItem.cs",
+              "RelativeToolTip": "EatMeOut.API\\Models\\MenuItem.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAqwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:05:29.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "EatMeOut.API\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAYwD4AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T14:02:23.912Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RestaurantController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs",
+              "RelativeDocumentMoniker": "EatMeOut.API\\Controllers\\RestaurantController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs",
+              "RelativeToolTip": "EatMeOut.API\\Controllers\\RestaurantController.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAYwFkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T16:43:11.995Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 159,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

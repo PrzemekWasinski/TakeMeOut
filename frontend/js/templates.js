@@ -183,9 +183,6 @@ const restaurantSignupTemplate = `
                 <label class="block text-sm font-medium text-gray-700">Restaurant Name</label>
                 <input type="text" id="restaurantName" required class="input-field">
 
-                <label class="block text-sm font-medium text-gray-700">Address</label>
-                <input type="text" id="address" required class="input-field">
-
                 <label class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" id="email" required class="input-field">
 
@@ -219,9 +216,31 @@ const restaurantSignupTemplate = `
                 <button id="next-step" class="submit-btn">Next</button>
             </div>
 
-            <!-- Step 2: Image Upload & Operating Hours -->
+            <!-- Step 2: Address -->
             <div id="signup-step-2" class="hidden">
-                <h2 class="text-xl font-bold mb-4">Step 2: Images & Operating Hours</h2>
+                <h2 class="text-xl font-bold mb-4">Step 2: Address Details</h2>
+
+                <label class="block text-sm font-medium text-gray-700">Door Number</label>
+                <input type="text" id="doorNumber" required class="input-field">
+
+                <label class="block text-sm font-medium text-gray-700">Road</label>
+                <input type="text" id="road" required class="input-field">
+
+                <label class="block text-sm font-medium text-gray-700">City</label>
+                <input type="text" id="city" required class="input-field">
+
+                <label class="block text-sm font-medium text-gray-700">Postcode</label>
+                <input type="text" id="postcode" required class="input-field">
+
+                <div class="flex justify-between">
+                    <button id="back-to-step-1" class="back-btn">← Back</button>
+                    <button id="next-to-step-3" class="submit-btn">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Image Upload & Operating Hours -->
+            <div id="signup-step-3" class="hidden">
+                <h2 class="text-xl font-bold mb-4">Step 3: Images & Operating Hours</h2>
 
                 <div class="flex gap-6">
                     <!-- Cover Image (Square) -->
@@ -243,7 +262,7 @@ const restaurantSignupTemplate = `
                 <div id="time-fields-container"></div>
 
                 <div class="flex justify-between">
-                    <button id="back-step" class="back-btn">← Back</button>
+                    <button id="back-to-step-2" class="back-btn">← Back</button>
                     <button id="submit-signup" class="submit-btn">Sign Up</button>
                 </div>
             </div>
@@ -328,25 +347,89 @@ const restaurantDashboardTemplate = `
     </div>
 `;
 
-const restaurantMenuTemplate = `
-    <div class="max-w-6xl mx-auto p-8 slide-up">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">Menu Management</h1>
-            <button onclick="showAddItemForm()" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">Add New Item</button>
-        </div>
-        
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Sample menu item card -->
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="text-xl font-semibold mb-2">Add Your First Item</div>
-                    <p class="text-gray-600 mb-4">Start building your menu by adding your first dish</p>
-                    <button onclick="showAddItemForm()" class="text-green-500 hover:text-green-600">+ Add Item</button>
+const restaurantMenuTemplate = (categories = []) => {
+    const sortedCategories = [...categories].sort((a, b) => a.displayOrder - b.displayOrder);
+  
+    return `
+      <section class="max-w-4xl mx-auto px-4 py-10">
+        <h1 class="text-2xl font-bold mb-6">Menu Management</h1>
+        <button id="add-category-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-6">
+          + Add New Category
+        </button>
+  
+        <div id="menu-categories" class="sortable-categories">
+          ${
+            sortedCategories.length === 0
+              ? `<div class="bg-white p-6 rounded shadow text-center text-gray-500">No menu items yet. Start by adding a category.</div>`
+              : sortedCategories
+                  .map(
+                    (cat) => `
+            <div class="menu-category mb-6 bg-white p-4 rounded shadow" data-id="${cat.id}">
+              <div class="flex justify-between items-center mb-2">
+                <h2 class="text-xl font-semibold">${cat.category || cat.name}</h2>
+                <div class="flex space-x-2">
+                  <button 
+                    class="add-item-btn text-sm text-green-600 hover:underline" 
+                    data-category-id="${cat.id}">
+                    + Add Item
+                  </button>
+                  <button 
+                    class="edit-category-btn text-sm text-blue-600 hover:underline" 
+                    data-category-id="${cat.id}" 
+                    data-name="${cat.category || cat.name}">
+                    Edit
+                  </button>
+                  <button 
+                    class="delete-category-btn text-sm text-red-600 hover:underline" 
+                    data-category-id="${cat.id}">
+                    Delete
+                  </button>
                 </div>
+              </div>
+              <ul class="sortable-items space-y-2" data-category-id="${cat.id}">
+                ${cat.items
+                  .map(
+                    (item) => `
+                  <li class="flex justify-between items-start border p-3 rounded space-x-4">
+                    <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden border">
+                        ${item.imageUrl ? `<img src="${API_URL}${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover">` : ''}
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="font-bold">${item.name}</h3>
+                        <p class="text-sm text-gray-600">${item.description}</p>
+                        <p class="text-sm text-gray-400">Ingredients: ${item.ingredients.join(', ')}</p>
+                        <p class="text-sm text-gray-500">
+                        Calories: ${item.calories} | Vegan: ${item.isVegan ? 'Yes' : 'No'}
+                        </p>
+                    </div>
+                    <div class="flex flex-col space-y-1 text-right">
+                        <button 
+                        class="edit-item-btn text-blue-600 text-sm" 
+                        data-id="${item.id}" 
+                        data-category-id="${cat.id}">
+                        Edit
+                        </button>
+                        <button 
+                        class="delete-item-btn text-red-600 text-sm" 
+                        data-id="${item.id}" 
+                        data-category-id="${cat.id}">
+                        Delete
+                        </button>
+                    </div>
+                    </li>
+                `
+                  )
+                  .join('')}
+              </ul>
             </div>
+          `
+                  )
+                  .join('')
+          }
         </div>
-    </div>
-`;
+      </section>
+    `;
+  };
 
 const restaurantOrdersTemplate = `
     <div class="max-w-6xl mx-auto p-8 slide-up">
@@ -394,12 +477,10 @@ function generateTimeFields() {
 
             <div class="relative flex-grow">
                 <input type="time" id="${day.toLowerCase()}Open" class="input-field w-full pr-10" onclick="this.showPicker()">
-                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" onclick="document.getElementById('${day.toLowerCase()}Open').showPicker()">⏰</span>
             </div>
 
             <div class="relative flex-grow">
                 <input type="time" id="${day.toLowerCase()}Close" class="input-field w-full pr-10" onclick="this.showPicker()">
-                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" onclick="document.getElementById('${day.toLowerCase()}Close').showPicker()">⏰</span>
             </div>
         </div>
     `).join("");

@@ -13,6 +13,7 @@ import {
 } from './templates.js';
 import { loginUser, register, loginRestaurant, registerRestaurant, logout } from './auth.js';
 import { loadProfilePage } from './profile.js';
+import { loadMenuManagement } from './menu.js';
 
 // Original home content storage
 let originalHomeContent;
@@ -93,30 +94,49 @@ function loadContent(page) {
                 case 'partner':
                     content = partnerTemplate;
                     break;
-                case 'restaurant-signup':
-                    dynamicContent.innerHTML = restaurantSignupTemplate;
+                    case 'restaurant-signup':
+                        dynamicContent.innerHTML = restaurantSignupTemplate;
+                        
+                        // Populate time fields
+                        document.getElementById("time-fields-container").innerHTML = generateTimeFields();
                     
-                    // Populate time fields
-                    document.getElementById("time-fields-container").innerHTML = generateTimeFields();
+                        // Step 1 → Step 2
+                        document.getElementById("next-step").addEventListener("click", function (e) {
+                            e.preventDefault();
+                            document.getElementById("signup-step-1").classList.add("hidden");
+                            document.getElementById("signup-step-2").classList.remove("hidden");
+                        });
                     
-                    document.getElementById("next-step").addEventListener("click", function () {
-                        document.getElementById("signup-step-1").classList.add("hidden");
-                        document.getElementById("signup-step-2").classList.remove("hidden");
-                    });
-
-                    document.getElementById("back-step").addEventListener("click", function () {
-                        document.getElementById("signup-step-1").classList.remove("hidden");
-                        document.getElementById("signup-step-2").classList.add("hidden");
-                    });
-
-                    document.getElementById("submit-signup").addEventListener("click", async function() {
-                        const result = await registerRestaurant();
-                        if (result.success && result.navigateTo) {
-                            loadContent(result.navigateTo);
-                        }
-                    });
-                    return;
+                        // Step 2 → Step 3
+                        document.getElementById("next-to-step-3").addEventListener("click", function (e) {
+                            e.preventDefault();
+                            document.getElementById("signup-step-2").classList.add("hidden");
+                            document.getElementById("signup-step-3").classList.remove("hidden");
+                        });
                     
+                        // Step 2 ← Step 1
+                        document.getElementById("back-to-step-1").addEventListener("click", function (e) {
+                            e.preventDefault();
+                            document.getElementById("signup-step-2").classList.add("hidden");
+                            document.getElementById("signup-step-1").classList.remove("hidden");
+                        });
+                    
+                        // Step 3 ← Step 2
+                        document.getElementById("back-to-step-2").addEventListener("click", function (e) {
+                            e.preventDefault();
+                            document.getElementById("signup-step-3").classList.add("hidden");
+                            document.getElementById("signup-step-2").classList.remove("hidden");
+                        });
+                    
+                        // Final submit
+                        document.getElementById("submit-signup").addEventListener("click", async function () {
+                            const result = await registerRestaurant();
+                            if (result.success && result.navigateTo) {
+                                loadContent(result.navigateTo);
+                            }
+                        });
+                    
+                        return;
                 case 'restaurant-login':
                     content = restaurantLoginTemplate;
                     break;
@@ -124,8 +144,8 @@ function loadContent(page) {
                     content = restaurantDashboardTemplate;
                     break;
                 case 'restaurant-menu':
-                    content = restaurantMenuTemplate;
-                    break;
+                    loadMenuManagement();
+                    return;                    
                 case 'restaurant-orders':
                     content = restaurantOrdersTemplate;
                     break;

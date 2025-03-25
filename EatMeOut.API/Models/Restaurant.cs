@@ -48,8 +48,5 @@ namespace EatMeOut.API.Models
         public string CoverIMG { get; set; } = string.Empty;
         public string BannerIMG { get; set; } = string.Empty;
 
-        public string Menu { get; set; } = string.Empty;
-
-        public string Orders { get; set; } = string.Empty;
     }
 }
