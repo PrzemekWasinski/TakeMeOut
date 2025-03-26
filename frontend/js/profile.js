@@ -172,14 +172,14 @@ function populateProfileFields(data) {
 
     // Image previews
     if (data.coverIMG) {
-        document.getElementById("coverPreview").style.backgroundImage = `url('${data.coverIMG}')`;
+        document.getElementById("coverPreview").style.backgroundImage = `url('${API_URL}${data.coverIMG}')`;
         document.getElementById("coverPreview").style.backgroundSize = 'cover';
     }
     if (data.bannerIMG) {
-        document.getElementById("bannerPreview").style.backgroundImage = `url('${data.bannerIMG}')`;
+        document.getElementById("bannerPreview").style.backgroundImage = `url('${API_URL}${data.bannerIMG}')`;
         document.getElementById("bannerPreview").style.backgroundSize = 'cover';
     }
-
+    
     document.getElementById("edit-profile").addEventListener("click", enableProfileEditing);
     document.getElementById("save-profile").addEventListener("click", saveProfile);
 }

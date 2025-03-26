@@ -20,9 +20,39 @@ async function loadMenuManagement() {
 
     document.getElementById('dynamic-content').innerHTML = restaurantMenuTemplate(data);
     attachEventHandlers();
+    initializeItemSorting();
   } catch (err) {
     console.error('Failed to load menu:', err);
   }
+
+  // Drag-and-drop sorting for categories
+const categoryList = document.querySelector("#menu-categories");
+if (categoryList) {
+  new Sortable(categoryList, {
+    animation: 150,
+    handle: ".drag-handle",
+    onEnd: async () => {
+      const orderedIds = Array.from(categoryList.children)
+        .map(div => parseInt(div.dataset.id))
+        .filter(id => !isNaN(id));
+
+      const token = localStorage.getItem("restaurantToken");
+
+      const res = await fetch(`${API_URL}/menu/categories/reorder`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(orderedIds)
+      });
+
+      if (!res.ok) {
+        alert("Failed to save category order");
+      }
+    }
+  });
+}
 }
 
 function attachEventHandlers() {
@@ -144,66 +174,6 @@ function attachEventHandlers() {
   );
 }
 
-// Drag-and-drop sorting for categories
-const categoryList = document.querySelector("#menu-categories");
-if (categoryList) {
-  new Sortable(categoryList, {
-    animation: 150,
-    handle: "h2", // drag by the category title
-    onEnd: async () => {
-      const orderedIds = Array.from(categoryList.children)
-        .map(div => parseInt(div.dataset.id))
-        .filter(id => !isNaN(id));
-
-      const token = localStorage.getItem("restaurantToken");
-
-      const res = await fetch(`${API_URL}/menu/categories/reorder`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(orderedIds)
-      });
-
-      if (!res.ok) {
-        alert("Failed to save category order");
-      }
-    }
-  });
-}
-
-// Drag-and-drop sorting for menu items
-document.querySelectorAll('.sortable-items').forEach(ul => {
-  const categoryId = parseInt(ul.dataset.categoryId);
-
-  new Sortable(ul, {
-    animation: 150,
-    onEnd: async () => {
-      const orderedItemIds = Array.from(ul.children)
-        .map(li => parseInt(li.querySelector('.edit-item-btn')?.dataset.id))
-        .filter(id => !isNaN(id));
-
-      const token = localStorage.getItem("restaurantToken");
-
-      const res = await fetch(`${API_URL}/menu/items/reorder`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(orderedItemIds)
-      });
-
-      if (!res.ok) {
-        alert("Failed to save item order");
-      }
-    }
-  });
-});
-
-
-
 async function showItemForm(itemId = null, categoryId = null) {
   let item = {
     name: '',
@@ -324,5 +294,37 @@ async function showItemForm(itemId = null, categoryId = null) {
   });
 }
 
-export { loadMenuManagement };
+function initializeItemSorting() {
+  const allSortableLists = document.querySelectorAll('.sortable-items');
 
+  allSortableLists.forEach(list => {
+    new Sortable(list, {
+      animation: 150,
+      handle: '.drag-handle',
+      onEnd: async (evt) => {
+        const parentCategory = evt.to.closest('.menu-category');
+        if (!parentCategory) return;
+
+        const reorderedIds = Array.from(evt.to.children)
+          .map(li => parseInt(li.getAttribute('data-id')));
+
+        try {
+          const res = await fetch(`${API_URL}/menu/items/reorder`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem("restaurantToken")}`
+            },
+            body: JSON.stringify(reorderedIds)
+          });
+          
+          if (!res.ok) throw new Error('Failed to update item order');          
+        } catch (err) {
+          console.error('Reordering error:', err);
+        }
+      }
+    });
+  });
+}
+
+export { loadMenuManagement };

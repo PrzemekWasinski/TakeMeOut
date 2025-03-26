@@ -248,10 +248,19 @@ namespace EatMeOut.API.Controllers
 
             if (updatedRestaurantDto.CoverIMG != null)
             {
+                if (!string.IsNullOrWhiteSpace(restaurant.CoverIMG))
+                {
+                    FileUploadHelper.DeleteFile(restaurant.CoverIMG); 
+                }
                 restaurant.CoverIMG = await FileUploadHelper.SaveFile(updatedRestaurantDto.CoverIMG);
             }
+
             if (updatedRestaurantDto.BannerIMG != null)
             {
+                if (!string.IsNullOrWhiteSpace(restaurant.BannerIMG))
+                {
+                    FileUploadHelper.DeleteFile(restaurant.BannerIMG); 
+                }
                 restaurant.BannerIMG = await FileUploadHelper.SaveFile(updatedRestaurantDto.BannerIMG);
             }
 

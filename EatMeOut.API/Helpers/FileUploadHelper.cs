@@ -32,7 +32,23 @@ namespace EatMeOut.API.Helpers
             }
 
             return $"/uploads/{fileName}";
-        }
-    }
 
+        }
+
+        public static void DeleteFile(string relativePath)
+        {
+            if (string.IsNullOrEmpty(relativePath))
+                return;
+
+            var fileName = relativePath.Replace("/uploads/", "").TrimStart('/');
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+        }
+
+    }
 }
+
+    
+

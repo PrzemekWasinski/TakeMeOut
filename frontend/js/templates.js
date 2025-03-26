@@ -1,3 +1,5 @@
+import API_URL from "./config.js";
+
 // Templates
 const homeContentTemplate = `
     <!-- Hero Section -->
@@ -348,89 +350,99 @@ const restaurantDashboardTemplate = `
 `;
 
 const restaurantMenuTemplate = (categories = []) => {
-    const sortedCategories = [...categories].sort((a, b) => a.displayOrder - b.displayOrder);
-  
-    return `
-      <section class="max-w-4xl mx-auto px-4 py-10">
-        <h1 class="text-2xl font-bold mb-6">Menu Management</h1>
-        <button id="add-category-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-6">
-          + Add New Category
-        </button>
-  
-        <div id="menu-categories" class="sortable-categories">
-          ${
-            sortedCategories.length === 0
-              ? `<div class="bg-white p-6 rounded shadow text-center text-gray-500">No menu items yet. Start by adding a category.</div>`
-              : sortedCategories
-                  .map(
-                    (cat) => `
-            <div class="menu-category mb-6 bg-white p-4 rounded shadow" data-id="${cat.id}">
-              <div class="flex justify-between items-center mb-2">
-                <h2 class="text-xl font-semibold">${cat.category || cat.name}</h2>
-                <div class="flex space-x-2">
-                  <button 
-                    class="add-item-btn text-sm text-green-600 hover:underline" 
-                    data-category-id="${cat.id}">
-                    + Add Item
-                  </button>
-                  <button 
-                    class="edit-category-btn text-sm text-blue-600 hover:underline" 
-                    data-category-id="${cat.id}" 
-                    data-name="${cat.category || cat.name}">
-                    Edit
-                  </button>
-                  <button 
-                    class="delete-category-btn text-sm text-red-600 hover:underline" 
-                    data-category-id="${cat.id}">
-                    Delete
-                  </button>
-                </div>
-              </div>
-              <ul class="sortable-items space-y-2" data-category-id="${cat.id}">
-                ${cat.items
-                  .map(
-                    (item) => `
-                  <li class="flex justify-between items-start border p-3 rounded space-x-4">
-                    <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden border">
-                        ${item.imageUrl ? `<img src="${API_URL}${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover">` : ''}
-                    </div>
-                    <div class="flex-grow">
-                        <h3 class="font-bold">${item.name}</h3>
-                        <p class="text-sm text-gray-600">${item.description}</p>
-                        <p class="text-sm text-gray-400">Ingredients: ${item.ingredients.join(', ')}</p>
-                        <p class="text-sm text-gray-500">
-                        Calories: ${item.calories} | Vegan: ${item.isVegan ? 'Yes' : 'No'}
-                        </p>
-                    </div>
-                    <div class="flex flex-col space-y-1 text-right">
-                        <button 
-                        class="edit-item-btn text-blue-600 text-sm" 
-                        data-id="${item.id}" 
-                        data-category-id="${cat.id}">
-                        Edit
-                        </button>
-                        <button 
-                        class="delete-item-btn text-red-600 text-sm" 
-                        data-id="${item.id}" 
-                        data-category-id="${cat.id}">
-                        Delete
-                        </button>
-                    </div>
-                    </li>
-                `
-                  )
-                  .join('')}
-              </ul>
-            </div>
-          `
-                  )
-                  .join('')
-          }
-        </div>
-      </section>
-    `;
-  };
+  const sortedCategories = [...categories].sort((a, b) => a.displayOrder - b.displayOrder);
 
+  return `
+    <section class="max-w-4xl mx-auto px-4 py-10">
+      <h1 class="text-2xl font-bold mb-6">Menu Management</h1>
+      <button id="add-category-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-6">
+        + Add New Category
+      </button>
+
+      <div id="menu-categories" class="sortable-categories">
+        ${
+          sortedCategories.length === 0
+            ? `<div class="bg-white p-6 rounded shadow text-center text-gray-500">No menu items yet. Start by adding a category.</div>`
+            : sortedCategories.map((cat) => {
+                const itemsHtml = cat.items
+                  .map((item) => {
+                    const cleanedPath = (item.imageUrl || '').replace(/^\/?api\/?/, '');
+                    const safePath = cleanedPath.startsWith('/uploads')
+                      ? cleanedPath
+                      : `/uploads/${cleanedPath.replace(/^\/+/, '')}`;
+                    const fullImageUrl = item.imageUrl ? `${API_URL}${safePath}` : '';
+
+                    return `
+                      <li class="flex justify-between items-start border p-3 rounded space-x-4" data-id="${item.id}">
+                        <span class="drag-handle cursor-move text-gray-400 pr-2">☰</span>
+                        <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden border">
+                          ${fullImageUrl ? `<img src="${fullImageUrl}" alt="${item.name}" class="w-full h-full object-cover">` : ''}
+                        </div>
+                        <div class="flex-grow">
+                          <h3 class="font-bold">${item.name}</h3>
+                          <p class="text-sm text-gray-600">${item.description}</p>
+                          <p class="text-sm text-gray-400">Ingredients: ${item.ingredients.join(', ')}</p>
+                          <p class="text-sm text-gray-500">
+                            Calories: ${item.calories} | Vegan: ${item.isVegan ? 'Yes' : 'No'}
+                          </p>
+                        </div>
+                        <div class="flex flex-col space-y-1 text-right">
+                          <button 
+                            class="edit-item-btn text-blue-600 text-sm" 
+                            data-id="${item.id}" 
+                            data-category-id="${cat.id}">
+                            Edit
+                          </button>
+                          <button 
+                            class="delete-item-btn text-red-600 text-sm" 
+                            data-id="${item.id}" 
+                            data-category-id="${cat.id}">
+                            Delete
+                          </button>
+                        </div>
+                      </li>
+                    `;
+                  })
+                  .join('');
+
+                return `
+                  <div class="menu-category mb-6 bg-white p-4 rounded shadow" data-id="${cat.id}">
+                    <div class="flex justify-between items-center mb-2">
+                      <h2 class="text-xl font-semibold flex items-center">
+                        <span class="drag-handle cursor-move text-gray-400 pr-2">☰</span>
+                        <span>${cat.category || cat.name}</span>
+                      </h2>
+                      <div class="flex space-x-2">
+                        <button 
+                          class="add-item-btn text-sm text-green-600 hover:underline" 
+                          data-category-id="${cat.id}">
+                          + Add Item
+                        </button>
+                        <button 
+                          class="edit-category-btn text-sm text-blue-600 hover:underline" 
+                          data-category-id="${cat.id}" 
+                          data-name="${cat.category || cat.name}">
+                          Edit
+                        </button>
+                        <button 
+                          class="delete-category-btn text-sm text-red-600 hover:underline" 
+                          data-category-id="${cat.id}">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                    <ul class="sortable-items space-y-2" data-category-id="${cat.id}">
+                      ${itemsHtml}
+                    </ul>
+                  </div>
+                `;
+              }).join('')
+        }
+      </div>
+    </section>
+  `;
+};
+  
 const restaurantOrdersTemplate = `
     <div class="max-w-6xl mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6">Order Management</h1>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EatMeOut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250325153421_InitialCreate")]
+    [Migration("20250326144304_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -47,13 +47,14 @@ Earlier (Date Unknown)
 - Editing & Deletion of menu categories works
 - Editing & Deletion of menu items works
 
- 
+26/03/2025
+(Samy)
+- Reordering of Categories and Menu Items works using drag icon (Updates display order as required)
+- Images display correctly on menu items and profile previews
+- Users cannot create or edit categories or items, in a way that results in duplicate names (local to each restaurant's menu)
+- Updating Menu or Profile images deletes old images from uploads folder
+
 To Do
-
-- Fix reordering of menu categories (use icon)
-- Fix reordering of menu items (use icon) (display order issues)
-
-- Make sure images are displaying on profile and for menu items correctly
 
 - Make Restaurants and their details show up on user side
 - Make Menu show up when clicking on a restaurant
@@ -64,5 +65,10 @@ To Do
 QOL but also ToDo
 - Function that averages cost of each category, then the average of that and displays £, ££, or £££ based on a price limit on user side
 - Time to Delivery using map API
+- Admin Panel, Analytics etc
 
-- Ensure that code is clean, optimised, modular and encapsulated. EG switchcase in navigation.js should call the function elsewhere
+Cleanup
+- Ensure that code is clean, optimised, modular and encapsulated. 
+
+EG switchcase for profile in navigation.js should call the function elsewhere (templates.js)
+Restaurant profile could have its own controller etc, just see what works best

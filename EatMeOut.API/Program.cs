@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.FileProviders;
 using System.Text;
 using System.IO;
 
@@ -71,7 +72,13 @@ var app = builder.Build();
 app.UseCors("AllowAll");
 
 // Enable static file serving for images in wwwroot
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    RequestPath = "/api/uploads",
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")
+    )
+});
 
 if (app.Environment.IsDevelopment())
 {

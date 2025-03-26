@@ -56,6 +56,13 @@ namespace EatMeOut.API.Controllers
 
             category.MenuCategoryId = maxScopedCategoryId + 1;
 
+            // Check for existing category name in same restaurant
+            var duplicate = await _context.MenuCategories.AnyAsync(c =>
+                c.RestaurantId == restaurant.Id &&
+                c.Name.ToLower() == category.Name.ToLower());
+
+            if (duplicate)
+                return BadRequest(new { message = "Category name already exists." });
 
             _context.MenuCategories.Add(category);
             await _context.SaveChangesAsync();
@@ -81,6 +88,19 @@ namespace EatMeOut.API.Controllers
 
             item.RestaurantId = restaurant.Id;
 
+            var maxDisplayOrder = await _context.MenuItems
+            .Where(i => i.MenuCategoryId == item.MenuCategoryId && i.RestaurantId == restaurant.Id)
+            .MaxAsync(i => (int?)i.DisplayOrder) ?? 0;
+
+            item.DisplayOrder = maxDisplayOrder + 1;
+
+            var duplicateItem = await _context.MenuItems.AnyAsync(i =>
+            i.RestaurantId == restaurant.Id &&
+            i.Name.ToLower() == item.Name.ToLower());
+
+            if (duplicateItem)
+                return BadRequest(new { message = "Item name already exists." });
+
             _context.MenuItems.Add(item);
             await _context.SaveChangesAsync();
 
@@ -100,7 +120,6 @@ namespace EatMeOut.API.Controllers
         }
 
 
-        // 4. Get full menu grouped by category for a restaurant
         [HttpGet("{restaurantEmail}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetMenuByRestaurant(string restaurantEmail)
@@ -121,21 +140,26 @@ namespace EatMeOut.API.Controllers
             {
                 id = c.MenuCategoryId,
                 category = c.Name,
-                items = c.Items.Select(i => new
-                {
-                    i.Id,
-                    i.Name,
-                    i.Description,
-                    i.Price,
-                    i.Ingredients,
-                    i.Calories,
-                    i.IsVegan,
-                    i.IsAvailable
-                }).ToList()
+                displayOrder = c.DisplayOrder,
+                items = c.Items
+                    .OrderBy(i => i.DisplayOrder)
+                    .Select(i => new
+                    {
+                        i.Id,
+                        i.Name,
+                        i.Description,
+                        i.Price,
+                        i.Ingredients,
+                        i.Calories,
+                        i.IsVegan,
+                        i.IsAvailable,
+                        i.ImageUrl
+                    }).ToList()
             }).ToList();
 
             return Ok(grouped);
         }
+
 
         // 5. Update Category 
         [HttpPut("categories/{id}")]
@@ -186,6 +210,15 @@ namespace EatMeOut.API.Controllers
             if (existing.Category?.RestaurantId != restaurant.Id)
                 return Unauthorized(new { message = "Unauthorized to update this item." });
 
+            var duplicateItem = await _context.MenuItems.AnyAsync(i =>
+            i.RestaurantId == restaurant.Id &&
+            i.Name.ToLower() == updated.Name.ToLower() &&
+            i.Id != id);
+
+            if (duplicateItem)
+                return BadRequest(new { message = "Item name already exists." });
+
+
             existing.Name = updated.Name;
             existing.Description = updated.Description;
             existing.Price = updated.Price;
@@ -193,6 +226,13 @@ namespace EatMeOut.API.Controllers
             existing.Calories = updated.Calories;
             existing.IsVegan = updated.IsVegan;
             existing.IsAvailable = updated.IsAvailable;
+
+            // Replace old image
+            if (!string.IsNullOrEmpty(updated.ImageUrl) && updated.ImageUrl != existing.ImageUrl)
+            {
+                FileUploadHelper.DeleteFile(existing.ImageUrl);
+                existing.ImageUrl = updated.ImageUrl;
+            }
 
             _context.MenuItems.Update(existing);
             await _context.SaveChangesAsync();
