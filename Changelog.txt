@@ -64,6 +64,8 @@ Earlier (Date Unknown)
 - Added error messages for restaurant and signup
 - Added Register restaurant link in register page
 - Added favourites table to store user's favourite restaurants
+commit #2
+- Fixed localStorage not storing details
 
 To Do
 

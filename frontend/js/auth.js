@@ -274,13 +274,7 @@ async function loginRestaurant() {
             localStorage.setItem("restaurantId", data.restaurantId);
             localStorage.setItem("ownerName", data.ownerName); 
             localStorage.setItem("isRestaurant", "true");
-            
-            // Decode JWT and store the email
-            const payload = JSON.parse(atob(data.token.split('.')[1]));
-            const email = payload?.email || payload?.Email;
-            if (email) {
-                localStorage.setItem("restaurantEmail", email);
-            }
+            localStorage.setItem("currentRestaurantEmail", email);
             
             return { success: true, data, ownerName: data.ownerName };
         } else {

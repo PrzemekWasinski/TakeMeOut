@@ -65,7 +65,7 @@ function attachEventHandlers() {
     const name = prompt('Enter new category name:');
     if (!name) return;
 
-    const email = localStorage.getItem('restaurantEmail');
+    const email = localStorage.getItem('currentRestaurantEmail');
     const restaurantId = localStorage.getItem('restaurantId');
     const token = localStorage.getItem("restaurantToken");
 
@@ -128,7 +128,7 @@ function attachEventHandlers() {
       if (!newName || newName === currentName) return;
 
       const token = localStorage.getItem("restaurantToken");
-      const email = localStorage.getItem("restaurantEmail");
+      const email = localStorage.getItem("currentRestaurantEmail");
       const restaurantId = parseInt(localStorage.getItem("restaurantId"));
 
       const res = await fetch(`${API_URL}/menu/categories/${id}`, {
@@ -145,7 +145,6 @@ function attachEventHandlers() {
           items: [] // or null – backend doesn't use it for updates
         })
       });
-
 
       if (res.ok) {
         loadMenuManagement();
