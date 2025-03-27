@@ -5,8 +5,33 @@ async function loginUser() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (!email || !password) {
-        alert("Please enter both email and password");
+    // Clear previous error messages and remove red borders
+    document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
+    document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
+    // Remove any existing form-level error messages
+    const form = document.getElementById('login-form');
+    const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
+    if (existingFormError) {
+        existingFormError.remove();
+    }
+
+    let hasErrors = false;
+
+    // Validate email
+    if (!email.trim()) {
+        document.getElementById('email-error').textContent = 'Email is required';
+        document.getElementById('email').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    // Validate password
+    if (!password) {
+        document.getElementById('password-error').textContent = 'Password is required';
+        document.getElementById('password').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (hasErrors) {
         return { success: false };
     }
 
@@ -26,16 +51,30 @@ async function loginUser() {
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
-            localStorage.setItem("userName", data.name);
+            localStorage.setItem("userName", `${data.firstName} ${data.lastName}`);
             return { success: true, data };
         } else {
             const errorData = await response.json(); 
-            alert("Login failed: " + (errorData.message || response.statusText));
+            if (errorData.message.includes('email')) {
+                document.getElementById('email-error').textContent = errorData.message;
+                document.getElementById('email').classList.add('border-red-500');
+            } else if (errorData.message.includes('password')) {
+                document.getElementById('password-error').textContent = errorData.message;
+                document.getElementById('password').classList.add('border-red-500');
+            } else {
+                const formError = document.createElement('p');
+                formError.className = 'text-red-500 text-sm mb-4';
+                formError.textContent = errorData.message;
+                form.insertBefore(formError, form.firstChild);
+            }
             return { success: false, error: errorData };
         }
     } catch (error) {
         console.error("Error during login:", error);
-        alert("Network error during login. Check the console for details.");
+        const formError = document.createElement('p');
+        formError.className = 'text-red-500 text-sm mb-4';
+        formError.textContent = 'Network error during login. Please try again later.';
+        form.insertBefore(formError, form.firstChild);
         return { success: false, error };
     }
 }
@@ -44,35 +83,140 @@ async function register() {
     const form = document.getElementById("register-form");
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    const name = form.querySelector("input[type='text']").value;
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (!name || !email || !password) {
-        alert("Please fill out all required fields");
+    // Debug logging
+    console.log('Form values:', {
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword
+    });
+
+    // Clear previous error messages and remove red borders
+    document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
+    document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
+    // Remove any existing form-level error messages
+    const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
+    if (existingFormError) {
+        existingFormError.remove();
+    }
+
+    let hasErrors = false;
+
+    // Validate first name
+    if (!firstName || !firstName.trim()) {
+        document.getElementById('firstName-error').textContent = 'First name is required';
+        document.getElementById('firstName').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('First name validation failed');
+    }
+
+    // Validate last name
+    if (!lastName || !lastName.trim()) {
+        document.getElementById('lastName-error').textContent = 'Last name is required';
+        document.getElementById('lastName').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Last name validation failed');
+    }
+
+    // Validate email
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!email || !email.trim()) {
+        document.getElementById('email-error').textContent = 'Email is required';
+        document.getElementById('email').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Email validation failed - empty');
+    } else if (!emailPattern.test(email)) {
+        document.getElementById('email-error').textContent = 'Please enter a valid email address';
+        document.getElementById('email').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Email validation failed - invalid format');
+    }
+
+    // Validate password
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!password) {
+        document.getElementById('password-error').textContent = 'Password is required';
+        document.getElementById('password').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Password validation failed - empty');
+    } else if (!passwordPattern.test(password)) {
+        document.getElementById('password-error').textContent = 'Password must be at least 8 characters and include both letters and numbers';
+        document.getElementById('password').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Password validation failed - invalid format');
+    }
+
+    // Validate confirm password
+    if (!confirmPassword) {
+        document.getElementById('confirmPassword-error').textContent = 'Please confirm your password';
+        document.getElementById('confirmPassword').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Confirm password validation failed - empty');
+    } else if (password !== confirmPassword) {
+        document.getElementById('confirmPassword-error').textContent = 'Passwords do not match';
+        document.getElementById('confirmPassword').classList.add('border-red-500');
+        hasErrors = true;
+        console.log('Confirm password validation failed - mismatch');
+    }
+
+    if (hasErrors) {
+        console.log('Form validation failed');
         return { success: false };
     }
 
+    console.log('Form validation passed, sending request...');
+
     try {
+        const requestBody = {
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email: email.trim(),
+            password: password
+        };
+        console.log('Request body:', requestBody);
+
         let response = await fetch(`${API_URL}/auth/register`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password
-            })
+            headers: { 
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(requestBody)
         });
 
+        const data = await response.json();
+        console.log('Server response:', data);
+
         if (response.ok) {
-            alert("Registration successful! Please login.");
             return { success: true, navigateTo: 'login' };
         } else {
-            const data = await response.json();
-            alert("Registration failed: " + (data.message || "Unknown error"));
+            // Display error message in the appropriate field
+            if (data.message.includes('email')) {
+                document.getElementById('email-error').textContent = data.message;
+                document.getElementById('email').classList.add('border-red-500');
+            } else if (data.message.includes('password')) {
+                document.getElementById('password-error').textContent = data.message;
+                document.getElementById('password').classList.add('border-red-500');
+            } else {
+                // If the error is not specific to a field, show it at the top of the form
+                const formError = document.createElement('p');
+                formError.className = 'text-red-500 text-sm mb-4';
+                formError.textContent = data.message;
+                form.insertBefore(formError, form.firstChild);
+            }
             return { success: false, error: data };
         }
     } catch (error) {
         console.error("Registration error:", error);
-        alert("Network error during registration. Check the console for details.");
+        const formError = document.createElement('p');
+        formError.className = 'text-red-500 text-sm mb-4';
+        formError.textContent = 'Network error during registration. Please try again later.';
+        form.insertBefore(formError, form.firstChild);
         return { success: false, error };
     }
 }
@@ -81,8 +225,33 @@ async function loginRestaurant() {
     const email = document.getElementById("restaurant-email").value;
     const password = document.getElementById("restaurant-password").value;
 
-    if (!email || !password) {
-        alert("Please enter both email and password");
+    // Clear previous error messages and remove red borders
+    document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
+    document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
+    // Remove any existing form-level error messages
+    const form = document.getElementById('restaurant-login-form');
+    const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
+    if (existingFormError) {
+        existingFormError.remove();
+    }
+
+    let hasErrors = false;
+
+    // Validate email
+    if (!email.trim()) {
+        document.getElementById('restaurant-email-error').textContent = 'Email is required';
+        document.getElementById('restaurant-email').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    // Validate password
+    if (!password) {
+        document.getElementById('restaurant-password-error').textContent = 'Password is required';
+        document.getElementById('restaurant-password').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (hasErrors) {
         return { success: false };
     }
 
@@ -112,16 +281,29 @@ async function loginRestaurant() {
             if (email) {
                 localStorage.setItem("restaurantEmail", email);
             }
-
             
             return { success: true, data, ownerName: data.ownerName };
         } else {
-            alert("Login failed: " + (data.message || response.statusText));
+            if (data.message.includes('email')) {
+                document.getElementById('restaurant-email-error').textContent = data.message;
+                document.getElementById('restaurant-email').classList.add('border-red-500');
+            } else if (data.message.includes('password')) {
+                document.getElementById('restaurant-password-error').textContent = data.message;
+                document.getElementById('restaurant-password').classList.add('border-red-500');
+            } else {
+                const formError = document.createElement('p');
+                formError.className = 'text-red-500 text-sm mb-4';
+                formError.textContent = data.message;
+                form.insertBefore(formError, form.firstChild);
+            }
             return { success: false, error: data };
         }
     } catch (error) {
         console.error("Error during restaurant login:", error);
-        alert("Network error during login. Check the console for details.");
+        const formError = document.createElement('p');
+        formError.className = 'text-red-500 text-sm mb-4';
+        formError.textContent = 'Network error during login. Please try again later.';
+        form.insertBefore(formError, form.firstChild);
         return { success: false, error };
     }
 }
@@ -130,6 +312,18 @@ async function registerRestaurant() {
     const submitButton = document.getElementById('submit-signup');
     submitButton.disabled = true;
     submitButton.textContent = "Processing...";
+
+    // Clear previous error messages and remove red borders
+    document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
+    document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
+    // Remove any existing form-level error messages
+    const form = document.getElementById('restaurant-signup-form');
+    if (form) {
+        const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
+        if (existingFormError) {
+            existingFormError.remove();
+        }
+    }
 
     // Step 1 Fields
     const ownerName = document.getElementById('ownerName').value;
@@ -169,37 +363,104 @@ async function registerRestaurant() {
     const phonePattern = /^\d{10,15}$/;
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
 
-    // Basic field validation
-    if (!ownerName || !restaurantName || !email || !password || !confirmPassword || !phone || !doorNumber || !road || !city || !postcode || !cuisineType || !coverImg || !bannerImg) {
-        alert('Please fill out all required fields and upload images.');
-        submitButton.disabled = false;
-        submitButton.textContent = "Sign Up";
-        return { success: false };
+    let hasErrors = false;
+
+    // Validate required fields
+    if (!ownerName.trim()) {
+        document.getElementById('ownerName-error').textContent = 'Owner name is required';
+        document.getElementById('ownerName').classList.add('border-red-500');
+        hasErrors = true;
     }
 
-    if (!emailPattern.test(email)) {
-        alert('Please enter a valid email address.');
-        submitButton.disabled = false;
-        submitButton.textContent = "Sign Up";
-        return { success: false };
+    if (!restaurantName.trim()) {
+        document.getElementById('restaurantName-error').textContent = 'Restaurant name is required';
+        document.getElementById('restaurantName').classList.add('border-red-500');
+        hasErrors = true;
     }
 
-    if (!phonePattern.test(phone)) {
-        alert('Please enter a valid phone number (10-15 digits).');
-        submitButton.disabled = false;
-        submitButton.textContent = "Sign Up";
-        return { success: false };
+    if (!email.trim()) {
+        document.getElementById('email-error').textContent = 'Email is required';
+        document.getElementById('email').classList.add('border-red-500');
+        hasErrors = true;
+    } else if (!emailPattern.test(email)) {
+        document.getElementById('email-error').textContent = 'Please enter a valid email address';
+        document.getElementById('email').classList.add('border-red-500');
+        hasErrors = true;
     }
 
-    if (!passwordPattern.test(password)) {
-        alert('Password must be at least 8 characters and include both letters and numbers.');
-        submitButton.disabled = false;
-        submitButton.textContent = "Sign Up";
-        return { success: false };
+    if (!password) {
+        document.getElementById('password-error').textContent = 'Password is required';
+        document.getElementById('password').classList.add('border-red-500');
+        hasErrors = true;
+    } else if (!passwordPattern.test(password)) {
+        document.getElementById('password-error').textContent = 'Password must be at least 8 characters and include both letters and numbers';
+        document.getElementById('password').classList.add('border-red-500');
+        hasErrors = true;
     }
 
-    if (password !== confirmPassword) {
-        alert('Passwords do not match.');
+    if (!confirmPassword) {
+        document.getElementById('confirmPassword-error').textContent = 'Please confirm your password';
+        document.getElementById('confirmPassword').classList.add('border-red-500');
+        hasErrors = true;
+    } else if (password !== confirmPassword) {
+        document.getElementById('confirmPassword-error').textContent = 'Passwords do not match';
+        document.getElementById('confirmPassword').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!phone.trim()) {
+        document.getElementById('phone-error').textContent = 'Phone number is required';
+        document.getElementById('phone').classList.add('border-red-500');
+        hasErrors = true;
+    } else if (!phonePattern.test(phone)) {
+        document.getElementById('phone-error').textContent = 'Please enter a valid phone number (10-15 digits)';
+        document.getElementById('phone').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!doorNumber.trim()) {
+        document.getElementById('doorNumber-error').textContent = 'Door number is required';
+        document.getElementById('doorNumber').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!road.trim()) {
+        document.getElementById('road-error').textContent = 'Road is required';
+        document.getElementById('road').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!city.trim()) {
+        document.getElementById('city-error').textContent = 'City is required';
+        document.getElementById('city').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!postcode.trim()) {
+        document.getElementById('postcode-error').textContent = 'Postcode is required';
+        document.getElementById('postcode').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!cuisineType) {
+        document.getElementById('cuisineType-error').textContent = 'Cuisine type is required';
+        document.getElementById('cuisineType').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!coverImg) {
+        document.getElementById('coverImg-error').textContent = 'Cover image is required';
+        document.getElementById('coverImg').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (!bannerImg) {
+        document.getElementById('bannerImg-error').textContent = 'Banner image is required';
+        document.getElementById('bannerImg').classList.add('border-red-500');
+        hasErrors = true;
+    }
+
+    if (hasErrors) {
         submitButton.disabled = false;
         submitButton.textContent = "Sign Up";
         return { success: false };
@@ -229,17 +490,28 @@ async function registerRestaurant() {
         const data = await response.json();
 
         if (response.ok) {
-            alert('Registration successful! Please sign in.');
             return { success: true, navigateTo: 'restaurant-login' };
         } else {
-            alert('Registration failed: ' + (data.message || 'Unknown error'));
+            // Handle server-side errors
+            if (data.message.includes('email')) {
+                document.getElementById('email-error').textContent = data.message;
+                document.getElementById('email').classList.add('border-red-500');
+            } else {
+                const formError = document.createElement('p');
+                formError.className = 'text-red-500 text-sm mb-4';
+                formError.textContent = data.message;
+                document.getElementById('restaurant-signup-form').insertBefore(formError, document.getElementById('restaurant-signup-form').firstChild);
+            }
             submitButton.disabled = false;
             submitButton.textContent = "Sign Up";
             return { success: false, error: data };
         }
     } catch (error) {
         console.error('Error registering restaurant:', error);
-        alert('Network error during registration. Please try again later.');
+        const formError = document.createElement('p');
+        formError.className = 'text-red-500 text-sm mb-4';
+        formError.textContent = 'Network error during registration. Please try again later.';
+        document.getElementById('restaurant-signup-form').insertBefore(formError, document.getElementById('restaurant-signup-form').firstChild);
         submitButton.disabled = false;
         submitButton.textContent = "Sign Up";
         return { success: false, error };

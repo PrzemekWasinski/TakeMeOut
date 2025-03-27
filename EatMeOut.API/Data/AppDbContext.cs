@@ -11,24 +11,30 @@ namespace EatMeOut.API.Data
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<MenuCategory> MenuCategories { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure Restaurant → MenuCategory relationship
+            modelBuilder.Entity<MenuCategory>()
+                .HasOne(c => c.Restaurant)
+                .WithMany(r => r.MenuCategories)
+                .HasForeignKey(c => c.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Configure MenuCategory → MenuItem relationship
             modelBuilder.Entity<MenuItem>()
                 .HasOne(i => i.Category)
                 .WithMany(c => c.Items)
-                .HasForeignKey(i => new { i.MenuCategoryId, i.RestaurantId }) // 👈 composite key
-                .HasPrincipalKey(c => new { c.MenuCategoryId, c.RestaurantId }) // 👈 match the correct unique pair
+                .HasForeignKey(i => new { i.MenuCategoryId, i.RestaurantId })
+                .HasPrincipalKey(c => new { c.MenuCategoryId, c.RestaurantId })
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<MenuCategory>()
                 .HasIndex(c => new { c.MenuCategoryId, c.RestaurantId })
                 .IsUnique();
-
-
 
             // Configure JSON conversion for Ingredients list
             modelBuilder.Entity<MenuItem>()
@@ -37,6 +43,11 @@ namespace EatMeOut.API.Data
                     v => string.Join(",", v),
                     v => v.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList()
                 );
+
+            // Configure unique constraint for Favourites
+            modelBuilder.Entity<Favourite>()
+                .HasIndex(f => new { f.UserId, f.RestaurantId })
+                .IsUnique();
 
             // Example seed (optional)
             modelBuilder.Entity<Restaurant>().HasData(

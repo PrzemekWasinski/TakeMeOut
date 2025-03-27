@@ -302,6 +302,53 @@ namespace EatMeOut.API.Controllers
             }
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult> SearchRestaurants([FromQuery] string q)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(q))
+                {
+                    return await GetAllRestaurants();
+                }
+
+                var searchTerm = q.ToLower();
+
+                // Get all restaurants with their menu items
+                var restaurants = await _context.Restaurants
+                    .Include(r => r.MenuCategories)
+                        .ThenInclude(c => c.Items)
+                    .ToListAsync();
+
+                // Filter restaurants based on search criteria
+                var matchingRestaurants = restaurants.Where(r =>
+                    r.RestaurantName.ToLower().Contains(searchTerm) ||
+                    r.CuisineType.ToLower().Contains(searchTerm) ||
+                    r.Description.ToLower().Contains(searchTerm) ||
+                    r.MenuCategories.Any(c => c.Items.Any(i => 
+                        i.Name.ToLower().Contains(searchTerm) ||
+                        i.Description.ToLower().Contains(searchTerm) ||
+                        i.Ingredients.Any(ing => ing.ToLower().Contains(searchTerm))
+                    ))
+                ).Select(r => new
+                {
+                    r.Id,
+                    r.RestaurantName,
+                    r.CuisineType,
+                    r.Description,
+                    r.CoverIMG,
+                    r.BannerIMG
+                }).ToList();
+
+                return Ok(matchingRestaurants);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchRestaurants: {ex.Message}");
+                return StatusCode(500, new { message = "Internal server error" });
+            }
+        }
+
     }
 
 

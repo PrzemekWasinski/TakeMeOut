@@ -48,5 +48,7 @@ namespace EatMeOut.API.Models
         public string CoverIMG { get; set; } = string.Empty;
         public string BannerIMG { get; set; } = string.Empty;
 
+        // Navigation property for menu categories
+        public virtual ICollection<MenuCategory> MenuCategories { get; set; } = new List<MenuCategory>();
     }
 }

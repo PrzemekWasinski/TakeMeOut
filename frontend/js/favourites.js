@@ -1,0 +1,122 @@
+import API_URL from './config.js';
+import { selectRestaurant } from './navigation.js';
+
+export async function loadFavourites() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        document.getElementById("dynamic-content").innerHTML = '<p class="text-center text-gray-600">Please log in to view your favourites.</p>';
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_URL}/favourites`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            console.error('Load favourites failed:', errorData);
+            throw new Error(`Failed to fetch favourites: ${res.status} ${res.statusText}`);
+        }
+
+        const favourites = await res.json();
+        
+        if (favourites.length === 0) {
+            document.getElementById("dynamic-content").innerHTML = '<p class="text-center text-gray-600">You haven\'t added any restaurants to your favourites yet.</p>';
+            return;
+        }
+
+        const favouritesHTML = `
+            <div class="container mx-auto px-4 py-8">
+                <h2 class="text-2xl font-bold mb-6">Your Favourite Restaurants</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${favourites.map(restaurant => `
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300" 
+                             onclick="window.selectRestaurant(${restaurant.id}, '${restaurant.restaurantName.replace(/'/g, "\\'")}')">
+                            <div class="relative h-48">
+                                <img src="${restaurant.coverIMG || 'https://via.placeholder.com/400x200?text=No+Image'}" 
+                                     alt="${restaurant.restaurantName}" 
+                                     class="w-full h-full object-cover">
+                                <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-red-100 transition-colors duration-200"
+                                        onclick="event.stopPropagation(); window.toggleFavourite(${restaurant.id})">
+                                    <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold mb-2">${restaurant.restaurantName}</h3>
+                                <p class="text-gray-600 mb-2">${restaurant.cuisineType || 'No cuisine type available'}</p>
+                                <p class="text-gray-600 mb-2">${restaurant.description || 'No description available'}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        document.getElementById("dynamic-content").innerHTML = favouritesHTML;
+    } catch (error) {
+        console.error('Error loading favourites:', error);
+        document.getElementById("dynamic-content").innerHTML = '<p class="text-center text-red-600">Failed to load your favourites. Please try again later.</p>';
+    }
+}
+
+export async function toggleFavourite(restaurantId) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert('Please log in to add restaurants to your favourites.');
+        return;
+    }
+
+    try {
+        // First check if the restaurant is already a favourite
+        const checkRes = await fetch(`${API_URL}/favourites/check/${restaurantId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!checkRes.ok) {
+            const errorData = await checkRes.json().catch(() => ({}));
+            console.error('Check favourite status failed:', errorData);
+            throw new Error(`Failed to check favourite status: ${checkRes.status} ${checkRes.statusText}`);
+        }
+
+        const { isFavourite } = await checkRes.json();
+        console.log('Current favourite status:', isFavourite);
+
+        // Then perform the appropriate action
+        const actionRes = await fetch(`${API_URL}/favourites/${restaurantId}`, {
+            method: isFavourite ? 'DELETE' : 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!actionRes.ok) {
+            const errorData = await actionRes.json().catch(() => ({}));
+            console.error('Toggle favourite action failed:', errorData);
+            throw new Error(`Failed to update favourite status: ${actionRes.status} ${actionRes.statusText}`);
+        }
+
+        // Update the heart icon without reloading the page
+        const heartIcon = document.querySelector(`[onclick="event.stopPropagation(); window.toggleFavourite(${restaurantId})"] svg`);
+        if (heartIcon) {
+            heartIcon.classList.toggle('text-red-500');
+            heartIcon.classList.toggle('text-gray-400');
+        }
+
+        // If we're on the favourites page, remove the restaurant card
+        const restaurantCard = document.querySelector(`[onclick="window.selectRestaurant(${restaurantId}"]`);
+        if (restaurantCard && isFavourite) {
+            restaurantCard.remove();
+        }
+    } catch (error) {
+        console.error('Error toggling favourite:', error);
+        alert(`Failed to update favourite status: ${error.message}`);
+    }
+} 

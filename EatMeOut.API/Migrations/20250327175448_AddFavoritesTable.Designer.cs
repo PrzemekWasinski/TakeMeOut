@@ -4,6 +4,7 @@ using EatMeOut.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EatMeOut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250327175448_AddFavoritesTable")]
+    partial class AddFavoritesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace EatMeOut.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EatMeOut.API.Models.Favourite", b =>
+            modelBuilder.Entity("EatMeOut.API.Models.Favorite", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +49,7 @@ namespace EatMeOut.Migrations
                     b.HasIndex("UserId", "RestaurantId")
                         .IsUnique();
 
-                    b.ToTable("Favourites");
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("EatMeOut.API.Models.MenuCategory", b =>
@@ -256,7 +259,7 @@ namespace EatMeOut.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EatMeOut.API.Models.Favourite", b =>
+            modelBuilder.Entity("EatMeOut.API.Models.Favorite", b =>
                 {
                     b.HasOne("EatMeOut.API.Models.Restaurant", "Restaurant")
                         .WithMany()

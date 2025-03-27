@@ -18,10 +18,23 @@ const homeContentTemplate = `
         </div>  
     </div>
 
+    <!-- Search Section -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="relative">
+            <input type="text" 
+                   id="restaurant-search" 
+                   placeholder="Search for restaurants, cuisines, or dishes..." 
+                   class="w-full px-6 py-3 rounded-full border-2 border-gray-200 focus:border-green-500 focus:outline-none text-lg">
+            <button id="search-button" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition-colors duration-200">
+                Search
+            </button>
+        </div>
+    </div>
+
     <!-- Restaurant Grid -->
     <div class="max-w-6xl mx-auto px-4 py-8">
         <h2 class="text-2xl font-bold mb-6">Popular Restaurants</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="restaurants-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Restaurant Cards -->
             <div class="restaurant-card cursor-pointer" data-restaurant-id="1" onclick="selectRestaurant(1, 'Burger Palace')">
                 <img src="https://via.placeholder.com/400x250" alt="Restaurant" class="w-full h-48 object-cover">
@@ -64,10 +77,12 @@ const loginFormTemplate = `
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="email" id="email" placeholder="Email" class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="email-error"></p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" placeholder="Password" class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="password-error"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -79,11 +94,11 @@ const loginFormTemplate = `
                 <button type="submit" class="submit-btn">Sign In</button>
             </form>
             <div class="text-center mt-4">
-                <p>Don't have an account? <a href="#" onclick="loadContent('register')" class="text-blue-600 hover:underline">Sign up</a></p>
-                <p class="mt-2 text-sm">Are you a restaurant? <a href="#" onclick="loadContent('restaurant-login')" class="text-blue-600 hover:underline">Restaurant Sign In</a></p>
+                <p>Don't have an account? <a href="#" onclick="window.loadContent('register')" class="text-blue-600 hover:underline">Sign up</a></p>
+                <p class="mt-2 text-sm">Are you a restaurant? <a href="#" onclick="window.loadContent('restaurant-login')" class="text-blue-600 hover:underline">Restaurant Sign In</a></p>
             </div>
         </div>
-        <button onclick="showHome()" class="back-btn">← Back to Home</button>
+        <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
 
@@ -95,24 +110,29 @@ const registerFormTemplate = `
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">First Name</label>
-                        <input type="text" required class="input-field">
+                        <input type="text" id="firstName" required class="input-field">
+                        <p class="text-red-500 text-sm mt-1" id="firstName-error"></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <input type="text" required class="input-field">
+                        <input type="text" id="lastName" required class="input-field">
+                        <p class="text-red-500 text-sm mt-1" id="lastName-error"></p>
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="email" id="email" placeholder="Email" class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="email-error"></p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" placeholder="Password" class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="password-error"></p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input type="password" required class="input-field">
+                    <input type="password" id="confirmPassword" required class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="confirmPassword-error"></p>
                 </div>
                 <div class="flex items-center">
                     <input type="checkbox" required class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
@@ -121,10 +141,11 @@ const registerFormTemplate = `
                 <button type="submit" class="submit-btn">Sign Up</button>
             </form>
             <div class="text-center mt-4">
-                <p>Already have an account? <a href="#" onclick="loadContent('login')" class="text-blue-600 hover:underline">Sign in</a></p>
+                <p>Already have an account? <a href="#" onclick="window.loadContent('login')" class="text-blue-600 hover:underline">Sign in</a></p>
+                <p class="mt-2 text-sm">Are you a restaurant? <a href="#" onclick="window.loadContent('restaurant-signup')" class="text-blue-600 hover:underline">Register your Restaurant</a></p>
             </div>
         </div>
-        <button onclick="showHome()" class="back-btn">← Back to Home</button>
+        <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
 
@@ -139,7 +160,7 @@ const aboutTemplate = `
                 <p>With our dedicated delivery network, we ensure your food arrives hot and fresh, exactly when you want it.</p>
             </div>
         </div>
-        <button onclick="showHome()" class="back-btn">← Back to Home</button>
+        <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
 
@@ -171,7 +192,7 @@ const partnerTemplate = `
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
         </div>
-        <button onclick="showHome()" class="back-btn">← Back to Home</button>
+        <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
 
@@ -186,22 +207,27 @@ const restaurantSignupTemplate = `
 
                 <label class="block text-sm font-medium text-gray-700">Owner Name</label>
                 <input type="text" id="ownerName" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="ownerName-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Restaurant Name</label>
                 <input type="text" id="restaurantName" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="restaurantName-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" id="email" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="email-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" id="password" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="password-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
                 <input type="password" id="confirmPassword" required class="input-field">
-                <span id="password-error" style="color: red; display: none;">Passwords do not match.</span>
+                <p class="text-red-500 text-sm mt-1" id="confirmPassword-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Phone Number</label>
                 <input type="tel" id="phone" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="phone-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Cuisine Type</label>
                 <select id="cuisineType" required class="input-field">
@@ -216,6 +242,7 @@ const restaurantSignupTemplate = `
                     <option value="Mediterranean">Mediterranean</option>
                     <option value="Other">Other</option>
                 </select>
+                <p class="text-red-500 text-sm mt-1" id="cuisineType-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Description</label>
                 <textarea id="description" rows="4" class="input-field" placeholder="Tell us about your restaurant..."></textarea>
@@ -229,15 +256,19 @@ const restaurantSignupTemplate = `
 
                 <label class="block text-sm font-medium text-gray-700">Door Number</label>
                 <input type="text" id="doorNumber" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="doorNumber-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Road</label>
                 <input type="text" id="road" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="road-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">City</label>
                 <input type="text" id="city" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="city-error"></p>
 
                 <label class="block text-sm font-medium text-gray-700">Postcode</label>
                 <input type="text" id="postcode" required class="input-field">
+                <p class="text-red-500 text-sm mt-1" id="postcode-error"></p>
 
                 <div class="flex justify-between">
                     <button id="back-to-step-1" class="back-btn">← Back</button>
@@ -256,6 +287,7 @@ const restaurantSignupTemplate = `
                         <span class="text-gray-600 text-center">Click to Upload<br>Cover Image</span>
                     </div>
                     <input type="file" id="coverImg" class="hidden" accept="image/*" onchange="previewImage(event, 'coverPreview')">
+                    <p class="text-red-500 text-sm mt-1" id="coverImg-error"></p>
                     
                     <!-- Banner Image (Longer) -->
                     <div class="image-box w-64 h-32 flex items-center justify-center border-2 border-dashed border-gray-400 rounded-md bg-gray-100 cursor-pointer"
@@ -263,6 +295,7 @@ const restaurantSignupTemplate = `
                         <span class="text-gray-600 text-center">Click to Upload<br>Banner Image</span>
                     </div>
                     <input type="file" id="bannerImg" class="hidden" accept="image/*" onchange="previewImage(event, 'bannerPreview')">
+                    <p class="text-red-500 text-sm mt-1" id="bannerImg-error"></p>
                 </div>
 
                 <h3 class="text-lg font-bold mt-4">Opening & Closing Times</h3>
@@ -285,10 +318,12 @@ const restaurantLoginTemplate = `
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Restaurant Email</label>
                     <input type="email" id="restaurant-email" placeholder="Email" class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="restaurant-email-error"></p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="restaurant-password" placeholder="Password" class="input-field">
+                    <p class="text-red-500 text-sm mt-1" id="restaurant-password-error"></p>
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -300,11 +335,11 @@ const restaurantLoginTemplate = `
                 <button type="submit" class="submit-btn">Sign In</button>
             </form>
             <div class="text-center mt-4">
-                <p>Don't have a restaurant account? <a href="#" onclick="loadContent('restaurant-signup')" class="text-blue-600 hover:underline">Register your Restaurant</a></p>
-                <p class="mt-2 text-sm">Not a restaurant? <a href="#" onclick="loadContent('login')" class="text-blue-600 hover:underline">Customer Sign In</a></p>
+                <p>Don't have a restaurant account? <a href="#" onclick="window.loadContent('restaurant-signup')" class="text-blue-600 hover:underline">Register your Restaurant</a></p>
+                <p class="mt-2 text-sm">Not a restaurant? <a href="#" onclick="window.loadContent('login')" class="text-blue-600 hover:underline">Customer Sign In</a></p>
             </div>
         </div>
-        <button onclick="showHome()" class="back-btn">← Back to Home</button>
+        <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
 
@@ -516,6 +551,18 @@ const allRestaurantsTemplate = `
     </div>
 `;
 
+const favouritesTemplate = `
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">My Favourites</h1>
+        <div id="no-favourites" class="text-center py-8 hidden">
+            <p class="text-gray-500">You haven't added any restaurants to your favourites yet.</p>
+        </div>
+        <div id="favourites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Favourite restaurants will be loaded here -->
+        </div>
+    </div>
+`;
+
 export { 
     homeContentTemplate, 
     loginFormTemplate, 
@@ -528,5 +575,6 @@ export {
     restaurantMenuTemplate, 
     restaurantOrdersTemplate, 
     generateTimeFields, 
-    allRestaurantsTemplate
+    allRestaurantsTemplate,
+    favouritesTemplate
 }; 

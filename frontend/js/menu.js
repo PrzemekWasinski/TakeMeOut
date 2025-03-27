@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadMenuManagement() {
-  const email = localStorage.getItem('restaurantEmail');
+  const email = localStorage.getItem('currentRestaurantEmail');
   if (!email) {
     alert('Restaurant email missing from localStorage.');
     return;
@@ -16,6 +16,9 @@ async function loadMenuManagement() {
 
   try {
     const res = await fetch(`${API_URL}/menu/${email}`);
+    if (!res.ok) {
+      throw new Error('Failed to fetch menu');
+    }
     const data = await res.json();
 
     document.getElementById('dynamic-content').innerHTML = restaurantMenuTemplate(data);
@@ -23,36 +26,37 @@ async function loadMenuManagement() {
     initializeItemSorting();
   } catch (err) {
     console.error('Failed to load menu:', err);
+    alert('Failed to load menu. Please try again.');
   }
 
   // Drag-and-drop sorting for categories
-const categoryList = document.querySelector("#menu-categories");
-if (categoryList) {
-  new Sortable(categoryList, {
-    animation: 150,
-    handle: ".drag-handle",
-    onEnd: async () => {
-      const orderedIds = Array.from(categoryList.children)
-        .map(div => parseInt(div.dataset.id))
-        .filter(id => !isNaN(id));
+  const categoryList = document.querySelector("#menu-categories");
+  if (categoryList) {
+    new Sortable(categoryList, {
+      animation: 150,
+      handle: ".drag-handle",
+      onEnd: async () => {
+        const orderedIds = Array.from(categoryList.children)
+          .map(div => parseInt(div.dataset.id))
+          .filter(id => !isNaN(id));
 
-      const token = localStorage.getItem("restaurantToken");
+        const token = localStorage.getItem("restaurantToken");
 
-      const res = await fetch(`${API_URL}/menu/categories/reorder`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(orderedIds)
-      });
+        const res = await fetch(`${API_URL}/menu/categories/reorder`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(orderedIds)
+        });
 
-      if (!res.ok) {
-        alert("Failed to save category order");
+        if (!res.ok) {
+          alert("Failed to save category order");
+        }
       }
-    }
-  });
-}
+    });
+  }
 }
 
 function attachEventHandlers() {

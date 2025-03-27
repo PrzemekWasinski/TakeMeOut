@@ -41,7 +41,8 @@ namespace EatMeOut.API.Controllers
             {
                 if (string.IsNullOrEmpty(registerDto.Email) ||
                     string.IsNullOrEmpty(registerDto.Password) ||
-                    string.IsNullOrEmpty(registerDto.Name))
+                    string.IsNullOrEmpty(registerDto.FirstName) ||
+                    string.IsNullOrEmpty(registerDto.LastName))
                 {
                     return BadRequest(new { message = "All fields are required" });
                 }
@@ -56,7 +57,8 @@ namespace EatMeOut.API.Controllers
 
                 var user = new User
                 {
-                    Name = registerDto.Name,
+                    FirstName = registerDto.FirstName,
+                    LastName = registerDto.LastName,
                     Email = registerDto.Email,
                     PasswordHash = passwordHash
                 };
@@ -96,7 +98,12 @@ namespace EatMeOut.API.Controllers
 
                 var token = GenerateJwtToken(user);
 
-                return Ok(new { token, userId = user.Id, name = user.Name });
+                return Ok(new { 
+                    token, 
+                    userId = user.Id, 
+                    firstName = user.FirstName,
+                    lastName = user.LastName
+                });
             }
             catch (Exception ex)
             {
@@ -110,7 +117,6 @@ namespace EatMeOut.API.Controllers
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? "DefaultSecretKey");
 
-
             if (key.Length < 32)
             {
                 throw new Exception("Secret key must be at least 32 bytes (256 bits).");
@@ -121,10 +127,11 @@ namespace EatMeOut.API.Controllers
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.Name)
-        }),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.GivenName, user.FirstName),
+                    new Claim(ClaimTypes.Surname, user.LastName)
+                }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
@@ -139,7 +146,8 @@ namespace EatMeOut.API.Controllers
 
     public class RegisterDto
     {
-        public string Name { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }

@@ -1,3 +1,4 @@
+import API_URL from './config.js';
 import { 
     generateTimeFields, 
     homeContentTemplate, 
@@ -10,12 +11,14 @@ import {
     restaurantDashboardTemplate, 
     restaurantMenuTemplate, 
     restaurantOrdersTemplate,
-    allRestaurantsTemplate
+    allRestaurantsTemplate,
+    favouritesTemplate
 } from './templates.js';
 import { loginUser, register, loginRestaurant, registerRestaurant, logout } from './auth.js';
 import { loadProfilePage } from './profile.js';
 import { loadMenuManagement } from './menu.js';
-import { fetchAllRestaurants, displayRestaurants } from './restaurants.js';
+import { fetchAllRestaurants, displayRestaurants, setupSearchHandlers } from './restaurants.js';
+import { loadFavourites } from './favourites.js';
 
 // Original home content storage
 let originalHomeContent;
@@ -58,7 +61,7 @@ function updateNavigation(isAuthenticated, ownerName = null) {
             const userName = localStorage.getItem("userName") || "User";
             navButtons.innerHTML = `
                 <a href="#" onclick="window.loadContent('orders')" class="text-gray-700 px-4 py-2 hover:text-black">My Orders</a>
-                <a href="#" onclick="window.loadContent('favorites')" class="text-gray-700 px-4 py-2 hover:text-black">Favorites</a>
+                <a href="#" onclick="window.loadContent('favourites')" class="text-gray-700 px-4 py-2 hover:text-black">Favourites</a>
                 <span id="user-greeting" class="user-greeting">Hello, <span id="user-name">${userName}</span></span>
                 <a href="#" onclick="window.handleLogout()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300">Logout</a>
             `;
@@ -96,49 +99,56 @@ function loadContent(page) {
                 case 'partner':
                     content = partnerTemplate;
                     break;
-                    case 'restaurant-signup':
-                        dynamicContent.innerHTML = restaurantSignupTemplate;
-                        
-                        // Populate time fields
-                        document.getElementById("time-fields-container").innerHTML = generateTimeFields();
+                case 'favourites':
+                    content = favouritesTemplate;
+                    // Load favourites after setting the template
+                    setTimeout(() => {
+                        loadFavourites();
+                    }, 100);
+                    break;
+                case 'restaurant-signup':
+                    dynamicContent.innerHTML = restaurantSignupTemplate;
                     
-                        // Step 1 → Step 2
-                        document.getElementById("next-step").addEventListener("click", function (e) {
-                            e.preventDefault();
-                            document.getElementById("signup-step-1").classList.add("hidden");
-                            document.getElementById("signup-step-2").classList.remove("hidden");
-                        });
-                    
-                        // Step 2 → Step 3
-                        document.getElementById("next-to-step-3").addEventListener("click", function (e) {
-                            e.preventDefault();
-                            document.getElementById("signup-step-2").classList.add("hidden");
-                            document.getElementById("signup-step-3").classList.remove("hidden");
-                        });
-                    
-                        // Step 2 ← Step 1
-                        document.getElementById("back-to-step-1").addEventListener("click", function (e) {
-                            e.preventDefault();
-                            document.getElementById("signup-step-2").classList.add("hidden");
-                            document.getElementById("signup-step-1").classList.remove("hidden");
-                        });
-                    
-                        // Step 3 ← Step 2
-                        document.getElementById("back-to-step-2").addEventListener("click", function (e) {
-                            e.preventDefault();
-                            document.getElementById("signup-step-3").classList.add("hidden");
-                            document.getElementById("signup-step-2").classList.remove("hidden");
-                        });
-                    
-                        // Final submit
-                        document.getElementById("submit-signup").addEventListener("click", async function () {
-                            const result = await registerRestaurant();
-                            if (result.success && result.navigateTo) {
-                                loadContent(result.navigateTo);
-                            }
-                        });
-                    
-                        return;
+                    // Populate time fields
+                    document.getElementById("time-fields-container").innerHTML = generateTimeFields();
+                
+                    // Step 1 → Step 2
+                    document.getElementById("next-step").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        document.getElementById("signup-step-1").classList.add("hidden");
+                        document.getElementById("signup-step-2").classList.remove("hidden");
+                    });
+                
+                    // Step 2 → Step 3
+                    document.getElementById("next-to-step-3").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        document.getElementById("signup-step-2").classList.add("hidden");
+                        document.getElementById("signup-step-3").classList.remove("hidden");
+                    });
+                
+                    // Step 2 ← Step 1
+                    document.getElementById("back-to-step-1").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        document.getElementById("signup-step-2").classList.add("hidden");
+                        document.getElementById("signup-step-1").classList.remove("hidden");
+                    });
+                
+                    // Step 3 ← Step 2
+                    document.getElementById("back-to-step-2").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        document.getElementById("signup-step-3").classList.add("hidden");
+                        document.getElementById("signup-step-2").classList.remove("hidden");
+                    });
+                
+                    // Final submit
+                    document.getElementById("submit-signup").addEventListener("click", async function () {
+                        const result = await registerRestaurant();
+                        if (result.success && result.navigateTo) {
+                            loadContent(result.navigateTo);
+                        }
+                    });
+                
+                    return;
                 case 'restaurant-login':
                     content = restaurantLoginTemplate;
                     break;
@@ -220,6 +230,12 @@ function showHome() {
             dynamicContent.innerHTML = restaurantDashboardTemplate;
         } else {
             dynamicContent.innerHTML = homeContentTemplate;
+            // Initialize search functionality
+            setupSearchHandlers();
+            // Load initial restaurants
+            fetchAllRestaurants().then(restaurants => {
+                displayRestaurants(restaurants);
+            });
         }
         dynamicContent.classList.remove('fade-out');
         
@@ -275,11 +291,47 @@ async function handleLogout() {
     }
 }
 
+// Handle restaurant selection
+async function selectRestaurant(restaurantId, restaurantName) {
+    try {
+        // First get the restaurant's email
+        const restaurantResponse = await fetch(`${API_URL}/restaurants/all`);
+        if (!restaurantResponse.ok) {
+            throw new Error('Failed to fetch restaurant details');
+        }
+        const restaurants = await restaurantResponse.json();
+        const restaurant = restaurants.find(r => r.id === restaurantId);
+        
+        if (!restaurant) {
+            throw new Error('Restaurant not found');
+        }
+
+        // Now fetch the menu using the restaurant's email
+        const menuResponse = await fetch(`${API_URL}/menu/${restaurant.email}`);
+        if (!menuResponse.ok) {
+            throw new Error('Failed to fetch menu');
+        }
+        const menu = await menuResponse.json();
+        
+        // Store the current restaurant info in localStorage
+        localStorage.setItem('currentRestaurantId', restaurantId);
+        localStorage.setItem('currentRestaurantName', restaurantName);
+        localStorage.setItem('currentRestaurantEmail', restaurant.email);
+        
+        // Load the menu page
+        loadContent('restaurant-menu');
+    } catch (error) {
+        console.error('Error selecting restaurant:', error);
+        alert('Failed to load restaurant menu. Please try again.');
+    }
+}
+
 export {
     updateNavigation,
     loadContent,
     showHome,
     showRestaurantHome,
     previewImage,
-    handleLogout
+    handleLogout,
+    selectRestaurant
 }; 

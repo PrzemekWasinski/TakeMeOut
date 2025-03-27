@@ -53,9 +53,17 @@ Earlier (Date Unknown)
 - Images display correctly on menu items and profile previews
 - Users cannot create or edit categories or items, in a way that results in duplicate names (local to each restaurant's menu)
 - Updating Menu or Profile images deletes old images from uploads folder
-
 (Przemek)
-- Added restaurant searching functionality
+- Added restaurant search by address
+
+27/03/2025
+(Przemek)
+- Added restaurant search by Name, Cuisine type and Description
+- Added favouriting/unfavouriting restaurants
+- Added favourites tab
+- Added error messages for restaurant and signup
+- Added Register restaurant link in register page
+- Added favourites table to store user's favourite restaurants
 
 To Do
 
