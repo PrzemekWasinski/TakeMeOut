@@ -76,7 +76,7 @@ app.UseStaticFiles(new StaticFileOptions
 {
     RequestPath = "/api/uploads",
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
     )
 });
 

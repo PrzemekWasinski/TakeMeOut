@@ -276,6 +276,32 @@ namespace EatMeOut.API.Controllers
             return userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult> GetAllRestaurants()
+        {
+            try
+            {
+                var restaurants = await _context.Restaurants
+                    .Select(r => new
+                    {
+                        r.Id,
+                        r.RestaurantName,
+                        r.CuisineType,
+                        r.Description,
+                        r.CoverIMG,
+                        r.BannerIMG
+                    })
+                    .ToListAsync();
+
+                return Ok(restaurants);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllRestaurants: {ex.Message}");
+                return StatusCode(500, new { message = "Internal server error" });
+            }
+        }
+
     }
 
 

@@ -9,11 +9,13 @@ import {
     restaurantLoginTemplate, 
     restaurantDashboardTemplate, 
     restaurantMenuTemplate, 
-    restaurantOrdersTemplate 
+    restaurantOrdersTemplate,
+    allRestaurantsTemplate
 } from './templates.js';
 import { loginUser, register, loginRestaurant, registerRestaurant, logout } from './auth.js';
 import { loadProfilePage } from './profile.js';
 import { loadMenuManagement } from './menu.js';
+import { fetchAllRestaurants, displayRestaurants } from './restaurants.js';
 
 // Original home content storage
 let originalHomeContent;
@@ -152,6 +154,14 @@ function loadContent(page) {
                 case 'profile':
                     content = loadProfilePage();
                     return;
+                case 'all-restaurants':
+                    content = allRestaurantsTemplate;
+                    // After setting content, add this to load restaurants
+                    setTimeout(async () => {
+                        const restaurants = await fetchAllRestaurants();
+                        displayRestaurants(restaurants);
+                    }, 100);
+                    break;
                 default:
                     content = homeContentTemplate;
             }
@@ -221,6 +231,16 @@ function showHome() {
         // Check authentication state and update navigation
         const token = localStorage.getItem("token") || localStorage.getItem("restaurantToken");
         updateNavigation(!!token);
+
+        if (!isRestaurant) {
+            // Add click handler for Find Food button
+            setTimeout(() => {
+                const findFoodBtn = document.querySelector('button.bg-green-500');
+                if (findFoodBtn) {
+                    findFoodBtn.addEventListener('click', () => loadContent('all-restaurants'));
+                }
+            }, 100);
+        }
     }, 300);
 }
 

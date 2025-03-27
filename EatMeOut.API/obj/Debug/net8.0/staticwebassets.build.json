@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cEae9IwrINNjz/lW7adnevLvezLAj9kKg77FdU19yOE=",
+  "Hash": "0Fcb8kcQzULIGZrkgdZWv/8a4MMY61kiubWmDMNQwY8=",
   "Source": "EatMeOut",
   "BasePath": "_content/EatMeOut",
   "Mode": "Default",
@@ -10,11 +10,425 @@
     {
       "Name": "EatMeOut\\wwwroot",
       "Source": "EatMeOut",
-      "ContentRoot": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
       "BasePath": "_content/EatMeOut",
       "Pattern": "**"
     }
   ],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": [
+    {
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\4c0b8146-2365-4f59-a961-06a315b75926.jpg",
+      "SourceId": "EatMeOut",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "RelativePath": "uploads/4c0b8146-2365-4f59-a961-06a315b75926#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "h0imicsc3k",
+      "Integrity": "Tznf3B8q27zdHOSwt5q6cZbojuMJBuCvL2xR9AfpL+M=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\4c0b8146-2365-4f59-a961-06a315b75926.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg",
+      "SourceId": "EatMeOut",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "RelativePath": "uploads/5fb5c328-54ea-4d6a-a041-89fdde384bee#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5sbw6mja05",
+      "Integrity": "pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg",
+      "SourceId": "EatMeOut",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "RelativePath": "uploads/99d37a51-e970-4c66-a5a1-9d85860a9bca#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "k5hombei2f",
+      "Integrity": "2K4rCoYmJSphsVERGwIPxk0csSgsJoSahjzxym6LJzU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg",
+      "SourceId": "EatMeOut",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "RelativePath": "uploads/e4dfc92b-d38f-43e2-9ab4-4d429c73d226#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5sbw6mja05",
+      "Integrity": "pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/4c0b8146-2365-4f59-a961-06a315b75926.h0imicsc3k.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\4c0b8146-2365-4f59-a961-06a315b75926.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2417368"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Tznf3B8q27zdHOSwt5q6cZbojuMJBuCvL2xR9AfpL+M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 19:25:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h0imicsc3k"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/4c0b8146-2365-4f59-a961-06a315b75926.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Tznf3B8q27zdHOSwt5q6cZbojuMJBuCvL2xR9AfpL+M="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/4c0b8146-2365-4f59-a961-06a315b75926.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\4c0b8146-2365-4f59-a961-06a315b75926.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2417368"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Tznf3B8q27zdHOSwt5q6cZbojuMJBuCvL2xR9AfpL+M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 19:25:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Tznf3B8q27zdHOSwt5q6cZbojuMJBuCvL2xR9AfpL+M="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5fb5c328-54ea-4d6a-a041-89fdde384bee.5sbw6mja05.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2133864"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 20:11:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5sbw6mja05"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2133864"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 20:11:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2622157"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2K4rCoYmJSphsVERGwIPxk0csSgsJoSahjzxym6LJzU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 20:11:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2K4rCoYmJSphsVERGwIPxk0csSgsJoSahjzxym6LJzU="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/99d37a51-e970-4c66-a5a1-9d85860a9bca.k5hombei2f.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2622157"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2K4rCoYmJSphsVERGwIPxk0csSgsJoSahjzxym6LJzU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 20:11:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "k5hombei2f"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2K4rCoYmJSphsVERGwIPxk0csSgsJoSahjzxym6LJzU="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/e4dfc92b-d38f-43e2-9ab4-4d429c73d226.5sbw6mja05.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2133864"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 19:25:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5sbw6mja05"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg",
+      "AssetFile": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2133864"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 19:25:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-pZHbpFytIwc3tjKzlwXgdkjumAh3ZzEdg7D/GWBzz+8="
+        }
+      ]
+    }
+  ]
 }

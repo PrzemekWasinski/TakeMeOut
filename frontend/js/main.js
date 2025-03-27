@@ -22,6 +22,7 @@ import {
 import { loadProfilePage } from './profile.js';
 import { createOrder, selectRestaurant } from './orders.js';
 import './menu.js';
+import { fetchAllRestaurants, displayRestaurants } from './restaurants.js';
 
 // Save original home content when page loads
 let originalHomeContent;

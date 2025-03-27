@@ -54,6 +54,9 @@ Earlier (Date Unknown)
 - Users cannot create or edit categories or items, in a way that results in duplicate names (local to each restaurant's menu)
 - Updating Menu or Profile images deletes old images from uploads folder
 
+(Przemek)
+- Added restaurant searching functionality
+
 To Do
 
 - Make Restaurants and their details show up on user side

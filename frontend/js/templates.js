@@ -8,7 +8,12 @@ const homeContentTemplate = `
             <h1 class="text-4xl font-bold mb-4">Hungry? You're in the right place</h1>
             <div class="flex flex-col sm:flex-row gap-4">
                 <input type="text" placeholder="Enter delivery address" class="px-4 py-2 rounded-full w-full sm:w-96 text-black">
-                <button class="bg-green-500 px-6 py-2 rounded-full hover:bg-green-600">Find Food</button>
+                <button class="bg-green-500 px-6 py-2 rounded-full hover:bg-green-600 transition-colors duration-200 flex items-center justify-center">
+                    <span>Find Food</span>
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
             </div>
         </div>  
     </div>
@@ -498,6 +503,19 @@ function generateTimeFields() {
     `).join("");
 }
 
+// Add this new template after other template definitions
+const allRestaurantsTemplate = `
+    <div class="max-w-6xl mx-auto px-4 py-8 slide-up">
+        <h1 class="text-3xl font-bold mb-6">All Restaurants</h1>
+        <div id="restaurants-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Restaurants will be dynamically inserted here -->
+            <div class="flex justify-center items-center col-span-full">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+            </div>
+        </div>
+    </div>
+`;
+
 export { 
     homeContentTemplate, 
     loginFormTemplate, 
@@ -509,5 +527,6 @@ export {
     restaurantDashboardTemplate, 
     restaurantMenuTemplate, 
     restaurantOrdersTemplate, 
-    generateTimeFields 
+    generateTimeFields, 
+    allRestaurantsTemplate
 }; 
