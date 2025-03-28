@@ -67,6 +67,10 @@ Earlier (Date Unknown)
 commit #2
 - Fixed localStorage not storing details
 
+28/03/2025
+(Przemek)
+- Fixed adding categories!
+
 To Do
 
 - Make Restaurants and their details show up on user side

@@ -65,9 +65,13 @@ function attachEventHandlers() {
     const name = prompt('Enter new category name:');
     if (!name) return;
 
-    const email = localStorage.getItem('currentRestaurantEmail');
-    const restaurantId = localStorage.getItem('restaurantId');
     const token = localStorage.getItem("restaurantToken");
+
+    const requestBody = {
+        name: name
+    };
+
+    console.log('Request body:', requestBody);
 
     const res = await fetch(`${API_URL}/menu/categories`, {
       method: 'POST',
@@ -75,16 +79,17 @@ function attachEventHandlers() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ name, restaurantEmail: email, restaurantId: parseInt(restaurantId), items: [] }),
+      body: JSON.stringify(requestBody)
     });
 
-    if (res.ok) {
-      loadMenuManagement();
-    } else {
-      const errorData = await res.json();
-      console.error("Category creation failed:", errorData);
-      alert(errorData.message || 'Failed to add category');
+    if (!res.ok) {
+        const errorData = await res.json();
+        console.error('Failed to add category:', errorData);
+        alert(errorData.message || 'Failed to add category');
+        return;
     }
+
+    loadMenuManagement();
   });
 
   // Add item to category

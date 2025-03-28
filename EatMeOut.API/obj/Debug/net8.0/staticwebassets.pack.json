@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg"
     },
     {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\8f769051-5c78-4fe5-9548-662b88dfc65c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\8f769051-5c78-4fe5-9548-662b88dfc65c.jpg"
+    },
+    {
       "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg",
       "PackagePath": "staticwebassets\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg"
     },
@@ -17,12 +21,24 @@
       "PackagePath": "staticwebassets\\uploads\\9bc66656-9d70-4168-a3f5-65ce67fd65c9.jpg"
     },
     {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b666cea3-0bc4-4567-8c5a-16fa5189d6cb.jpg",
+      "PackagePath": "staticwebassets\\uploads\\b666cea3-0bc4-4567-8c5a-16fa5189d6cb.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d40258c5-deee-4553-8a4d-b3d70af71447.jpg",
+      "PackagePath": "staticwebassets\\uploads\\d40258c5-deee-4553-8a4d-b3d70af71447.jpg"
+    },
+    {
       "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d99d56f5-26bf-4920-9f32-ac447e6896e6.jpg",
       "PackagePath": "staticwebassets\\uploads\\d99d56f5-26bf-4920-9f32-ac447e6896e6.jpg"
     },
     {
       "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg",
       "PackagePath": "staticwebassets\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e9f46ad7-b5dd-4ef1-bba5-f19701edc8a3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\e9f46ad7-b5dd-4ef1-bba5-f19701edc8a3.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

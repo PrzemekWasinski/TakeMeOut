@@ -30,39 +30,48 @@ namespace EatMeOut.API.Controllers
             return User.FindFirst(ClaimTypes.Email)?.Value;
         }
 
+        // Create a DTO class at the bottom of the file
+        public class CreateMenuCategoryDto
+        {
+            public string Name { get; set; } = string.Empty;
+        }
+
         // 1. Create a new category
         [HttpPost("categories")]
-        public async Task<IActionResult> CreateCategory([FromBody] MenuCategory category)
+        public async Task<IActionResult> CreateCategory([FromBody] CreateMenuCategoryDto dto)
         {
             var jwtEmail = GetEmailFromToken();
             var restaurant = await _context.Restaurants.FirstOrDefaultAsync(r => r.Email == jwtEmail);
 
-            if (restaurant == null || jwtEmail != category.RestaurantEmail)
+            if (restaurant == null)
                 return Unauthorized(new { message = "Unauthorized to create category for this restaurant." });
 
-            if (string.IsNullOrWhiteSpace(category.Name))
+            if (string.IsNullOrWhiteSpace(dto.Name))
                 return BadRequest(new { message = "Category name is required." });
 
             var maxDisplayOrder = await _context.MenuCategories
                 .Where(c => c.RestaurantId == restaurant.Id)
                 .MaxAsync(c => (int?)c.DisplayOrder) ?? 0;
 
-            category.DisplayOrder = maxDisplayOrder + 1;
-            category.RestaurantId = restaurant.Id;
-
             var maxScopedCategoryId = await _context.MenuCategories
-            .Where(c => c.RestaurantId == restaurant.Id)
-            .MaxAsync(c => (int?)c.MenuCategoryId) ?? 0;
-
-            category.MenuCategoryId = maxScopedCategoryId + 1;
+                .Where(c => c.RestaurantId == restaurant.Id)
+                .MaxAsync(c => (int?)c.MenuCategoryId) ?? 0;
 
             // Check for existing category name in same restaurant
             var duplicate = await _context.MenuCategories.AnyAsync(c =>
                 c.RestaurantId == restaurant.Id &&
-                c.Name.ToLower() == category.Name.ToLower());
+                c.Name.ToLower() == dto.Name.ToLower());
 
             if (duplicate)
                 return BadRequest(new { message = "Category name already exists." });
+
+            var category = new MenuCategory
+            {
+                Name = dto.Name,
+                RestaurantId = restaurant.Id,
+                DisplayOrder = maxDisplayOrder + 1,
+                MenuCategoryId = maxScopedCategoryId + 1
+            };
 
             _context.MenuCategories.Add(category);
             await _context.SaveChangesAsync();
