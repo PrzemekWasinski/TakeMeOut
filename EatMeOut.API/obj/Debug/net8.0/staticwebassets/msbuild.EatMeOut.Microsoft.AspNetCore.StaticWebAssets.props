@@ -54,6 +54,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\1753c782-f77d-4fde-8fb2-be0d8ebc0270.webp'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\3677c19f-9580-419b-a17b-bc05af1d29d9.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/3677c19f-9580-419b-a17b-bc05af1d29d9.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>hlnnrmqb49</Fingerprint>
+      <Integrity>NUr7giV283tlXOcYcDKBrAU87uVchDrViHPeXklKg4s=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\3677c19f-9580-419b-a17b-bc05af1d29d9.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\3c919bbf-6a51-4bce-b261-de23f6eb0804.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>EatMeOut</SourceId>
@@ -107,6 +125,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\4293f316-49cc-4273-8e58-02ba2ad1ef38.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\457e0ca6-e021-4732-a4e8-189971beb58f.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/457e0ca6-e021-4732-a4e8-189971beb58f.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>6yjg58sgb5</Fingerprint>
+      <Integrity>/s0Ji2jUTt9aG0d+Z5qRS3kKHcrlyGUnIn7wB51VfKA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\457e0ca6-e021-4732-a4e8-189971beb58f.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\478bbd6a-b20c-476b-a724-fc777a87f86d.webp'))">
       <SourceType>Package</SourceType>
@@ -216,6 +252,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\6f67c38a-43a0-4ada-b451-6f18f2c3babf.webp'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\701c60f5-547a-405a-b069-9ba54f13ddad.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/701c60f5-547a-405a-b069-9ba54f13ddad.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>xx4az9x4y3</Fingerprint>
+      <Integrity>hQ5ARLvpj7w43LfNAwoe7uJCrBclc97KuKjm/qUv8jQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\701c60f5-547a-405a-b069-9ba54f13ddad.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\7ddeb557-71ec-4662-8bcd-9f61d06b9699.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>EatMeOut</SourceId>
@@ -287,6 +341,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\9bc66656-9d70-4168-a3f5-65ce67fd65c9.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\a34bfaa5-c1ed-4c29-b8a2-5dca7745a457.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/a34bfaa5-c1ed-4c29-b8a2-5dca7745a457.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>6yjg58sgb5</Fingerprint>
+      <Integrity>/s0Ji2jUTt9aG0d+Z5qRS3kKHcrlyGUnIn7wB51VfKA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\a34bfaa5-c1ed-4c29-b8a2-5dca7745a457.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\b0bb90e6-86a1-4d69-9774-96b74e7247fe.webp'))">
       <SourceType>Package</SourceType>
@@ -432,6 +504,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\cce68218-7def-4d47-bf0f-02bdea000c79.webp'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\d056deee-516d-4db2-a744-ac9e632f65a8.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/d056deee-516d-4db2-a744-ac9e632f65a8.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>gdg024u9f4</Fingerprint>
+      <Integrity>HLuuJQANeIehvHchVoreKmv8OgIjIyd88IlqKOF3KGU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\d056deee-516d-4db2-a744-ac9e632f65a8.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\d40258c5-deee-4553-8a4d-b3d70af71447.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>EatMeOut</SourceId>
@@ -540,6 +630,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\dc08185a-e0c0-40e7-9b3a-384c8b63a0bd.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\dc77d160-4788-4e53-a483-4aaa195fc94a.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/dc77d160-4788-4e53-a483-4aaa195fc94a.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8nkbp3el3o</Fingerprint>
+      <Integrity>vP0Vn/T2Mcvo2QSYidQqEusUNgd7LdNCKNtB+c+4Tyc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\dc77d160-4788-4e53-a483-4aaa195fc94a.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\df4bd7c2-3b95-4edb-abea-bc0536a726c2.png'))">
       <SourceType>Package</SourceType>
       <SourceId>EatMeOut</SourceId>
@@ -647,6 +755,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\f3fcf685-08c5-4cff-8532-1ebfe0e88f1d.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\f410526b-5e87-475e-a228-f33263bdfaa9.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EatMeOut</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EatMeOut</BasePath>
+      <RelativePath>uploads/f410526b-5e87-475e-a228-f33263bdfaa9.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>yxfeznfty8</Fingerprint>
+      <Integrity>ysieUqE9BoPBT/BWgW5TxY3Yi4r+bCaQEllZbC9u2fM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\f410526b-5e87-475e-a228-f33263bdfaa9.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

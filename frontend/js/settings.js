@@ -1,7 +1,14 @@
 import API_URL from './config.js';
 import { logout } from './auth.js';
 
+let dangerZoneAudio;
+
 function loadSettingsPage() {
+    // Preload audio immediately
+    dangerZoneAudio = new Audio('music/danger_zone.mp3');
+    dangerZoneAudio.load();
+    dangerZoneAudio.volume = 0.3; // Set volume to 30%
+    
     const isRestaurant = localStorage.getItem("isRestaurant") === "true";
     
     document.getElementById("dynamic-content").innerHTML = `
@@ -93,8 +100,8 @@ function loadSettingsPage() {
 
                 <!-- Account Management Section -->
                 <div class="border-t pt-8">
-                    <h2 class="text-lg font-semibold mb-4 text-red-600">Danger Zone</h2>
-                    <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                    <h2 class="text-lg font-semibold mb-4 text-red-600" id="danger-zone-heading">Danger Zone</h2>
+                    <div class="bg-red-50 border border-red-200 rounded-md p-4" id="danger-zone-box">
                         <h3 class="text-md font-medium text-red-800 mb-2">Delete Account</h3>
                         <p class="text-red-600 text-sm mb-4">
                             Warning: This action cannot be undone. All your data, including ${isRestaurant ? 'menu items, orders, and earnings' : 'order history and saved addresses'}, will be permanently deleted.
@@ -111,6 +118,7 @@ function loadSettingsPage() {
 
     loadUserCredit();
     setupEventListeners();
+    setupDangerZoneAudio();
 }
 
 async function loadUserCredit() {
@@ -458,6 +466,21 @@ function setupEventListeners() {
 
     // Set up delete account button listener
     document.getElementById('delete-account').addEventListener('click', deleteAccount);
+}
+
+function setupDangerZoneAudio() {
+    const dangerZoneBox = document.getElementById('danger-zone-box');
+
+    dangerZoneBox.addEventListener('mouseenter', () => {
+        if (dangerZoneAudio.paused) {
+            dangerZoneAudio.currentTime = 0;
+            dangerZoneAudio.play();
+        }
+    });
+
+    dangerZoneBox.addEventListener('mouseleave', () => {
+        dangerZoneAudio.pause();
+    });
 }
 
 export { loadSettingsPage }; 

@@ -89,6 +89,22 @@ commit #2
 - Added Price average function £ or ££ or £££ (average of average of items per category) (needs to be fixed)
 - Removed Preview Restaurants
 
+Alex Changelog 08/04/2025
+- Fixed issue where images wouldn't appear properly
+- Fixed issue where clicking on tile doesn't correctly bring user to restaurant
+- Reorganised the bottom of the page side
+- Fixed a CORS Issue
+- Added a profile page for the user
+- Fixed issue where restaurant banner doesn't show up
+- Removed a majority of those annoying popups and set them to nicer ones
+- Fixed favourites not working properly on login
+- Brought back the revenue (my bad lol)
+- Fixed the issue where you could only put absolute values for menu items
+
+08/04/2025
+(Przemek)
+- Added "I'm feeling lucky" option
+- Danger Zone playes when you hover over Danger Zone setting 😎
 
 To Do:
 Display more details on restaurant front card
@@ -111,17 +127,5 @@ Cleanup:
 - Consider separating restaurant profile functionality into its own controller for better organization.
 
 
-Alex Changelog 08/04/2025
-
-- Fixed issue where images wouldn't appear properly
-- Fixed issue where clicking on tile doesn't correctly bring user to restaurant
-- Reorganised the bottom of the page side
-- Fixed a CORS Issue
-- Added a profile page for the user
-- Fixed issue where restaurant banner doesn't show up
-- Removed a majority of those annoying popups and set them to nicer ones
-- Fixed favourites not working properly on login
-- Brought back the revenue (my bad lol)
-- Fixed the issue where you could only put absolute values for menu items
 
 

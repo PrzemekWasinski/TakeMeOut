@@ -8,12 +8,20 @@ const homeContentTemplate = `
             <h1 class="text-4xl font-bold mb-4">Hungry? You're in the right place</h1>
             <div class="flex flex-col sm:flex-row gap-4">
                 <input type="text" placeholder="Enter delivery address" class="px-4 py-2 rounded-full w-full sm:w-96 text-black">
-                <button class="bg-green-500 px-6 py-2 rounded-full hover:bg-green-600 transition-colors duration-200 flex items-center justify-center">
-                    <span>Find Food</span>
-                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </button>
+                <div class="flex gap-2">
+                    <button class="bg-green-500 px-6 py-2 rounded-full hover:bg-green-600 transition-colors duration-200 flex items-center justify-center">
+                        <span>Find Food</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <button id="feeling-lucky-btn" class="bg-purple-500 px-6 py-2 rounded-full hover:bg-purple-600 transition-colors duration-200 flex items-center justify-center">
+                        <span>I'm Feeling Lucky</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>  
     </div>

@@ -275,14 +275,14 @@ async function selectRestaurant(restaurantId, restaurantName) {
                     const itemName = button.getAttribute('data-item-name');
                     const itemPrice = parseFloat(button.getAttribute('data-item-price'));
 
-                    const existingItem = orderItems.find(item => item.ItemName === itemName);
+                    const existingItem = orderItems.find(item => item.name === itemName);
                     if (existingItem) {
-                        existingItem.Quantity += 1;
+                        existingItem.quantity += 1;
                     } else {
                         orderItems.push({
-                            ItemName: itemName,
-                            Quantity: 1,
-                            UnitPrice: itemPrice
+                            name: itemName,
+                            quantity: 1,
+                            price: itemPrice
                         });
                     }
 
@@ -307,7 +307,7 @@ async function selectRestaurant(restaurantId, restaurantName) {
                     if (!res.ok) throw new Error("Failed to retrieve user info");
 
                     const user = await res.json();
-                    const total = orderItems.reduce((sum, i) => sum + i.Quantity * i.UnitPrice, 0);
+                    const total = orderItems.reduce((sum, i) => sum + i.quantity * i.price, 0);
 
                     // Show order confirmation modal
                     showOrderConfirmation(orderItems, total, user.address, user.credit, async (selectedAddress) => {
@@ -333,7 +333,7 @@ async function selectRestaurant(restaurantId, restaurantName) {
                             console.log("Order response:", result);
 
                             if (response.ok) {
-                                const total = orderItems.reduce((sum, i) => sum + i.Quantity * i.UnitPrice, 0);
+                                const total = orderItems.reduce((sum, i) => sum + i.quantity * i.price, 0);
                                 showOrderSuccess(total);
                                 orderItems.length = 0;
                                 updateOrderDisplay(orderItems);
@@ -526,18 +526,18 @@ async function selectRestaurant(restaurantId, restaurantName) {
             let total = 0;
 
             orderItems.forEach(item => {
-                total += item.Quantity * item.UnitPrice;
+                total += item.quantity * item.price;
 
                 const itemHtml = `
                   <div class="flex justify-between items-center border rounded px-4 py-2 bg-white shadow">
                     <div>
-                      <p class="font-semibold">${item.ItemName}</p>
-                      <p class="text-sm text-gray-500">£${item.UnitPrice.toFixed(2)} x ${item.Quantity}</p>
+                      <p class="font-semibold">${item.name}</p>
+                      <p class="text-sm text-gray-500">£${item.price.toFixed(2)} x ${item.quantity}</p>
                     </div>
                     <div class="flex items-center space-x-2">
-                      <button class="decrease-btn px-2 py-1 bg-gray-300 rounded" data-item-name="${item.ItemName}">-</button>
-                      <span>${item.Quantity}</span>
-                      <button class="increase-btn px-2 py-1 bg-gray-300 rounded" data-item-name="${item.ItemName}">+</button>
+                      <button class="decrease-btn px-2 py-1 bg-gray-300 rounded" data-item-name="${item.name}">-</button>
+                      <span>${item.quantity}</span>
+                      <button class="increase-btn px-2 py-1 bg-gray-300 rounded" data-item-name="${item.name}">+</button>
                     </div>
                   </div>
                 `;
@@ -549,9 +549,9 @@ async function selectRestaurant(restaurantId, restaurantName) {
             document.querySelectorAll('.increase-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const name = btn.getAttribute('data-item-name');
-                    const item = orderItems.find(i => i.ItemName === name);
+                    const item = orderItems.find(i => i.name === name);
                     if (item) {
-                        item.Quantity += 1;
+                        item.quantity += 1;
                         updateOrderDisplay(orderItems);
                     }
                 });
@@ -560,10 +560,10 @@ async function selectRestaurant(restaurantId, restaurantName) {
             document.querySelectorAll('.decrease-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const name = btn.getAttribute('data-item-name');
-                    const itemIndex = orderItems.findIndex(i => i.ItemName === name);
+                    const itemIndex = orderItems.findIndex(i => i.name === name);
                     if (itemIndex > -1) {
-                        if (orderItems[itemIndex].Quantity > 1) {
-                            orderItems[itemIndex].Quantity -= 1;
+                        if (orderItems[itemIndex].quantity > 1) {
+                            orderItems[itemIndex].quantity -= 1;
                         } else {
                             orderItems.splice(itemIndex, 1);
                             // Restore Add button

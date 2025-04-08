@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-100 min-h-screen">
+    <!-- Hidden audio element -->
+    <audio id="danger-zone-audio" preload="auto">
+        <source src="music/danger_zone.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Header -->
     <header class="bg-white shadow-md py-4 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
@@ -17,6 +22,7 @@
                     <a href="#" onclick="window.showHome()" class="text-gray-700 px-4 py-2 hover:text-black">Home</a>
                     <a href="#" onclick="window.loadContent('about')" class="text-gray-700 px-4 py-2 hover:text-black">About</a>
                     <a href="#" onclick="window.loadContent('partner')" class="text-gray-700 px-4 py-2 hover:text-black">Partner with us</a>
+                    <a href="#" id="danger-zone-tab" class="text-red-600 px-4 py-2 hover:text-red-700 font-bold">Danger Zone</a>
                 </nav>
             </div>
             <div id="nav-buttons" class="flex items-center space-x-4">
@@ -65,5 +71,32 @@
     <script type="module" src="js/main.js"></script>
     <!-- Load Sortable -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+    <script>
+        // Add hover effect for danger zone
+        document.addEventListener('DOMContentLoaded', function() {
+            const dangerZoneTab = document.getElementById('danger-zone-tab');
+            const audio = document.getElementById('danger-zone-audio');
+            let hoverTimeout;
+
+            dangerZoneTab.addEventListener('mouseenter', function() {
+                audio.currentTime = 0; // Reset audio to start
+                audio.play();
+            });
+
+            dangerZoneTab.addEventListener('mouseleave', function() {
+                // Optional: fade out the audio over 1 second
+                const fadeOut = setInterval(function() {
+                    if (audio.volume > 0.1) {
+                        audio.volume -= 0.1;
+                    } else {
+                        audio.pause();
+                        audio.volume = 1.0; // Reset volume for next play
+                        clearInterval(fadeOut);
+                    }
+                }, 100);
+            });
+        });
+    </script>
 </body>
 </html>
