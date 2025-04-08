@@ -212,7 +212,7 @@ async function showItemForm(itemId = null, categoryId = null) {
         <input type="text" name="name" value="${item.name}" class="input-field" placeholder="Item Name" required>
         <textarea name="description" class="input-field" placeholder="Description">${item.description}</textarea>
         <input type="text" name="ingredients" value="${Array.isArray(item.ingredients) ? item.ingredients.join(', ') : item.ingredients || ''}" class="input-field" placeholder="Comma-separated ingredients">
-        <input type="number" name="price" value="${item.price}" class="input-field" placeholder="Price" required>
+        <input type="number" name="price" value="${item.price}" step="0.01" min="0" class="input-field" placeholder="Price (£)" required>
         <input type="number" name="calories" value="${item.calories}" class="input-field" placeholder="Calories">
         <label class="block"><input type="checkbox" name="isVegan" ${item.isVegan ? 'checked' : ''}> Vegan</label>
         <label class="block"><input type="checkbox" name="isAvailable" ${item.isAvailable ? 'checked' : ''}> Available</label>

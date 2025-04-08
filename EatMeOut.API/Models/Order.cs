@@ -23,19 +23,21 @@ namespace EatMeOut.API.Models
 
         [Required]
         [MaxLength(50)]
-        public string Status { get; set; } = "Pending"; // Pending, Preparing, Ready, Completed, Cancelled
+        public string Status { get; set; } = "Pending";
 
-        public string OrderItems { get; set; } = string.Empty; 
+        [Required]
+        [MaxLength(500)]
+        public string Address { get; set; } = ""; 
 
-        // Navigation properties
+        // Navigation
         [ForeignKey("UserId")]
-        public User? User { get; set; } = null; 
+        public User? User { get; set; }
 
         [ForeignKey("RestaurantId")]
-        public Restaurant? Restaurant { get; set; } = null; 
+        public Restaurant? Restaurant { get; set; }
+
+        public List<OrderItem> Items { get; set; } = new();
     }
-
-
 
     public class OrderItem
     {
@@ -46,7 +48,7 @@ namespace EatMeOut.API.Models
         public int OrderId { get; set; }
 
         [Required]
-        public string ItemName { get; set; } = string.Empty; 
+        public string ItemName { get; set; } = string.Empty;
 
         [Required]
         public int Quantity { get; set; }
@@ -54,6 +56,8 @@ namespace EatMeOut.API.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal UnitPrice { get; set; }
-    }
 
+        [ForeignKey("OrderId")]
+        public Order? Order { get; set; }
+    }
 }

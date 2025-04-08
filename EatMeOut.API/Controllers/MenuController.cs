@@ -124,8 +124,15 @@ namespace EatMeOut.API.Controllers
             if (image == null || image.Length == 0)
                 return BadRequest(new { message = "Image file is required." });
 
-            var imageUrl = await FileUploadHelper.SaveFile(image);
-            return Ok(new { imageUrl });
+            try 
+            {
+                var fileName = await FileUploadHelper.SaveFile(image);
+                return Ok(new { imageUrl = fileName });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Upload failed: {ex.Message}" });
+            }
         }
 
 
@@ -162,7 +169,7 @@ namespace EatMeOut.API.Controllers
                         i.Calories,
                         i.IsVegan,
                         i.IsAvailable,
-                        i.ImageUrl
+                        i.ImageUrl,
                     }).ToList()
             }).ToList();
 
@@ -359,6 +366,49 @@ namespace EatMeOut.API.Controllers
 
             return Ok(item);
         }
+
+        // Get Menu by ID
+        [HttpGet("by-id/{restaurantId}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetMenuByRestaurantId(int restaurantId)
+        {
+            var restaurant = await _context.Restaurants
+                .FirstOrDefaultAsync(r => r.Id == restaurantId);
+
+            if (restaurant == null)
+                return NotFound(new { message = "Restaurant not found" });
+
+            var categories = await _context.MenuCategories
+                .Where(c => c.RestaurantId == restaurant.Id)
+                .Include(c => c.Items)
+                .OrderBy(c => c.DisplayOrder)
+                .ToListAsync();
+
+            var grouped = categories.Select(c => new
+            {
+                id = c.MenuCategoryId,
+                category = c.Name,
+                displayOrder = c.DisplayOrder,
+                items = c.Items
+                    .OrderBy(i => i.DisplayOrder)
+                    .Select(i => new
+                    {
+                        i.Id,
+                        i.Name,
+                        i.Description,
+                        i.Price,
+                        i.Ingredients,
+                        i.Calories,
+                        i.IsVegan,
+                        i.IsAvailable,
+                        i.ImageUrl,
+                        i.DisplayOrder
+                    }).ToList()
+            }).ToList();
+
+            return Ok(grouped);
+        }
+
 
     }
 }

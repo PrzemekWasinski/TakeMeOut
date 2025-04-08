@@ -53,6 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Register Controllers once only
 builder.Services.AddControllers();
 
+
 // Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -60,10 +61,14 @@ builder.Services.AddSwaggerGen();
 // CORS Policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+    options.AddPolicy("AllowAll", policy =>
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(_ => true)  // Accept all origins explicitly
+            .WithExposedHeaders("Authorization", "Content-Disposition") // Add Content-Disposition header
+    );
 });
 
 var app = builder.Build();
@@ -71,13 +76,22 @@ var app = builder.Build();
 // Enable CORS Middleware
 app.UseCors("AllowAll");
 
+// Enable standard static files
+app.UseStaticFiles();
+
 // Enable static file serving for images in wwwroot
 app.UseStaticFiles(new StaticFileOptions
 {
     RequestPath = "/api/uploads",
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
-    )
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")
+    ),
+    OnPrepareResponse = ctx =>
+    {
+        // Add CORS headers for the static files
+        ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+        ctx.Context.Response.Headers.Append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    }
 });
 
 if (app.Environment.IsDevelopment())

@@ -19,9 +19,14 @@ import { loadProfilePage } from './profile.js';
 import { loadMenuManagement } from './menu.js';
 import { fetchAllRestaurants, displayRestaurants, setupSearchHandlers } from './restaurants.js';
 import { loadFavourites } from './favourites.js';
+import { customerMenuTemplate } from './templates.js';
+import { loadUserOrders, updateOrderDisplay, createOrder, loadRestaurantOrders, loadRestaurantDashboard } from './orders.js';
+import { loadSettingsPage } from './settings.js';
+
 
 // Original home content storage
 let originalHomeContent;
+
 
 function updateNavigation(isAuthenticated, ownerName = null) {
     const navButtons = document.getElementById('nav-buttons');
@@ -43,28 +48,59 @@ function updateNavigation(isAuthenticated, ownerName = null) {
 
     if (isAuthenticated) {
         if (isRestaurant) {
-            // Restaurants should use `ownerName`
+            // Set navigation HTML for restaurant
             navButtons.innerHTML = `
                 <a href="#" onclick="window.loadContent('restaurant-dashboard')" class="text-gray-700 px-4 py-2 hover:text-black">Dashboard</a>
                 <a href="#" onclick="window.loadContent('restaurant-menu')" class="text-gray-700 px-4 py-2 hover:text-black">Menu</a>
-                <a href="#" onclick="window.loadContent('restaurant-orders')" class="text-gray-700 px-4 py-2 hover:text-black">Orders</a>
-                <a href="#" onclick="window.loadContent('profile')" class="text-gray-700 px-4 py-2 hover:text-black">Profile</a>
-                <span id="user-greeting" class="user-greeting">Hello, <span id="user-name">${ownerName}</span></span>
-                <a href="#" onclick="window.handleLogout()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300">Logout</a>
+                <a href="#" id="restaurant-orders-tab" class="text-gray-700 px-4 py-2 hover:text-black">Orders</a>
+                <div class="dropdown">
+                    <span id="user-greeting" class="user-greeting">Hello, <span id="user-name">${ownerName}</span></span>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="window.loadContent('profile')">Profile</a>
+                        <a href="#" onclick="window.loadContent('settings')">Settings</a>
+                        <a href="#" onclick="window.handleLogout()">Logout</a>
+                    </div>
+                </div>
             `;
-
-            if (document.getElementById('dynamic-content').innerHTML === homeContentTemplate) {
-                showRestaurantHome();
-            }
+        
+            // Attach event listener to load orders when Orders tab is clicked
+            document.getElementById("restaurant-orders-tab").addEventListener("click", () => {
+                loadRestaurantOrders();
+            });
+        
         } else {
             // Customers should use `userName`
             const userName = localStorage.getItem("userName") || "User";
             navButtons.innerHTML = `
-                <a href="#" onclick="window.loadContent('orders')" class="text-gray-700 px-4 py-2 hover:text-black">My Orders</a>
+                <a href="#" onclick="window.loadContent('my-orders')" class="text-gray-700 px-4 py-2 hover:text-black">My Orders</a>
                 <a href="#" onclick="window.loadContent('favourites')" class="text-gray-700 px-4 py-2 hover:text-black">Favourites</a>
-                <span id="user-greeting" class="user-greeting">Hello, <span id="user-name">${userName}</span></span>
-                <a href="#" onclick="window.handleLogout()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300">Logout</a>
+                <div class="dropdown">
+                    <span id="user-greeting" class="user-greeting">Hello, <span id="user-name">${userName}</span></span>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="window.loadContent('profile')">Profile</a>
+                        <a href="#" onclick="window.loadContent('settings')">Settings</a>
+                        <a href="#" onclick="window.handleLogout()">Logout</a>
+                    </div>
+                </div>
             `;
+        }
+
+        // Add dropdown toggle functionality
+        const userGreeting = document.getElementById('user-greeting');
+        const dropdown = document.querySelector('.dropdown');
+        
+        if (userGreeting && dropdown) {
+            userGreeting.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
         }
     } else {
         // Guest navigation
@@ -99,6 +135,9 @@ function loadContent(page) {
                 case 'partner':
                     content = partnerTemplate;
                     break;
+                case 'my-orders':
+                    loadUserOrders();
+                    return;                    
                 case 'favourites':
                     content = favouritesTemplate;
                     // Load favourites after setting the template
@@ -153,7 +192,7 @@ function loadContent(page) {
                     content = restaurantLoginTemplate;
                     break;
                 case 'restaurant-dashboard':
-                    content = restaurantDashboardTemplate;
+                    loadRestaurantDashboard();
                     break;
                 case 'restaurant-menu':
                     loadMenuManagement();
@@ -172,6 +211,9 @@ function loadContent(page) {
                         displayRestaurants(restaurants);
                     }, 100);
                     break;
+                case 'settings':
+                    loadSettingsPage();
+                    return;
                 default:
                     content = homeContentTemplate;
             }
@@ -223,60 +265,67 @@ function loadContent(page) {
 function showHome() {
     const dynamicContent = document.getElementById('dynamic-content');
     dynamicContent.classList.add('page-transition', 'fade-out');
-    
+
     setTimeout(() => {
         const isRestaurant = localStorage.getItem("isRestaurant") === "true";
+
         if (isRestaurant) {
-            dynamicContent.innerHTML = restaurantDashboardTemplate;
+            loadRestaurantDashboard();
         } else {
             dynamicContent.innerHTML = homeContentTemplate;
+
             // Initialize search functionality
             setupSearchHandlers();
-            // Load initial restaurants
-            fetchAllRestaurants().then(restaurants => {
-                displayRestaurants(restaurants);
-            });
+            fetchAllRestaurants().then(displayRestaurants);
         }
+
         dynamicContent.classList.remove('fade-out');
-        
-        // Save original content on first load if not already saved
+
         if (!originalHomeContent) {
             originalHomeContent = homeContentTemplate;
         }
 
-        // Check authentication state and update navigation
         const token = localStorage.getItem("token") || localStorage.getItem("restaurantToken");
         updateNavigation(!!token);
 
         if (!isRestaurant) {
-            // Add click handler for Find Food button
             setTimeout(() => {
                 const findFoodBtn = document.querySelector('button.bg-green-500');
-                if (findFoodBtn) {
-                    findFoodBtn.addEventListener('click', () => loadContent('all-restaurants'));
-                }
+                findFoodBtn?.addEventListener('click', () => loadContent('all-restaurants'));
             }, 100);
         }
     }, 300);
 }
 
-function showRestaurantHome() {
-    const dynamicContent = document.getElementById('dynamic-content');
-    dynamicContent.innerHTML = restaurantDashboardTemplate;
-}
 
 // Preview uploaded images
 function previewImage(event, previewId) {
     const file = event.target.files[0];
+    const previewElement = document.getElementById(previewId);
+    
+    // Reset the preview first
+    previewElement.style.backgroundImage = '';
+    previewElement.innerHTML = '<span class="text-gray-600 text-center">Upload</span>';
+    
     if (file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select an image file');
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+        
         const reader = new FileReader();
         reader.onload = function(e) {
-            const previewElement = document.getElementById(previewId);
             previewElement.style.backgroundImage = `url('${e.target.result}')`;
             previewElement.style.backgroundSize = 'cover';
             previewElement.style.backgroundPosition = 'center';
-            // Clear any text content
-            previewElement.innerHTML = '';
+            previewElement.innerHTML = ''; // Clear any text content
+        };
+        reader.onerror = function(e) {
+            console.error('Error reading file:', e);
+            alert('Error reading file. Please try again.');
+            event.target.value = ''; // Clear the file input
         };
         reader.readAsDataURL(file);
     }
@@ -291,47 +340,10 @@ async function handleLogout() {
     }
 }
 
-// Handle restaurant selection
-async function selectRestaurant(restaurantId, restaurantName) {
-    try {
-        // First get the restaurant's email
-        const restaurantResponse = await fetch(`${API_URL}/restaurants/all`);
-        if (!restaurantResponse.ok) {
-            throw new Error('Failed to fetch restaurant details');
-        }
-        const restaurants = await restaurantResponse.json();
-        const restaurant = restaurants.find(r => r.id === restaurantId);
-        
-        if (!restaurant) {
-            throw new Error('Restaurant not found');
-        }
-
-        // Now fetch the menu using the restaurant's email
-        const menuResponse = await fetch(`${API_URL}/menu/${restaurant.email}`);
-        if (!menuResponse.ok) {
-            throw new Error('Failed to fetch menu');
-        }
-        const menu = await menuResponse.json();
-        
-        // Store the current restaurant info in localStorage
-        localStorage.setItem('currentRestaurantId', restaurantId);
-        localStorage.setItem('currentRestaurantName', restaurantName);
-        localStorage.setItem('currentRestaurantEmail', restaurant.email);
-        
-        // Load the menu page
-        loadContent('restaurant-menu');
-    } catch (error) {
-        console.error('Error selecting restaurant:', error);
-        alert('Failed to load restaurant menu. Please try again.');
-    }
-}
-
 export {
     updateNavigation,
     loadContent,
     showHome,
-    showRestaurantHome,
     previewImage,
     handleLogout,
-    selectRestaurant
 }; 

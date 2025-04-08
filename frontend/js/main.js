@@ -15,13 +15,12 @@ import {
 import { 
     updateNavigation, 
     loadContent, 
-    showHome, 
-    showRestaurantHome, 
+    showHome,  
     previewImage,
     handleLogout
 } from './navigation.js';
 import { loadProfilePage } from './profile.js';
-import { createOrder, selectRestaurant } from './orders.js';
+import { createOrder, selectRestaurant, loadRestaurantOrders } from './orders.js';
 import './menu.js';
 import { fetchAllRestaurants, displayRestaurants } from './restaurants.js';
 import { loadFavourites, toggleFavourite } from './favourites.js';
@@ -64,16 +63,31 @@ window.showHome = showHome;
 window.selectRestaurant = selectRestaurant;
 window.handleLogout = handleLogout;
 window.previewImage = previewImage;
+window.loadRestaurantOrders = loadRestaurantOrders;
 window.toggleFavourite = toggleFavourite;
+window.animateAndSelectRestaurant = animateAndSelectRestaurant;
+
+// Animate restaurant card and then navigate to restaurant page
+function animateAndSelectRestaurant(element, restaurantId, restaurantName) {
+    // Add the clicked animation class
+    element.classList.add('clicked');
+
+    // Wait for animation to finish before navigating
+    setTimeout(() => {
+        // Navigate to restaurant page
+        window.selectRestaurant(restaurantId, restaurantName);
+    }, 400); // Wait slightly less than the full animation time
+}
 
 // Update the restaurant card template to include the favourite button
 function createRestaurantCard(restaurant) {
     return `
         <div class="restaurant-card" data-restaurant-id="${restaurant.id}">
             <div class="relative">
-                <img src="${restaurant.coverIMG || '/images/default-cover.jpg'}" 
+                <img src="${restaurant.coverIMG || '/images/placeholder.svg'}" 
                      alt="${restaurant.restaurantName}" 
-                     class="w-full h-48 object-cover">
+                     class="w-full h-48 object-cover"
+                     onerror="this.src='/images/placeholder.svg'">
                 ${localStorage.getItem('token') ? `
                     <button onclick="window.toggleFavourite(${restaurant.id})" 
                             class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100">

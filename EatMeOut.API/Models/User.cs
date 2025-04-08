@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EatMeOut.API.Models
 {
@@ -18,6 +19,11 @@ namespace EatMeOut.API.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
+
+        public string? Address { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Credit { get; set; } = 0;
+
 
         [Required]
         public string PasswordHash { get; set; } = string.Empty;

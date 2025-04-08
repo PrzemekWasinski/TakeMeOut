@@ -1,7 +1,73 @@
 import API_URL from './config.js';
-import { previewImage } from './navigation.js';
+import { previewImage, loadContent } from './navigation.js';
+import { logout } from './auth.js';
 
 function loadProfilePage() {
+    const isRestaurant = localStorage.getItem("isRestaurant") === "true";
+    
+    if (isRestaurant) {
+        loadRestaurantProfilePage();
+    } else {
+        loadCustomerProfilePage();
+    }
+}
+
+function loadCustomerProfilePage() {
+    document.getElementById("dynamic-content").innerHTML = `
+        <div class="max-w-2xl mx-auto px-8 pt-20 pb-16 slide-up">
+            <div class="bg-white shadow-md rounded-lg p-8">
+                <h1 class="text-2xl font-bold mb-6">My Profile</h1>
+                
+                <form id="customer-profile-form" class="space-y-6">
+                    <!-- Personal Information Section -->
+                    <div>
+                        <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <input type="text" id="customerName" class="input-field customer-editable" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="customerEmail" class="input-field customer-editable" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                                <input type="password" id="customerPassword" class="input-field customer-editable" placeholder="Leave blank to keep current password" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Addresses Section -->
+                    <div>
+                        <h2 class="text-lg font-semibold mb-4">Delivery Addresses</h2>
+                        <div id="addresses-container" class="space-y-4">
+                            <!-- Addresses will be dynamically added here -->
+                        </div>
+                        <button type="button" id="add-address" class="mt-4 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 hidden">
+                            + Add New Address
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-end gap-4 pt-4">
+                        <button type="button" id="edit-customer-profile" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                            Edit Profile
+                        </button>
+                        <button type="button" id="save-customer-profile" class="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 hidden">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    loadCustomerProfile();
+    setupCustomerProfileHandlers();
+}
+
+function loadRestaurantProfilePage() {
     document.getElementById("dynamic-content").innerHTML = `
         <div class="max-w-screen-xl mx-auto px-16 pt-40 pb-16 slide-up bg-white shadow-md rounded-md">
             <h1 class="text-3xl font-bold mb-6 text-center">Restaurant Profile</h1>
@@ -103,6 +169,228 @@ function loadProfilePage() {
     loadRestaurantProfile();
 }
 
+async function loadCustomerProfile() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please log in first.");
+        loadContent('login');
+        return;
+    }
+
+    try {
+        console.log("Attempting to fetch profile with token:", token);
+        const response = await fetch(`${API_URL}/auth/me`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log("Profile response status:", response.status);
+        const responseText = await response.text();
+        console.log("Raw response:", responseText);
+
+        if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+                alert("Session expired. Please log in again.");
+                logout();
+                return;
+            }
+            throw new Error(`Failed to load profile. Status: ${response.status}`);
+        }
+
+        const data = JSON.parse(responseText);
+        console.log("Parsed profile data:", data);
+        populateCustomerProfile(data);
+    } catch (error) {
+        console.error("Error loading customer profile:", error);
+        alert("Failed to load profile information. Please try logging in again.");
+        logout();
+    }
+}
+
+function populateCustomerProfile(data) {
+    console.log("Populating profile with data:", data);
+    
+    // Set the name (combining first and last name if they exist)
+    document.getElementById("customerName").value = data.name || "";
+    document.getElementById("customerEmail").value = data.email || "";
+    
+    // Handle address
+    const addressesContainer = document.getElementById("addresses-container");
+    addressesContainer.innerHTML = ""; // Clear existing addresses
+    
+    if (data.address) {
+        // Parse the full address more intelligently
+        const addressParts = data.address.split(',').map(part => part.trim());
+        let address = {
+            door: "",
+            road: "",
+            city: "",
+            postcode: ""
+        };
+
+        // Handle the first part which might contain both door number and road
+        if (addressParts[0]) {
+            const firstPart = addressParts[0];
+            const match = firstPart.match(/^(\d+)\s+(.+)$/);
+            if (match) {
+                // If we can split into number and street
+                address.door = match[1];
+                address.road = match[2];
+            } else {
+                // If we can't split, put it all in road
+                address.road = firstPart;
+            }
+        }
+
+        // Handle city (usually the second part)
+        if (addressParts[1]) {
+            address.city = addressParts[1];
+        }
+
+        // Handle postcode (usually the last part)
+        if (addressParts[2]) {
+            address.postcode = addressParts[2];
+        }
+
+        addressesContainer.innerHTML = createAddressHTML(address, 0);
+    } else {
+        addressesContainer.innerHTML = `
+            <div class="text-gray-500 text-center py-4">
+                No addresses added yet
+            </div>
+        `;
+    }
+}
+
+function createAddressHTML(address, index) {
+    return `
+        <div class="address-entry bg-gray-50 p-4 rounded-md">
+            <div class="flex justify-between items-start mb-2">
+                <label class="block text-sm font-medium text-gray-700">Address ${index + 1}</label>
+                <button type="button" class="text-red-500 hover:text-red-700 hidden delete-address" data-index="${index}">
+                    Remove
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Door Number</label>
+                    <input type="text" class="input-field customer-editable w-full" 
+                        value="${address.door || ''}" data-field="door" data-index="${index}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Road</label>
+                    <input type="text" class="input-field customer-editable w-full" 
+                        value="${address.road || ''}" data-field="road" data-index="${index}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                    <input type="text" class="input-field customer-editable w-full" 
+                        value="${address.city || ''}" data-field="city" data-index="${index}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
+                    <input type="text" class="input-field customer-editable w-full" 
+                        value="${address.postcode || ''}" data-field="postcode" data-index="${index}" readonly>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function setupCustomerProfileHandlers() {
+    const editButton = document.getElementById("edit-customer-profile");
+    const saveButton = document.getElementById("save-customer-profile");
+    const addAddressButton = document.getElementById("add-address");
+    
+    editButton.addEventListener("click", () => {
+        document.querySelectorAll(".customer-editable").forEach(input => input.removeAttribute("readonly"));
+        document.querySelectorAll(".delete-address").forEach(btn => btn.classList.remove("hidden"));
+        addAddressButton.classList.remove("hidden");
+        editButton.classList.add("hidden");
+        saveButton.classList.remove("hidden");
+    });
+
+    addAddressButton.addEventListener("click", () => {
+        const addressesContainer = document.getElementById("addresses-container");
+        const newIndex = addressesContainer.children.length;
+        const emptyAddress = { door: "", road: "", city: "", postcode: "" };
+        addressesContainer.innerHTML += createAddressHTML(emptyAddress, newIndex);
+    });
+
+    document.getElementById("addresses-container").addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-address")) {
+            e.target.closest(".address-entry").remove();
+        }
+    });
+
+    saveButton.addEventListener("click", saveCustomerProfile);
+}
+
+async function saveCustomerProfile() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please log in first.");
+        return;
+    }
+
+    // Get the first address (currently we only support one address)
+    const addressDiv = document.querySelector(".address-entry");
+    const address = addressDiv ? [
+        addressDiv.querySelector('[data-field="door"]').value,
+        addressDiv.querySelector('[data-field="road"]').value,
+        addressDiv.querySelector('[data-field="city"]').value,
+        addressDiv.querySelector('[data-field="postcode"]').value
+    ].filter(Boolean).join(", ") : "";
+
+    const [firstName, ...lastNameParts] = document.getElementById("customerName").value.split(" ");
+    const lastName = lastNameParts.join(" ");
+
+    const formData = {
+        firstName: firstName,
+        lastName: lastName || " ", // API requires a lastName
+        email: document.getElementById("customerEmail").value,
+        password: document.getElementById("customerPassword").value,
+        address: address
+    };
+
+    // Remove password if not changed
+    if (!formData.password) {
+        delete formData.password;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/auth/update`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to update profile. Status: ${response.status}`);
+        }
+
+        // Update the UI
+        document.querySelectorAll(".customer-editable").forEach(input => input.setAttribute("readonly", true));
+        document.querySelectorAll(".delete-address").forEach(btn => btn.classList.add("hidden"));
+        document.getElementById("add-address").classList.add("hidden");
+        document.getElementById("save-customer-profile").classList.add("hidden");
+        document.getElementById("edit-customer-profile").classList.remove("hidden");
+        document.getElementById("customerPassword").value = ""; // Clear password field
+
+        alert("Profile updated successfully!");
+    } catch (error) {
+        console.error("Error saving profile:", error);
+        alert("Failed to save profile changes.");
+    }
+}
+
 // Fetch and populate restaurant profile data
 async function loadRestaurantProfile() {
     const token = localStorage.getItem("restaurantToken");
@@ -171,15 +459,43 @@ function populateProfileFields(data) {
     populateOperatingHours(openingTimes, closingTimes);
 
     // Image previews
+    const coverPreview = document.getElementById("coverPreview");
+    const bannerPreview = document.getElementById("bannerPreview");
+    
+    // Reset preview containers
+    coverPreview.style.backgroundImage = '';
+    coverPreview.innerHTML = '<span class="text-gray-600 text-center">Upload</span>';
+    bannerPreview.style.backgroundImage = '';
+    bannerPreview.innerHTML = '<span class="text-gray-600 text-center">Upload</span>';
+
     if (data.coverIMG) {
-        document.getElementById("coverPreview").style.backgroundImage = `url('${API_URL}${data.coverIMG}')`;
-        document.getElementById("coverPreview").style.backgroundSize = 'cover';
+        const coverUrl = data.coverIMG.startsWith('http') ? data.coverIMG : 
+                        data.coverIMG.startsWith('/') ? `${API_URL}${data.coverIMG}` : 
+                        `${API_URL}/uploads/${data.coverIMG}`;
+        coverPreview.style.backgroundImage = `url('${coverUrl}')`;
+        coverPreview.style.backgroundSize = 'cover';
+        coverPreview.style.backgroundPosition = 'center';
+        coverPreview.innerHTML = '';
     }
+
     if (data.bannerIMG) {
-        document.getElementById("bannerPreview").style.backgroundImage = `url('${API_URL}${data.bannerIMG}')`;
-        document.getElementById("bannerPreview").style.backgroundSize = 'cover';
+        const bannerUrl = data.bannerIMG.startsWith('http') ? data.bannerIMG : 
+                         data.bannerIMG.startsWith('/') ? `${API_URL}${data.bannerIMG}` : 
+                         `${API_URL}/uploads/${data.bannerIMG}`;
+        bannerPreview.style.backgroundImage = `url('${bannerUrl}')`;
+        bannerPreview.style.backgroundSize = 'cover';
+        bannerPreview.style.backgroundPosition = 'center';
+        bannerPreview.innerHTML = '';
     }
     
+    // Remove any existing event listeners before adding new ones
+    const editButton = document.getElementById("edit-profile");
+    const saveButton = document.getElementById("save-profile");
+    
+    editButton.replaceWith(editButton.cloneNode(true));
+    saveButton.replaceWith(saveButton.cloneNode(true));
+    
+    // Add event listeners to the new buttons
     document.getElementById("edit-profile").addEventListener("click", enableProfileEditing);
     document.getElementById("save-profile").addEventListener("click", saveProfile);
 }
@@ -223,7 +539,14 @@ function populateOperatingHours(openingTimes, closingTimes) {
 
 // Enable profile editing
 function enableProfileEditing() {
+    // Enable all editable fields
     document.querySelectorAll(".editable").forEach(input => input.removeAttribute("readonly"));
+    
+    // Enable file inputs
+    document.getElementById("CoverIMG").disabled = false;
+    document.getElementById("BannerIMG").disabled = false;
+    
+    // Show/hide appropriate buttons
     document.getElementById("edit-profile").classList.add("hidden");
     document.getElementById("save-profile").classList.remove("hidden");
 }
@@ -235,54 +558,82 @@ async function saveProfile() {
         return;
     }
 
-    const formData = new FormData();
-
-    // Text fields
-    formData.append("OwnerName", document.getElementById("OwnerName").value);
-    formData.append("RestaurantName", document.getElementById("RestaurantName").value);
-    formData.append("Email", document.getElementById("Email").value);
-    formData.append("Phone", document.getElementById("Phone").value);
-    formData.append("CuisineType", document.getElementById("CuisineType").value);
-    formData.append("Description", document.getElementById("Description").value);
-
-    // Rebuild full address
-    const door = document.getElementById("Door").value.trim();
-    const road = document.getElementById("Road").value.trim();
-    const city = document.getElementById("City").value.trim();
-    const postcode = document.getElementById("Postcode").value.trim();
-    const address = [door, road, city, postcode].filter(Boolean).join(", ");
-    formData.append("Address", address);
-
-    // Opening/Closing times
-    const openingTimes = getUpdatedTimes("Open");
-    const closingTimes = getUpdatedTimes("Close");
-    formData.append("OpeningTimes", JSON.stringify(openingTimes));
-    formData.append("ClosingTimes", JSON.stringify(closingTimes));
-
-    // Optional image uploads
-    const coverImg = document.getElementById("CoverIMG").files[0];
-    if (coverImg) formData.append("CoverIMG", coverImg);
-
-    const bannerImg = document.getElementById("BannerIMG").files[0];
-    if (bannerImg) formData.append("BannerIMG", bannerImg);
-
     try {
+        const formData = new FormData();
+
+        // Text fields
+        formData.append("OwnerName", document.getElementById("OwnerName").value);
+        formData.append("RestaurantName", document.getElementById("RestaurantName").value);
+        formData.append("Email", document.getElementById("Email").value);
+        formData.append("Phone", document.getElementById("Phone").value);
+        formData.append("CuisineType", document.getElementById("CuisineType").value);
+        formData.append("Description", document.getElementById("Description").value);
+
+        // Rebuild full address
+        const door = document.getElementById("Door").value.trim();
+        const road = document.getElementById("Road").value.trim();
+        const city = document.getElementById("City").value.trim();
+        const postcode = document.getElementById("Postcode").value.trim();
+        const address = [door, road, city, postcode].filter(Boolean).join(", ");
+        formData.append("Address", address);
+
+        // Opening/Closing times
+        const openingTimes = getUpdatedTimes("Open");
+        const closingTimes = getUpdatedTimes("Close");
+        formData.append("OpeningTimes", JSON.stringify(openingTimes));
+        formData.append("ClosingTimes", JSON.stringify(closingTimes));
+
+        // Image uploads - handle them more carefully
+        const coverImg = document.getElementById("CoverIMG").files[0];
+        const bannerImg = document.getElementById("BannerIMG").files[0];
+        
+        if (coverImg) {
+            console.log("Appending cover image:", coverImg);
+            formData.append("CoverIMG", coverImg, coverImg.name);
+        }
+        
+        if (bannerImg) {
+            console.log("Appending banner image:", bannerImg);
+            formData.append("BannerIMG", bannerImg, bannerImg.name);
+        }
+
+        // Log the FormData contents for debugging
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
         const response = await fetch(`${API_URL}/restaurants/profile/update`, {
             method: "PUT",
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { 
+                "Authorization": `Bearer ${token}`
+            },
             body: formData
         });
 
         const result = await response.json();
-        if (response.ok) {
-            alert("Profile updated successfully!");
-            loadProfilePage();
-        } else {
-            alert(`Failed to update profile: ${result.message || "Unknown error"}`);
+        
+        if (!response.ok) {
+            throw new Error(result.message || "Failed to update profile");
         }
+
+        // Disable editing and reset UI
+        document.querySelectorAll(".editable").forEach(input => input.setAttribute("readonly", true));
+        document.getElementById("CoverIMG").disabled = true;
+        document.getElementById("BannerIMG").disabled = true;
+        document.getElementById("save-profile").classList.add("hidden");
+        document.getElementById("edit-profile").classList.remove("hidden");
+
+        // Clear file inputs
+        document.getElementById("CoverIMG").value = '';
+        document.getElementById("BannerIMG").value = '';
+
+        // Reload the profile data
+        await loadRestaurantProfile();
+        
+        alert("Profile updated successfully!");
     } catch (error) {
         console.error("Error updating profile:", error);
-        alert("Error updating profile. See console for details.");
+        alert(error.message || "Error updating profile. Please try again.");
     }
 }
 

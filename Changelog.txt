@@ -71,21 +71,57 @@ commit #2
 (Przemek)
 - Fixed adding categories!
 
-To Do
+07/04/2025
+(Samy)
+- Added Restaurant Menu Display: Shows the actual menu when clicking on a restaurant on the user side, instead of a preview.
+- Basket System: Added a shopping basket feature where users can increment or decrement item quantities, with unavailable items greyed out and all item details displayed correctly.
+- Credit and Address: Updated the user table to include fields for credit and address, (assigned manually in the database). Users can enter or reuse their saved address for orders.
+- User Profile: Users can now input their address (separate fields for street, city, postcode) during the order process, similar to restaurant address handling.
+- Updated Restaurant Table with PricingTier, Rating, Rating Count
+- Added Orders Table with ID, UserID, RestaurantID, OrderDate, TotalAmount, Status, Address
+- Added OrderItems Table with ID, OrderID, ItemName, Quantity, Unit Price
+- Overhauled OrderController
+- Overhauled Menu with banner display, including restaurant details such as rating and address, pricing etc, ability to rate restaurants
+- Overhauled User side Orders to display order details and their status
+- Overhauled Dashboard to use actual values for Today's Orders, Revenue and Rating as well as some recent orders and their details
+- Overhauled Restaurant Side orders to display orders and their details, update statuses and tabs for filtering status
+- Added Rating function (average of all ratings)
+- Added Price average function £ or ££ or £££ (average of average of items per category) (needs to be fixed)
+- Removed Preview Restaurants
 
-- Make Restaurants and their details show up on user side
-- Make Menu show up when clicking on a restaurant
-- Make order system (add items to basket, add details such as address etc, increment or remove items from basket, edit items maybe, place order)
-- Add basket and money (credit) to user database (£100 default)
-- Make placed orders appear on restaurant side and let them clear them
 
-QOL but also ToDo
-- Function that averages cost of each category, then the average of that and displays £, ££, or £££ based on a price limit on user side
-- Time to Delivery using map API
-- Admin Panel, Analytics etc
+To Do:
+Display more details on restaurant front card
+Get Price Average working correctly
+Display Opening and Closing Times in the banner (only for whatever day it is), show restaurant as closed when outside of those times
+Get images working for everybody
 
-Cleanup
-- Ensure that code is clean, optimised, modular and encapsulated. 
+QOL Improvements:
 
-EG switchcase for profile in navigation.js should call the function elsewhere (templates.js)
-Restaurant profile could have its own controller etc, just see what works best
+- Implement time-to-delivery estimates using a map API.
+- Add functionality to edit item ingredients. (user side)
+- Create a separate panel for the basket, improving user experience.
+- Plan and start implementing an admin panel for analytics and managing orders.
+- Ensure the entire restaurant icon is clickable, not just the name area
+- Add functionality for manually creating "missing" orders.
+- Replace browser prompts with custom in-app prompts for a smoother experience.
+
+Cleanup:
+- Refactor code to ensure it’s clean, modular, and well-structured. (For example, use switch-case statements in navigation.js to call functions from templates.js.)
+- Consider separating restaurant profile functionality into its own controller for better organization.
+
+
+Alex Changelog 08/04/2025
+
+- Fixed issue where images wouldn't appear properly
+- Fixed issue where clicking on tile doesn't correctly bring user to restaurant
+- Reorganised the bottom of the page side
+- Fixed a CORS Issue
+- Added a profile page for the user
+- Fixed issue where restaurant banner doesn't show up
+- Removed a majority of those annoying popups and set them to nicer ones
+- Fixed favourites not working properly on login
+- Brought back the revenue (my bad lol)
+- Fixed the issue where you could only put absolute values for menu items
+
+

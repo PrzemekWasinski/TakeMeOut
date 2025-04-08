@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EatMeOut.API.Controllers
 {
@@ -88,8 +89,9 @@ namespace EatMeOut.API.Controllers
                     return BadRequest(new { message = "A restaurant with this email already exists" });
                 }
 
-                string coverImageUrl = restaurantDto.CoverIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.CoverIMG) : string.Empty;
-                string bannerImageUrl = restaurantDto.BannerIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.BannerIMG) : string.Empty;
+                // Process cover image
+                string coverImgUrl = restaurantDto.CoverIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.CoverIMG) : string.Empty;
+                string bannerImgUrl = restaurantDto.BannerIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.BannerIMG) : string.Empty;
 
                 var restaurant = new Restaurant
                 {
@@ -104,8 +106,8 @@ namespace EatMeOut.API.Controllers
                     CreatedAt = DateTime.UtcNow,
                     OpeningTimes = restaurantDto.OpeningTimes ?? string.Empty,
                     ClosingTimes = restaurantDto.ClosingTimes ?? string.Empty,
-                    CoverIMG = coverImageUrl,
-                    BannerIMG = bannerImageUrl,
+                    CoverIMG = coverImgUrl,
+                    BannerIMG = bannerImgUrl,
                 };
 
                 _context.Restaurants.Add(restaurant);
@@ -289,7 +291,9 @@ namespace EatMeOut.API.Controllers
                         r.CuisineType,
                         r.Description,
                         r.CoverIMG,
-                        r.BannerIMG
+                        r.BannerIMG,
+                        r.Rating,
+                        r.PricingTier
                     })
                     .ToListAsync();
 
@@ -300,6 +304,114 @@ namespace EatMeOut.API.Controllers
                 Console.WriteLine($"Error in GetAllRestaurants: {ex.Message}");
                 return StatusCode(500, new { message = "Internal server error" });
             }
+        }
+
+        // By ID
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRestaurantById(int id)
+        {
+            var restaurant = await _context.Restaurants
+                .Where(r => r.Id == id)
+                .Select(r => new {
+                    r.Id,
+                    r.RestaurantName,
+                    r.Address,
+                    r.CuisineType,
+                    r.Description,
+                    r.Rating,
+                    r.RatingCount,
+                    r.PricingTier,
+                    r.BannerIMG
+                })
+                .FirstOrDefaultAsync();
+
+            if (restaurant == null)
+                return NotFound(new { message = "Restaurant not found." });
+
+            return Ok(restaurant);
+        }
+
+
+        // Ratings
+        [HttpPost("{restaurantId}/rate")]
+        [Authorize]
+        public async Task<IActionResult> RateRestaurant(int restaurantId, [FromBody] int rating)
+        {
+            if (rating < 1 || rating > 5)
+                return BadRequest(new { message = "Rating must be between 1 and 5." });
+
+            var restaurant = await _context.Restaurants.FindAsync(restaurantId);
+            if (restaurant == null)
+                return NotFound(new { message = "Restaurant not found." });
+
+            // Update average rating
+            restaurant.Rating = ((restaurant.Rating * restaurant.RatingCount) + rating) / (restaurant.RatingCount + 1);
+            restaurant.RatingCount++;
+
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Rating submitted.", average = restaurant.Rating });
+        }
+
+        [HttpPost("{restaurantId}/recalculate-pricing")]
+        public async Task<IActionResult> RecalculatePricing(int restaurantId)
+        {
+            var restaurant = await _context.Restaurants
+                .Include(r => r.MenuCategories)
+                    .ThenInclude(c => c.Items)
+                .FirstOrDefaultAsync(r => r.Id == restaurantId);
+
+            if (restaurant == null)
+                return NotFound(new { message = "Restaurant not found." });
+
+            // Collect all category averages
+            var allCategoryAverages = restaurant.MenuCategories
+                .Where(c => c.Items.Any())  // Only include categories with items
+                .Select(c => c.Items.Average(i => i.Price))  // Average price of items in the category
+                .ToList();
+
+            // Log the category averages for debugging
+            Console.WriteLine($"Category Averages: {string.Join(", ", allCategoryAverages)}");
+
+            if (!allCategoryAverages.Any())
+                return Ok(new { message = "No items found to calculate pricing." });
+
+            // Calculate the overall average price across all categories
+            var overallAverage = allCategoryAverages.Average();
+            Console.WriteLine($"Overall Average Price: {overallAverage}");
+
+            // Update the pricing tier based on the average
+            restaurant.PricingTier = overallAverage switch
+            {
+                < 10 => "�",   // Budget pricing
+                >= 10 and <= 20 => "��",  // Mid-range pricing
+                > 20 => "���"   // Premium pricing
+            };
+
+            // Log the new pricing tier for debugging
+            Console.WriteLine($"Updated Pricing Tier: {restaurant.PricingTier}");
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Pricing tier updated.", tier = restaurant.PricingTier });
+        }
+
+        [HttpGet("{restaurantId}/summary")]
+        [Authorize]
+        public async Task<IActionResult> GetSummary(int restaurantId)
+        {
+            var restaurant = await _context.Restaurants
+                .Where(r => r.Id == restaurantId)
+                .Select(r => new {
+                    Rating = r.Rating,
+                    RatingCount = r.RatingCount
+                })
+                .FirstOrDefaultAsync();
+
+            if (restaurant == null)
+                return NotFound(new { message = "Restaurant not found." });
+
+            return Ok(restaurant);
         }
 
         [HttpGet("search")]
@@ -337,7 +449,9 @@ namespace EatMeOut.API.Controllers
                     r.CuisineType,
                     r.Description,
                     r.CoverIMG,
-                    r.BannerIMG
+                    r.BannerIMG,
+                    r.Rating,
+                    r.PricingTier
                 }).ToList();
 
                 return Ok(matchingRestaurants);

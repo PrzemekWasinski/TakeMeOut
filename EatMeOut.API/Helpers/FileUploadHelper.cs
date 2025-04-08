@@ -31,7 +31,7 @@ namespace EatMeOut.API.Helpers
                 await File.WriteAllBytesAsync(filePath, memoryStream.ToArray());
             }
 
-            return $"/uploads/{fileName}";
+            return fileName;
 
         }
 

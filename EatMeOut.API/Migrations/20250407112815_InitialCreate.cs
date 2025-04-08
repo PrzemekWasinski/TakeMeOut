@@ -12,24 +12,6 @@ namespace EatMeOut.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MenuCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RestaurantId = table.Column<int>(type: "int", nullable: false),
-                    RestaurantEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    MenuCategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuCategories", x => x.Id);
-                    table.UniqueConstraint("AK_MenuCategories_MenuCategoryId_RestaurantId", x => new { x.MenuCategoryId, x.RestaurantId });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Restaurants",
                 columns: table => new
                 {
@@ -60,13 +42,65 @@ namespace EatMeOut.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MenuCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    RestaurantEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
+                    MenuCategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuCategories", x => x.Id);
+                    table.UniqueConstraint("AK_MenuCategories_MenuCategoryId_RestaurantId", x => new { x.MenuCategoryId, x.RestaurantId });
+                    table.ForeignKey(
+                        name: "FK_MenuCategories_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Favourites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favourites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Favourites_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Favourites_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,10 +138,26 @@ namespace EatMeOut.Migrations
                 values: new object[] { 1, "123 Main St", "", "", "", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "American", "Best burgers in town!", "burger.palace@example.com", "", "", "$2a$12$eImiTXuWVxfM37uY4JANjQ==", "555-0123", "Burger Palace" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favourites_RestaurantId",
+                table: "Favourites",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favourites_UserId_RestaurantId",
+                table: "Favourites",
+                columns: new[] { "UserId", "RestaurantId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MenuCategories_MenuCategoryId_RestaurantId",
                 table: "MenuCategories",
                 columns: new[] { "MenuCategoryId", "RestaurantId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuCategories_RestaurantId",
+                table: "MenuCategories",
+                column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_MenuCategoryId_RestaurantId",
@@ -119,16 +169,19 @@ namespace EatMeOut.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MenuItems");
+                name: "Favourites");
 
             migrationBuilder.DropTable(
-                name: "Restaurants");
+                name: "MenuItems");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "MenuCategories");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants");
         }
     }
 }

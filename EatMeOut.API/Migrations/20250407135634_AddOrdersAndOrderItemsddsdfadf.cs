@@ -5,7 +5,7 @@
 namespace EatMeOut.Migrations
 {
     /// <inheritdoc />
-    public partial class AddFavouritesTableUpdated : Migration
+    public partial class AddOrdersAndOrderItemsddsdfadf : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

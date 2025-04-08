@@ -1,5 +1,5 @@
 import API_URL from './config.js';
-import { selectRestaurant } from './navigation.js';
+import { selectRestaurant } from './orders.js';
 
 export async function loadFavourites() {
     const token = localStorage.getItem("token");
@@ -32,27 +32,37 @@ export async function loadFavourites() {
             <div class="container mx-auto px-4 py-8">
                 <h2 class="text-2xl font-bold mb-6">Your Favourite Restaurants</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    ${favourites.map(restaurant => `
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300" 
-                             onclick="window.selectRestaurant(${restaurant.id}, '${restaurant.restaurantName.replace(/'/g, "\\'")}')">
-                            <div class="relative h-48">
-                                <img src="${restaurant.coverIMG || 'https://via.placeholder.com/400x200?text=No+Image'}" 
-                                     alt="${restaurant.restaurantName}" 
-                                     class="w-full h-full object-cover">
-                                <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-red-100 transition-colors duration-200"
-                                        onclick="event.stopPropagation(); window.toggleFavourite(${restaurant.id})">
-                                    <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
-                                    </svg>
-                                </button>
+                    ${favourites.map(restaurant => {
+                        // Construct the full image URL
+                        const fullCoverUrl = restaurant.coverIMG 
+                            ? (restaurant.coverIMG.startsWith('uploads/') 
+                                ? `${API_URL}/${restaurant.coverIMG}`
+                                : `${API_URL}/uploads/${restaurant.coverIMG}`)
+                            : '/images/placeholder.svg';
+
+                        return `
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300" 
+                                 onclick="window.selectRestaurant(${restaurant.id}, '${restaurant.restaurantName.replace(/'/g, "\\'")}')">
+                                <div class="relative h-48">
+                                    <img src="${fullCoverUrl}" 
+                                         alt="${restaurant.restaurantName}" 
+                                         class="w-full h-full object-cover"
+                                         onerror="this.src='/images/placeholder.svg'">
+                                    <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-red-100 transition-colors duration-200"
+                                            onclick="event.stopPropagation(); window.toggleFavourite(${restaurant.id})">
+                                        <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="text-xl font-semibold mb-2">${restaurant.restaurantName}</h3>
+                                    <p class="text-gray-600 mb-2">${restaurant.cuisineType || 'No cuisine type available'}</p>
+                                    <p class="text-gray-600 mb-2">${restaurant.description || ''}</p>
+                                </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="text-xl font-semibold mb-2">${restaurant.restaurantName}</h3>
-                                <p class="text-gray-600 mb-2">${restaurant.cuisineType || 'No cuisine type available'}</p>
-                                <p class="text-gray-600 mb-2">${restaurant.description || 'No description available'}</p>
-                            </div>
-                        </div>
-                    `).join('')}
+                        `;
+                    }).join('')}
                 </div>
             </div>
         `;

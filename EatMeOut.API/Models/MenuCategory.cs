@@ -12,8 +12,6 @@ namespace EatMeOut.API.Models
 
         public int RestaurantId { get; set; }
 
-        public string RestaurantEmail { get; set; } = string.Empty;
-
         [Required]
         public string Name { get; set; } = string.Empty;
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EatMeOut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250327175448_AddFavoritesTable")]
-    partial class AddFavoritesTable
+    [Migration("20250407130555_UserUpdate")]
+    partial class UserUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace EatMeOut.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EatMeOut.API.Models.Favorite", b =>
+            modelBuilder.Entity("EatMeOut.API.Models.Favourite", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace EatMeOut.Migrations
                     b.HasIndex("UserId", "RestaurantId")
                         .IsUnique();
 
-                    b.ToTable("Favorites");
+                    b.ToTable("Favourites");
                 });
 
             modelBuilder.Entity("EatMeOut.API.Models.MenuCategory", b =>
@@ -67,10 +67,6 @@ namespace EatMeOut.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RestaurantEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -236,6 +232,12 @@ namespace EatMeOut.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -259,7 +261,7 @@ namespace EatMeOut.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EatMeOut.API.Models.Favorite", b =>
+            modelBuilder.Entity("EatMeOut.API.Models.Favourite", b =>
                 {
                     b.HasOne("EatMeOut.API.Models.Restaurant", "Restaurant")
                         .WithMany()
