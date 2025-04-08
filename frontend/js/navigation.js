@@ -12,14 +12,14 @@ import {
     restaurantMenuTemplate, 
     restaurantOrdersTemplate,
     allRestaurantsTemplate,
-    favouritesTemplate
+    favouritesTemplate,
+    customerMenuTemplate
 } from './templates.js';
 import { loginUser, register, loginRestaurant, registerRestaurant, logout } from './auth.js';
 import { loadProfilePage } from './profile.js';
 import { loadMenuManagement } from './menu.js';
 import { fetchAllRestaurants, displayRestaurants, setupSearchHandlers } from './restaurants.js';
 import { loadFavourites } from './favourites.js';
-import { customerMenuTemplate } from './templates.js';
 import { loadUserOrders, updateOrderDisplay, createOrder, loadRestaurantOrders, loadRestaurantDashboard } from './orders.js';
 import { loadSettingsPage } from './settings.js';
 
@@ -262,6 +262,267 @@ function loadContent(page) {
     }, 300);
 }
 
+async function feelingLucky() {
+    try {
+        const restaurants = await fetchAllRestaurants();
+        console.log('Fetched restaurants:', restaurants);
+        
+        if (!restaurants || restaurants.length === 0) {
+            alert("No restaurants available at the moment.");
+            return;
+        }
+
+        // Get a random restaurant
+        const randomRestaurant = restaurants[Math.floor(Math.random() * restaurants.length)];
+        console.log('Selected random restaurant:', randomRestaurant);
+        
+        // Get the auth token
+        const token = localStorage.getItem('token');
+        
+        // Fetch the restaurant's menu using the correct endpoint
+        const menuUrl = `${API_URL.replace(/\/api$/, '')}/api/menu/by-id/${randomRestaurant.id}`;
+        console.log('Fetching menu from:', menuUrl);
+        const response = await fetch(menuUrl, {
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Menu fetch failed:', response.status, errorText);
+            
+            // If unauthorized and user is not logged in, try fetching without auth
+            if (response.status === 401 && !token) {
+                console.log('Attempting to fetch menu without authentication...');
+                const publicResponse = await fetch(menuUrl, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!publicResponse.ok) {
+                    throw new Error('Failed to fetch menu');
+                }
+                const menuData = await publicResponse.json();
+                console.log('Fetched menu data:', menuData);
+                return processMenuData(menuData, randomRestaurant);
+            }
+            
+            throw new Error('Failed to fetch menu');
+        }
+        
+        const menuData = await response.json();
+        console.log('Fetched menu data:', menuData);
+        return processMenuData(menuData, randomRestaurant);
+        
+    } catch (error) {
+        console.error('Error in feelingLucky:', error);
+        alert("Something went wrong. Please try again later.");
+    }
+}
+
+// Helper function to process menu data and show modal
+function processMenuData(menuData, randomRestaurant) {
+    // Get all available items from all categories
+    const allItems = menuData.flatMap(category => 
+        category.items.filter(item => item.isAvailable)
+    );
+    console.log('Available items:', allItems);
+    
+    if (allItems.length === 0) {
+        alert("No available items found in the selected restaurant.");
+        return;
+    }
+
+    // Get a random item
+    const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
+    console.log('Selected random item:', randomItem);
+    
+    // Show the result in a modal
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold mb-4">Your Lucky Pick!</h2>
+            <div class="mb-4">
+                <p class="text-lg font-semibold">${randomItem.name}</p>
+                <p class="text-gray-600">from ${randomRestaurant.restaurantName}</p>
+                <p class="text-gray-600">£${randomItem.price.toFixed(2)}</p>
+                <p class="text-sm text-gray-500 mt-2">${randomItem.description}</p>
+            </div>
+            <div class="flex justify-end gap-4">
+                <button class="no-thanks-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                    No Thanks
+                </button>
+                <button class="try-again-btn px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                    Try Again
+                </button>
+                <button class="view-restaurant-btn px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                    View Restaurant
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Add event listeners for all buttons
+    const noThanksBtn = modal.querySelector('.no-thanks-btn');
+    const tryAgainBtn = modal.querySelector('.try-again-btn');
+    const viewRestaurantBtn = modal.querySelector('.view-restaurant-btn');
+
+    noThanksBtn.addEventListener('click', () => {
+        modal.remove();
+    });
+
+    tryAgainBtn.addEventListener('click', () => {
+        modal.remove();
+        feelingLucky();
+    });
+
+    viewRestaurantBtn.addEventListener('click', async () => {
+        modal.remove(); // Remove the modal first
+        const dynamicContent = document.getElementById('dynamic-content');
+        dynamicContent.innerHTML = '<div class="flex justify-center items-center min-h-screen"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div></div>';
+        
+        try {
+            // Fetch both restaurant details and menu
+            const [restaurantResponse, menuResponse] = await Promise.all([
+                fetch(`${API_URL.replace(/\/api$/, '')}/api/restaurants/${randomRestaurant.id}`),
+                fetch(`${API_URL.replace(/\/api$/, '')}/api/menu/by-id/${randomRestaurant.id}`)
+            ]);
+
+            if (!restaurantResponse.ok || !menuResponse.ok) {
+                throw new Error('Failed to fetch restaurant data');
+            }
+
+            const restaurantDetails = await restaurantResponse.json();
+            const menuData = await menuResponse.json();
+
+            // Combine the data we have
+            const fullRestaurantData = {
+                ...restaurantDetails,
+                ...randomRestaurant
+            };
+
+            // Display the restaurant page
+            dynamicContent.innerHTML = customerMenuTemplate(fullRestaurantData, menuData);
+
+            // Set up rating functionality
+            const ratingStars = document.querySelectorAll('.rating-star');
+            ratingStars.forEach((star, index) => {
+                star.addEventListener('click', async () => {
+                    const rating = index + 1;
+                    try {
+                        const token = localStorage.getItem('token');
+                        if (!token) {
+                            alert('Please log in to rate restaurants');
+                            return;
+                        }
+
+                        const response = await fetch(`${API_URL}/api/restaurants/${fullRestaurantData.id}/rate`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(rating)
+                        });
+
+                        if (response.ok) {
+                            const result = await response.json();
+                            document.getElementById('rating-feedback').classList.remove('hidden');
+                            // Update the display of all stars
+                            ratingStars.forEach((s, i) => {
+                                s.style.color = i < rating ? '#FCD34D' : '#9CA3AF';
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error submitting rating:', error);
+                        alert('Failed to submit rating. Please try again.');
+                    }
+                });
+
+                // Hover effects
+                star.addEventListener('mouseenter', () => {
+                    ratingStars.forEach((s, i) => {
+                        s.style.color = i <= index ? '#FCD34D' : '#9CA3AF';
+                    });
+                });
+            });
+
+            // Add to order functionality
+            const addToOrderButtons = document.querySelectorAll('.add-to-order');
+            const orderItems = document.getElementById('order-items');
+            const orderTotal = document.getElementById('order-total');
+            let currentOrder = new Map();
+
+            addToOrderButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemName = button.dataset.itemName;
+                    const itemPrice = parseFloat(button.dataset.itemPrice);
+
+                    if (currentOrder.has(itemName)) {
+                        const currentQty = currentOrder.get(itemName).quantity;
+                        currentOrder.set(itemName, {
+                            quantity: currentQty + 1,
+                            price: itemPrice
+                        });
+                    } else {
+                        currentOrder.set(itemName, {
+                            quantity: 1,
+                            price: itemPrice
+                        });
+                    }
+
+                    updateOrderDisplay(currentOrder, orderItems, orderTotal);
+                });
+            });
+
+            // Place order functionality
+            const placeOrderBtn = document.getElementById('place-order-btn');
+            if (placeOrderBtn) {
+                placeOrderBtn.addEventListener('click', async () => {
+                    if (currentOrder.size === 0) {
+                        alert('Please add items to your order first.');
+                        return;
+                    }
+
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        alert('Please log in to place an order.');
+                        return;
+                    }
+
+                    try {
+                        const orderData = {
+                            restaurantId: fullRestaurantData.id,
+                            items: Array.from(currentOrder.entries()).map(([name, details]) => ({
+                                name,
+                                quantity: details.quantity,
+                                unitPrice: details.price
+                            }))
+                        };
+
+                        await createOrder(orderData);
+                        currentOrder.clear();
+                        updateOrderDisplay(currentOrder, orderItems, orderTotal);
+                        alert('Order placed successfully!');
+                    } catch (error) {
+                        console.error('Error placing order:', error);
+                        alert('Failed to place order. Please try again.');
+                    }
+                });
+            }
+
+        } catch (error) {
+            console.error('Error loading restaurant:', error);
+            dynamicContent.innerHTML = '<div class="text-center p-8">Error loading restaurant. Please try again.</div>';
+        }
+    });
+}
+
 function showHome() {
     const dynamicContent = document.getElementById('dynamic-content');
     dynamicContent.classList.add('page-transition', 'fade-out');
@@ -277,6 +538,12 @@ function showHome() {
             // Initialize search functionality
             setupSearchHandlers();
             fetchAllRestaurants().then(displayRestaurants);
+
+            // Add event listener for the "I'm Feeling Lucky" button
+            const feelingLuckyBtn = document.getElementById('feeling-lucky-btn');
+            if (feelingLuckyBtn) {
+                feelingLuckyBtn.addEventListener('click', feelingLucky);
+            }
         }
 
         dynamicContent.classList.remove('fade-out');
