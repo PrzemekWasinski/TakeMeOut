@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.Http;
 
+//File upload
 namespace EatMeOut.API.Helpers
 {
     public static class FileUploadHelper

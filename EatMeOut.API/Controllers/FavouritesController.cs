@@ -69,14 +69,14 @@ namespace EatMeOut.API.Controllers
                     return Unauthorized(new { message = "Invalid or missing authentication token" });
                 }
 
-                // Check if restaurant exists
+                //Check if restaurant exists
                 var restaurant = await _context.Restaurants.FindAsync(restaurantId);
                 if (restaurant == null)
                 {
                     return NotFound(new { message = "Restaurant not found" });
                 }
 
-                // Check if already favourited
+                //Check if already favourited
                 var existingFavourite = await _context.Favourites
                     .FirstOrDefaultAsync(f => f.UserId == userId && f.RestaurantId == restaurantId);
 

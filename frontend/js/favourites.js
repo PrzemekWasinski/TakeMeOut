@@ -1,20 +1,22 @@
 import API_URL from './config.js';
 import { selectRestaurant } from './orders.js';
 
+//Function to load favourite restaurants
 export async function loadFavourites() {
+    //If there is no token in local storage it means no user is logged in
     const token = localStorage.getItem("token");
     if (!token) {
         document.getElementById("dynamic-content").innerHTML = '<p class="text-center text-gray-600">Please log in to view your favourites.</p>';
         return;
     }
-
+    //Fetch the logged in user's favourite restaurants
     try {
         const res = await fetch(`${API_URL}/favourites`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-
+        //If favourites were returned successfuly
         if (!res.ok) {
             const errorData = await res.json().catch(() => ({}));
             console.error('Load favourites failed:', errorData);
@@ -22,18 +24,17 @@ export async function loadFavourites() {
         }
 
         const favourites = await res.json();
-        
+        //If user doesn't have any favourites
         if (favourites.length === 0) {
             document.getElementById("dynamic-content").innerHTML = '<p class="text-center text-gray-600">You haven\'t added any restaurants to your favourites yet.</p>';
             return;
         }
-
+        //Grid to display user's favourite restaurants
         const favouritesHTML = `
             <div class="container mx-auto px-4 py-8">
                 <h2 class="text-2xl font-bold mb-6">Your Favourite Restaurants</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     ${favourites.map(restaurant => {
-                        // Construct the full image URL
                         const fullCoverUrl = restaurant.coverIMG 
                             ? (restaurant.coverIMG.startsWith('uploads/') 
                                 ? `${API_URL}/${restaurant.coverIMG}`
@@ -68,13 +69,16 @@ export async function loadFavourites() {
         `;
 
         document.getElementById("dynamic-content").innerHTML = favouritesHTML;
+    //If error has occured while loading favourites
     } catch (error) {
         console.error('Error loading favourites:', error);
         document.getElementById("dynamic-content").innerHTML = '<p class="text-center text-red-600">Failed to load your favourites. Please try again later.</p>';
     }
 }
 
+//Function to save/unsave restaurants as favourite
 export async function toggleFavourite(restaurantId) {
+    //Check if a user is logged in
     const token = localStorage.getItem("token");
     if (!token) {
         alert('Please log in to add restaurants to your favourites.');
@@ -82,7 +86,7 @@ export async function toggleFavourite(restaurantId) {
     }
 
     try {
-        // First check if the restaurant is already a favourite
+        //Check if restaurant is already saved in favourites
         const checkRes = await fetch(`${API_URL}/favourites/check/${restaurantId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -98,7 +102,7 @@ export async function toggleFavourite(restaurantId) {
         const { isFavourite } = await checkRes.json();
         console.log('Current favourite status:', isFavourite);
 
-        // Then perform the appropriate action
+        //If restaurant is already in favourites remove it, otherwise save it
         const actionRes = await fetch(`${API_URL}/favourites/${restaurantId}`, {
             method: isFavourite ? 'DELETE' : 'POST',
             headers: {
@@ -113,14 +117,14 @@ export async function toggleFavourite(restaurantId) {
             throw new Error(`Failed to update favourite status: ${actionRes.status} ${actionRes.statusText}`);
         }
 
-        // Update the heart icon without reloading the page
+        //Update heart icon
         const heartIcon = document.querySelector(`[onclick="event.stopPropagation(); window.toggleFavourite(${restaurantId})"] svg`);
         if (heartIcon) {
             heartIcon.classList.toggle('text-red-500');
             heartIcon.classList.toggle('text-gray-400');
         }
 
-        // If we're on the favourites page, remove the restaurant card
+        //If user is currently on "favourites" page, update it
         const restaurantCard = document.querySelector(`[onclick="window.selectRestaurant(${restaurantId}"]`);
         if (restaurantCard && isFavourite) {
             restaurantCard.remove();

@@ -3,14 +3,15 @@ import { logout } from './auth.js';
 
 let dangerZoneAudio;
 
+//Function to load setting spage
 function loadSettingsPage() {
-    // Preload audio immediately
+    //Load danger zone audio
     dangerZoneAudio = new Audio('music/danger_zone.mp3');
     dangerZoneAudio.load();
-    dangerZoneAudio.volume = 0.3; // Set volume to 30%
+    dangerZoneAudio.volume = 0.3;
     
     const isRestaurant = localStorage.getItem("isRestaurant") === "true";
-    
+    //Create settings HTML
     document.getElementById("dynamic-content").innerHTML = `
         <div class="max-w-2xl mx-auto px-8 pt-20 pb-16 slide-up">
             <div class="bg-white shadow-md rounded-lg p-8">
@@ -115,14 +116,16 @@ function loadSettingsPage() {
             </div>
         </div>
     `;
-
+    //Load details and setup audio
     loadUserCredit();
     setupEventListeners();
     setupDangerZoneAudio();
 }
 
+//Function to fetch the user's current balance
 async function loadUserCredit() {
     try {
+        //If a restaurant is logged in
         const isRestaurant = localStorage.getItem("isRestaurant") === "true";
         let token, restaurantId;
         
@@ -133,15 +136,9 @@ async function loadUserCredit() {
                 console.error('Restaurant credentials not found');
                 return;
             }
-        } else {
-            token = localStorage.getItem("token");
-            if (!token) return;
-        }
 
-        let balance = 0;
-        if (isRestaurant) {
-            // Get all orders for the restaurant to calculate total revenue
-            const response = await fetch(`${API_URL}/orders/restaurant/${restaurantId}`, {
+            // Get revenue from the dashboard endpoint
+            const response = await fetch(`${API_URL}/orders/restaurant/${restaurantId}/dashboard`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Accept": "application/json"
@@ -150,12 +147,13 @@ async function loadUserCredit() {
 
             if (!response.ok) throw new Error('Failed to fetch balance');
 
-            const orders = await response.json();
-            // Calculate total revenue from all completed orders
-            balance = orders
-                .filter(order => order.status === "Completed")
-                .reduce((total, order) => total + order.totalAmount, 0);
+            const data = await response.json();
+            const balance = data.revenueToday || 0;
+            document.getElementById("current-balance").textContent = `£${balance.toFixed(2)}`;
         } else {
+            token = localStorage.getItem("token");
+            if (!token) return;
+
             const response = await fetch(`${API_URL}/auth/me`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -166,10 +164,9 @@ async function loadUserCredit() {
             if (!response.ok) throw new Error('Failed to fetch balance');
 
             const data = await response.json();
-            balance = data.credit || 0;
+            const balance = data.credit || 0;
+            document.getElementById("current-balance").textContent = `£${balance.toFixed(2)}`;
         }
-
-        document.getElementById("current-balance").textContent = `£${balance.toFixed(2)}`;
     } catch (error) {
         console.error('Error loading balance:', error);
         document.getElementById("current-balance").textContent = `£0.00`;
@@ -193,7 +190,18 @@ async function withdrawCredit(amount) {
             return;
         }
 
-        const response = await fetch(`${API_URL}/restaurants/${restaurantId}/withdraw`, {
+        if (!amount || amount <= 0) {
+            showErrorModal("Please enter a valid withdrawal amount");
+            return;
+        }
+
+        const currentBalance = parseFloat(document.getElementById("current-balance").textContent.replace('£', ''));
+        if (amount > currentBalance) {
+            showErrorModal(`Insufficient funds. Available balance is £${currentBalance.toFixed(2)}`);
+            return;
+        }
+
+        const response = await fetch(`${API_URL}/orders/restaurant/${restaurantId}/withdraw`, {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -212,11 +220,27 @@ async function withdrawCredit(amount) {
             throw new Error(data.message || 'Failed to process withdrawal');
         }
 
-        document.getElementById("current-balance").textContent = `£${(data.newBalance || 0).toFixed(2)}`;
-        showSuccessModal(`Withdrawal of £${amount.toFixed(2)} has been initiated. It will be processed within 1-3 business days.`);
+        // Fetch updated balance from dashboard
+        const dashboardResponse = await fetch(`${API_URL}/orders/restaurant/${restaurantId}/dashboard`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+
+        if (!dashboardResponse.ok) {
+            throw new Error('Failed to fetch updated balance');
+        }
+
+        const dashboardData = await dashboardResponse.json();
+        document.getElementById("current-balance").textContent = `£${(dashboardData.revenueToday || 0).toFixed(2)}`;
         
-        // Refresh the balance
-        loadUserCredit();
+        // Clear the input fields
+        document.getElementById('bank-account').value = '';
+        document.getElementById('sort-code').value = '';
+        document.getElementById('custom-amount').value = '';
+        
+        showSuccessModal(`Withdrawal of £${amount.toFixed(2)} has been initiated. It will be processed within 1-3 business days.`);
     } catch (error) {
         console.error('Error processing withdrawal:', error);
         showErrorModal(error.message || 'Failed to process withdrawal. Please try again.');
@@ -291,7 +315,7 @@ async function topUpCredit(amount) {
     try {
         const token = localStorage.getItem("token");
         if (!token) {
-            alert("Please log in to top up credit");
+            showErrorModal("Please log in to top up credit");
             return;
         }
 
@@ -308,10 +332,10 @@ async function topUpCredit(amount) {
 
         const data = await response.json();
         document.getElementById("current-balance").textContent = `£${(data.newBalance || 0).toFixed(2)}`;
-        alert(`Successfully added £${amount.toFixed(2)} to your balance!`);
+        showSuccessModal(`Successfully added £${amount.toFixed(2)} to your balance! Your new balance is £${(data.newBalance || 0).toFixed(2)}.`);
     } catch (error) {
         console.error('Error topping up credit:', error);
-        alert('Failed to top up credit. Please try again.');
+        showErrorModal('Failed to top up credit. Please try again.');
     }
 }
 
@@ -439,7 +463,7 @@ function setupEventListeners() {
         document.getElementById('custom-withdraw').addEventListener('click', () => {
             const amount = parseFloat(document.getElementById('custom-amount').value);
             if (isNaN(amount) || amount <= 0) {
-                alert('Please enter a valid amount');
+                showErrorModal('Please enter a valid amount');
                 return;
             }
             withdrawCredit(amount);

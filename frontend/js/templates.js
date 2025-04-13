@@ -1,6 +1,8 @@
 import API_URL from "./config.js";
 
-// Templates
+//HTML templates
+
+//Home template
 const homeContentTemplate = `
     <!-- Hero Section -->
     <div class="bg-black text-white py-16">
@@ -48,7 +50,7 @@ const homeContentTemplate = `
     </div>
 `;
 
-
+//Login template
 const loginFormTemplate = `
     <div class="max-w-md mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6 text-center">Sign In</h1>
@@ -81,7 +83,7 @@ const loginFormTemplate = `
         <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
-
+//Register template
 const registerFormTemplate = `
     <div class="max-w-md mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6 text-center">Sign Up</h1>
@@ -128,7 +130,7 @@ const registerFormTemplate = `
         <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
-
+//About template
 const aboutTemplate = `
     <div class="max-w-4xl mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6">About Us</h1>
@@ -143,7 +145,7 @@ const aboutTemplate = `
         <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
-
+//Partner template
 const partnerTemplate = `
     <div class="max-w-4xl mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6">Become a Partner</h1>
@@ -175,7 +177,7 @@ const partnerTemplate = `
         <button onclick="window.showHome()" class="back-btn">← Back to Home</button>
     </div>
 `;
-
+//Template for restaurant signup
 const restaurantSignupTemplate = `
     <div class="max-w-4xl mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6 text-center">Restaurant Sign Up</h1>
@@ -289,7 +291,7 @@ const restaurantSignupTemplate = `
         </div>
     </div>
 `;
-
+//Template for register login
 const restaurantLoginTemplate = `
     <div class="max-w-md mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6 text-center">Restaurant Sign In</h1>
@@ -323,7 +325,7 @@ const restaurantLoginTemplate = `
     </div>
 `;
 
-// Restaurant-specific templates
+//Restaurant specific templates
 const restaurantDashboardTemplate = (
   ordersToday = [],
   revenue = 0,
@@ -393,7 +395,7 @@ const restaurantDashboardTemplate = (
     </div>
   `;
 };
-
+//Rstaurant menu template
 const restaurantMenuTemplate = (categories = []) => {
   const sortedCategories = [...categories].sort((a, b) => a.displayOrder - b.displayOrder);
 
@@ -487,7 +489,7 @@ const restaurantMenuTemplate = (categories = []) => {
     </section>
   `;
 };
-  
+//Restaurant orders template
 const restaurantOrdersTemplate = (orders = [], activeStatus = "Pending") => `
     <div class="max-w-6xl mx-auto p-8 slide-up">
         <h1 class="text-3xl font-bold mb-6">Order Management</h1>
@@ -571,7 +573,7 @@ const restaurantOrdersTemplate = (orders = [], activeStatus = "Pending") => `
     </div>
 `;
 
-// Helper function for restaurant signup
+//Function to create opening and closing time fields
 function generateTimeFields() {
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -589,12 +591,11 @@ function generateTimeFields() {
         </div>
     `).join("");
 }
-
+//Meny template for viewing customers
 const customerMenuTemplate = (restaurant, categories = []) => {
   const sortedCategories = [...categories].sort((a, b) => a.displayOrder - b.displayOrder);
   console.log("Restaurant data in template:", restaurant);
   
-  // Updated banner URL construction logic
   const fullBannerUrl = restaurant.BannerIMG 
     ? restaurant.BannerIMG.startsWith('http') 
       ? restaurant.BannerIMG 
@@ -718,51 +719,50 @@ const customerMenuTemplate = (restaurant, categories = []) => {
     </section>
   `;
 };
-
-  const userOrdersTemplate = (orders = []) => {
-    if (!orders.length) {
-      return `
-        <section class="max-w-4xl mx-auto px-4 py-10 slide-up">
-          <h1 class="text-3xl font-bold mb-6">My Orders</h1>
-          <p class="text-gray-500">You haven't placed any orders yet.</p>
-        </section>
-      `;
-    }
-  
+//Oders template for user viewing
+const userOrdersTemplate = (orders = []) => {
+  if (!orders.length) {
     return `
       <section class="max-w-4xl mx-auto px-4 py-10 slide-up">
         <h1 class="text-3xl font-bold mb-6">My Orders</h1>
-        <div class="space-y-6">
-          ${orders.map(order => `
-            <div class="border rounded shadow p-4">
-              <div class="flex justify-between mb-2">
-                <div>
-                  <p class="text-sm text-gray-500">Order ID: <strong>#${order.id}</strong></p>
-                  <p class="text-sm text-gray-500">Placed: ${new Date(order.orderDate).toLocaleString()}</p>
-                  <p class="text-sm text-gray-500">To: ${order.address || "Unknown address"}</p>
-                </div>
-                <div class="text-right">
-                  <p class="font-bold text-blue-600">£${order.totalAmount.toFixed(2)}</p>
-                  <p class="text-sm text-gray-500">Status: ${order.status}</p>
-                </div>
-              </div>
-              <div class="mt-2">
-                <h4 class="text-sm font-semibold mb-1">Items:</h4>
-                <ul class="list-disc pl-5 text-sm text-gray-700">
-                  ${order.items.map(i => `
-                    <li>${i.quantity} x ${i.itemName} @ £${i.unitPrice.toFixed(2)}</li>
-                  `).join('')}
-                </ul>
-              </div>
-            </div>
-          `).join('')}
-        </div>
+        <p class="text-gray-500">You haven't placed any orders yet.</p>
       </section>
     `;
-  };
-  
-  
+  }
 
+  return `
+    <section class="max-w-4xl mx-auto px-4 py-10 slide-up">
+      <h1 class="text-3xl font-bold mb-6">My Orders</h1>
+      <div class="space-y-6">
+        ${orders.map(order => `
+          <div class="border rounded shadow p-4">
+            <div class="flex justify-between mb-2">
+              <div>
+                <p class="text-sm text-gray-500">Order ID: <strong>#${order.id}</strong></p>
+                <p class="text-sm text-gray-500">Placed: ${new Date(order.orderDate).toLocaleString()}</p>
+                <p class="text-sm text-gray-500">To: ${order.address || "Unknown address"}</p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-blue-600">£${order.totalAmount.toFixed(2)}</p>
+                <p class="text-sm text-gray-500">Status: ${order.status}</p>
+              </div>
+            </div>
+            <div class="mt-2">
+              <h4 class="text-sm font-semibold mb-1">Items:</h4>
+              <ul class="list-disc pl-5 text-sm text-gray-700">
+                ${order.items.map(i => `
+                  <li>${i.quantity} x ${i.itemName} @ £${i.unitPrice.toFixed(2)}</li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+};
+  
+//Template for displaying all restaurants
 const allRestaurantsTemplate = `
     <div class="max-w-6xl mx-auto px-4 py-8 slide-up">
         <h1 class="text-3xl font-bold mb-6">All Restaurants</h1>
@@ -774,8 +774,7 @@ const allRestaurantsTemplate = `
         </div>
     </div>
 `;
-
-
+//Template for displaying favourite restaurants
 const favouritesTemplate = `
     <div class="max-w-6xl mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-6">My Favourites</h1>
@@ -787,7 +786,7 @@ const favouritesTemplate = `
         </div>
     </div>
 `;
-
+//Make templates available in other JS files
 export { 
     homeContentTemplate, 
     loginFormTemplate, 

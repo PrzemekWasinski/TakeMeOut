@@ -1,14 +1,15 @@
 import API_URL from './config.js';
 
 //Authentication functions
+
+//User login function
 async function loginUser() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    // Clear previous error messages and remove red borders
+    //Clear previous error messages and remove red borders
     document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
     document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
-    // Remove any existing form-level error messages
     const form = document.getElementById('login-form');
     const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
     if (existingFormError) {
@@ -17,14 +18,14 @@ async function loginUser() {
 
     let hasErrors = false;
 
-    // Validate email
+    //Validate email
     if (!email.trim()) {
         document.getElementById('email-error').textContent = 'Email is required';
         document.getElementById('email').classList.add('border-red-500');
         hasErrors = true;
     }
 
-    // Validate password
+    //Validate password
     if (!password) {
         document.getElementById('password-error').textContent = 'Password is required';
         document.getElementById('password').classList.add('border-red-500');
@@ -35,6 +36,7 @@ async function loginUser() {
         return { success: false };
     }
 
+    //Send login details to backend
     try {
         let response = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
@@ -48,11 +50,13 @@ async function loginUser() {
             })
         });
 
+        //If user logged in successfully
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
             localStorage.setItem("userName", `${data.firstName} ${data.lastName}`);
             return { success: true, data };
+        //If login failed
         } else {
             const errorData = await response.json(); 
             if (errorData.message.includes('email')) {
@@ -69,6 +73,7 @@ async function loginUser() {
             }
             return { success: false, error: errorData };
         }
+    //If an error occured
     } catch (error) {
         console.error("Error during login:", error);
         const formError = document.createElement('p');
@@ -79,6 +84,7 @@ async function loginUser() {
     }
 }
 
+//User register function
 async function register() {
     const form = document.getElementById("register-form");
     const email = document.getElementById("email").value;
@@ -87,7 +93,7 @@ async function register() {
     const lastName = document.getElementById("lastName").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    // Debug logging
+    //Debugging
     console.log('Form values:', {
         firstName,
         lastName,
@@ -96,10 +102,9 @@ async function register() {
         confirmPassword
     });
 
-    // Clear previous error messages and remove red borders
+    //Clear previous error messages and remove red borders
     document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
     document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
-    // Remove any existing form-level error messages
     const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
     if (existingFormError) {
         existingFormError.remove();
@@ -107,7 +112,7 @@ async function register() {
 
     let hasErrors = false;
 
-    // Validate first name
+    //Validate first name
     if (!firstName || !firstName.trim()) {
         document.getElementById('firstName-error').textContent = 'First name is required';
         document.getElementById('firstName').classList.add('border-red-500');
@@ -115,7 +120,7 @@ async function register() {
         console.log('First name validation failed');
     }
 
-    // Validate last name
+    //Validate last name
     if (!lastName || !lastName.trim()) {
         document.getElementById('lastName-error').textContent = 'Last name is required';
         document.getElementById('lastName').classList.add('border-red-500');
@@ -123,7 +128,7 @@ async function register() {
         console.log('Last name validation failed');
     }
 
-    // Validate email
+    //Email regex
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!email || !email.trim()) {
         document.getElementById('email-error').textContent = 'Email is required';
@@ -137,7 +142,7 @@ async function register() {
         console.log('Email validation failed - invalid format');
     }
 
-    // Validate password
+    //Password regex
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
     if (!password) {
         document.getElementById('password-error').textContent = 'Password is required';
@@ -151,7 +156,7 @@ async function register() {
         console.log('Password validation failed - invalid format');
     }
 
-    // Validate confirm password
+    //Validate confirm password
     if (!confirmPassword) {
         document.getElementById('confirmPassword-error').textContent = 'Please confirm your password';
         document.getElementById('confirmPassword').classList.add('border-red-500');
@@ -169,8 +174,9 @@ async function register() {
         return { success: false };
     }
 
-    console.log('Form validation passed, sending request...');
+    console.log('Form validation passed sending request...');
 
+    //Send register details to backend
     try {
         const requestBody = {
             firstName: firstName.trim(),
@@ -192,10 +198,11 @@ async function register() {
         const data = await response.json();
         console.log('Server response:', data);
 
+        //If register was successful
         if (response.ok) {
             return { success: true, navigateTo: 'login' };
+        //If register was unsuccessful
         } else {
-            // Display error message in the appropriate field
             if (data.message.includes('email')) {
                 document.getElementById('email-error').textContent = data.message;
                 document.getElementById('email').classList.add('border-red-500');
@@ -203,7 +210,6 @@ async function register() {
                 document.getElementById('password-error').textContent = data.message;
                 document.getElementById('password').classList.add('border-red-500');
             } else {
-                // If the error is not specific to a field, show it at the top of the form
                 const formError = document.createElement('p');
                 formError.className = 'text-red-500 text-sm mb-4';
                 formError.textContent = data.message;
@@ -211,6 +217,7 @@ async function register() {
             }
             return { success: false, error: data };
         }
+    //If an error occured
     } catch (error) {
         console.error("Registration error:", error);
         const formError = document.createElement('p');
@@ -221,6 +228,7 @@ async function register() {
     }
 }
 
+//Login function for restaurants
 async function loginRestaurant() {
     const email = document.getElementById("restaurant-email").value;
     const password = document.getElementById("restaurant-password").value;
@@ -228,7 +236,6 @@ async function loginRestaurant() {
     // Clear previous error messages and remove red borders
     document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
     document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
-    // Remove any existing form-level error messages
     const form = document.getElementById('restaurant-login-form');
     const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
     if (existingFormError) {
@@ -237,14 +244,14 @@ async function loginRestaurant() {
 
     let hasErrors = false;
 
-    // Validate email
+    //Validate email
     if (!email.trim()) {
         document.getElementById('restaurant-email-error').textContent = 'Email is required';
         document.getElementById('restaurant-email').classList.add('border-red-500');
         hasErrors = true;
     }
 
-    // Validate password
+    //Validate password
     if (!password) {
         document.getElementById('restaurant-password-error').textContent = 'Password is required';
         document.getElementById('restaurant-password').classList.add('border-red-500');
@@ -255,6 +262,7 @@ async function loginRestaurant() {
         return { success: false };
     }
 
+    //Send login details to backend
     try {
         let response = await fetch(`${API_URL}/restaurants/login`, {
             method: "POST",
@@ -268,6 +276,7 @@ async function loginRestaurant() {
         const data = await response.json();
         console.log("Login Response:", data);  
 
+        //If login was successful
         if (response.ok) {
             localStorage.setItem("restaurantToken", data.token);
             localStorage.setItem("restaurantName", data.restaurantName);
@@ -277,6 +286,7 @@ async function loginRestaurant() {
             localStorage.setItem("currentRestaurantEmail", email);
             
             return { success: true, data, ownerName: data.ownerName };
+        //If login was unsuccessful
         } else {
             if (data.message.includes('email')) {
                 document.getElementById('restaurant-email-error').textContent = data.message;
@@ -292,6 +302,7 @@ async function loginRestaurant() {
             }
             return { success: false, error: data };
         }
+    //If lan error occured
     } catch (error) {
         console.error("Error during restaurant login:", error);
         const formError = document.createElement('p');
@@ -302,6 +313,7 @@ async function loginRestaurant() {
     }
 }
 
+//Register function for restaurants
 async function registerRestaurant() {
     const submitButton = document.getElementById('submit-signup');
     submitButton.disabled = true;
@@ -310,7 +322,6 @@ async function registerRestaurant() {
     // Clear previous error messages and remove red borders
     document.querySelectorAll('[id$="-error"]').forEach(el => el.textContent = '');
     document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
-    // Remove any existing form-level error messages
     const form = document.getElementById('restaurant-signup-form');
     if (form) {
         const existingFormError = form.querySelector('.text-red-500.text-sm.mb-4');
@@ -319,7 +330,8 @@ async function registerRestaurant() {
         }
     }
 
-    // Step 1 Fields
+    //Retrieve data from input fields
+    //Owner and restaurant details
     const ownerName = document.getElementById('ownerName').value;
     const restaurantName = document.getElementById('restaurantName').value;
     const email = document.getElementById('email').value;
@@ -327,19 +339,16 @@ async function registerRestaurant() {
     const confirmPassword = document.getElementById('confirmPassword').value;
     const phone = document.getElementById('phone').value;
     
-    // Step 2 (New Address Fields)
+    // Address
     const doorNumber = document.getElementById('doorNumber').value;
     const road = document.getElementById('road').value;
     const city = document.getElementById('city').value;
     const postcode = document.getElementById('postcode').value;
-
-    // Concatenate full address
     const address = `${doorNumber}, ${road}, ${city}, ${postcode}`;
-
     const cuisineType = document.getElementById('cuisineType').value;
     const description = document.getElementById('description').value;
 
-    // Step 3 Fields
+    //Restaurant images and opening times
     const coverImg = document.getElementById('coverImg').files[0];
     const bannerImg = document.getElementById('bannerImg').files[0];
 
@@ -352,14 +361,14 @@ async function registerRestaurant() {
         closingTimes[day] = document.getElementById(`${day.toLowerCase()}Close`).value;
     });
 
-    // Regex patterns for validation
+    //Regex 
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     const phonePattern = /^\d{10,15}$/;
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
 
     let hasErrors = false;
 
-    // Validate required fields
+    //Check if fields match regex
     if (!ownerName.trim()) {
         document.getElementById('ownerName-error').textContent = 'Owner name is required';
         document.getElementById('ownerName').classList.add('border-red-500');
@@ -475,6 +484,7 @@ async function registerRestaurant() {
     formData.append("OpeningTimes", JSON.stringify(openingTimes));
     formData.append("ClosingTimes", JSON.stringify(closingTimes));
 
+    //Sends register details to backend
     try {
         const response = await fetch(`${API_URL}/restaurants/register`, {
             method: 'POST',
@@ -483,10 +493,11 @@ async function registerRestaurant() {
 
         const data = await response.json();
 
+        //If register was successsful
         if (response.ok) {
             return { success: true, navigateTo: 'restaurant-login' };
+        //If register was unsuccessful
         } else {
-            // Handle server-side errors
             if (data.message.includes('email')) {
                 document.getElementById('email-error').textContent = data.message;
                 document.getElementById('email').classList.add('border-red-500');
@@ -496,10 +507,12 @@ async function registerRestaurant() {
                 formError.textContent = data.message;
                 document.getElementById('restaurant-signup-form').insertBefore(formError, document.getElementById('restaurant-signup-form').firstChild);
             }
+            //Disable register button after user presses it
             submitButton.disabled = false;
             submitButton.textContent = "Sign Up";
             return { success: false, error: data };
         }
+    //If an error has occured
     } catch (error) {
         console.error('Error registering restaurant:', error);
         const formError = document.createElement('p');
@@ -512,6 +525,7 @@ async function registerRestaurant() {
     }
 }
 
+//Logout function
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
@@ -521,6 +535,7 @@ function logout() {
     return { success: true };
 }
 
+//Function to retrieve user data
 async function fetchUserData() {
     try {
         let response = await fetch(`${API_URL}/auth/home`, {
@@ -539,6 +554,7 @@ async function fetchUserData() {
     }
 }
 
+//Make user details available in other files
 export { 
     loginUser, 
     register, 

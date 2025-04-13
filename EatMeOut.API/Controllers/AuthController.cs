@@ -28,14 +28,14 @@ namespace EatMeOut.API.Controllers
             _configuration = configuration;
         }
 
-        //test
+        //test endpoint
         [HttpGet("test")]
         public IActionResult Test()
         {
             return Ok(new { message = "API is working!" });
         }
 
-        //register
+        //register endpoint
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
         {
@@ -76,7 +76,7 @@ namespace EatMeOut.API.Controllers
             }
         }
 
-        //login
+        //login endpoint
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -176,13 +176,13 @@ namespace EatMeOut.API.Controllers
                 if (user == null)
                     return Unauthorized();
 
-                // Update user information
+                //Update user information
                 user.FirstName = updateDto.FirstName;
                 user.LastName = updateDto.LastName;
                 user.Email = updateDto.Email;
                 user.Address = updateDto.Address;
 
-                // Update password if provided
+                //Update password
                 if (!string.IsNullOrEmpty(updateDto.Password))
                 {
                     user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateDto.Password);

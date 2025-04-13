@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <!-- Hidden audio element -->
+    <!-- Danger zone audio -->
     <audio id="danger-zone-audio" preload="auto">
         <source src="music/danger_zone.mp3" type="audio/mpeg">
     </audio>
@@ -26,14 +26,14 @@
                 </nav>
             </div>
             <div id="nav-buttons" class="flex items-center space-x-4">
-                <!-- The nav buttons will be dynamically inserted by JavaScript -->
+                <!-- Nav buttons are handled by JS -->
             </div>
         </div>
     </header>
 
     <!-- Main Content Area -->
     <main id="dynamic-content" class="min-h-screen">
-        <!-- The dynamic content will be loaded here via JavaScript -->
+        <!-- Dynamic content will be injected here by JS -->
     </main>
 
     <!-- Footer -->
@@ -73,7 +73,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
     <script>
-        // Add hover effect for danger zone
+        //Add hover effect for danger zone
         document.addEventListener('DOMContentLoaded', function() {
             const dangerZoneTab = document.getElementById('danger-zone-tab');
             const audio = document.getElementById('danger-zone-audio');
@@ -85,13 +85,12 @@
             });
 
             dangerZoneTab.addEventListener('mouseleave', function() {
-                // Optional: fade out the audio over 1 second
                 const fadeOut = setInterval(function() {
                     if (audio.volume > 0.1) {
                         audio.volume -= 0.1;
                     } else {
                         audio.pause();
-                        audio.volume = 1.0; // Reset volume for next play
+                        audio.volume = 1.0;
                         clearInterval(fadeOut);
                     }
                 }, 100);

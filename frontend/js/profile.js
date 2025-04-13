@@ -2,6 +2,7 @@ import API_URL from './config.js';
 import { previewImage, loadContent } from './navigation.js';
 import { logout } from './auth.js';
 
+//Function to check and load either user or restaurant profile pae
 function loadProfilePage() {
     const isRestaurant = localStorage.getItem("isRestaurant") === "true";
     
@@ -12,7 +13,9 @@ function loadProfilePage() {
     }
 }
 
+//Function to load user profile page
 function loadCustomerProfilePage() {
+    //Profile page HTML
     document.getElementById("dynamic-content").innerHTML = `
         <div class="max-w-2xl mx-auto px-8 pt-20 pb-16 slide-up">
             <div class="bg-white shadow-md rounded-lg p-8">
@@ -67,7 +70,9 @@ function loadCustomerProfilePage() {
     setupCustomerProfileHandlers();
 }
 
+//Funciton to load restaurant profile page
 function loadRestaurantProfilePage() {
+    //Profile page HTML
     document.getElementById("dynamic-content").innerHTML = `
         <div class="max-w-screen-xl mx-auto px-16 pt-40 pb-16 slide-up bg-white shadow-md rounded-md">
             <h1 class="text-3xl font-bold mb-6 text-center">Restaurant Profile</h1>
@@ -169,14 +174,16 @@ function loadRestaurantProfilePage() {
     loadRestaurantProfile();
 }
 
+//Function to retrieve user profile details
 async function loadCustomerProfile() {
+    //Check if  auser is loggedin
     const token = localStorage.getItem("token");
     if (!token) {
         alert("Please log in first.");
         loadContent('login');
         return;
     }
-
+    //Fetch user's profile information
     try {
         console.log("Attempting to fetch profile with token:", token);
         const response = await fetch(`${API_URL}/auth/me`, {
@@ -191,7 +198,7 @@ async function loadCustomerProfile() {
         console.log("Profile response status:", response.status);
         const responseText = await response.text();
         console.log("Raw response:", responseText);
-
+        //If profile information culdnt be retrieved
         if (!response.ok) {
             if (response.status === 401 || response.status === 403) {
                 alert("Session expired. Please log in again.");
@@ -203,27 +210,28 @@ async function loadCustomerProfile() {
 
         const data = JSON.parse(responseText);
         console.log("Parsed profile data:", data);
+        //Display the profile information
         populateCustomerProfile(data);
+    //Catch errors
     } catch (error) {
         console.error("Error loading customer profile:", error);
         alert("Failed to load profile information. Please try logging in again.");
         logout();
     }
 }
-
+//Function to display user profile information
 function populateCustomerProfile(data) {
     console.log("Populating profile with data:", data);
     
-    // Set the name (combining first and last name if they exist)
+    //Get user details
     document.getElementById("customerName").value = data.name || "";
     document.getElementById("customerEmail").value = data.email || "";
     
-    // Handle address
+    //Retrieve and clear old address
     const addressesContainer = document.getElementById("addresses-container");
-    addressesContainer.innerHTML = ""; // Clear existing addresses
-    
+    addressesContainer.innerHTML = "";
+    //If address exists seperate the details
     if (data.address) {
-        // Parse the full address more intelligently
         const addressParts = data.address.split(',').map(part => part.trim());
         let address = {
             door: "",
@@ -232,31 +240,30 @@ function populateCustomerProfile(data) {
             postcode: ""
         };
 
-        // Handle the first part which might contain both door number and road
+        //Get door num and road
         if (addressParts[0]) {
             const firstPart = addressParts[0];
             const match = firstPart.match(/^(\d+)\s+(.+)$/);
             if (match) {
-                // If we can split into number and street
                 address.door = match[1];
                 address.road = match[2];
             } else {
-                // If we can't split, put it all in road
                 address.road = firstPart;
             }
         }
 
-        // Handle city (usually the second part)
+        //Get city
         if (addressParts[1]) {
             address.city = addressParts[1];
         }
 
-        // Handle postcode (usually the last part)
+        //Get postcode
         if (addressParts[2]) {
             address.postcode = addressParts[2];
         }
 
         addressesContainer.innerHTML = createAddressHTML(address, 0);
+    //If no addresses could be found
     } else {
         addressesContainer.innerHTML = `
             <div class="text-gray-500 text-center py-4">
@@ -265,7 +272,7 @@ function populateCustomerProfile(data) {
         `;
     }
 }
-
+//Function to display 4 most recent addresses on a popup
 function createAddressHTML(address, index) {
     return `
         <div class="address-entry bg-gray-50 p-4 rounded-md">
@@ -301,11 +308,13 @@ function createAddressHTML(address, index) {
     `;
 }
 
+//Function to handle buttons on user profile page
 function setupCustomerProfileHandlers() {
+    //Buttons
     const editButton = document.getElementById("edit-customer-profile");
     const saveButton = document.getElementById("save-customer-profile");
     const addAddressButton = document.getElementById("add-address");
-    
+    //Event listeneers for profile buttons
     editButton.addEventListener("click", () => {
         document.querySelectorAll(".customer-editable").forEach(input => input.removeAttribute("readonly"));
         document.querySelectorAll(".delete-address").forEach(btn => btn.classList.remove("hidden"));
@@ -329,15 +338,16 @@ function setupCustomerProfileHandlers() {
 
     saveButton.addEventListener("click", saveCustomerProfile);
 }
-
+//Function to save user's profile
 async function saveCustomerProfile() {
+    //Check if a user is logge din
     const token = localStorage.getItem("token");
     if (!token) {
         alert("Please log in first.");
         return;
     }
 
-    // Get the first address (currently we only support one address)
+    //Get user address
     const addressDiv = document.querySelector(".address-entry");
     const address = addressDiv ? [
         addressDiv.querySelector('[data-field="door"]').value,
@@ -345,23 +355,23 @@ async function saveCustomerProfile() {
         addressDiv.querySelector('[data-field="city"]').value,
         addressDiv.querySelector('[data-field="postcode"]').value
     ].filter(Boolean).join(", ") : "";
-
+    //Get name
     const [firstName, ...lastNameParts] = document.getElementById("customerName").value.split(" ");
     const lastName = lastNameParts.join(" ");
-
+    //Put user info in JSON format
     const formData = {
         firstName: firstName,
-        lastName: lastName || " ", // API requires a lastName
+        lastName: lastName || " ", 
         email: document.getElementById("customerEmail").value,
         password: document.getElementById("customerPassword").value,
         address: address
     };
 
-    // Remove password if not changed
+    //Remove password if not changed
     if (!formData.password) {
         delete formData.password;
     }
-
+    //Send new data to server
     try {
         const response = await fetch(`${API_URL}/auth/update`, {
             method: "PUT",
@@ -376,7 +386,7 @@ async function saveCustomerProfile() {
             throw new Error(`Failed to update profile. Status: ${response.status}`);
         }
 
-        // Update the UI
+        //Update UI
         document.querySelectorAll(".customer-editable").forEach(input => input.setAttribute("readonly", true));
         document.querySelectorAll(".delete-address").forEach(btn => btn.classList.add("hidden"));
         document.getElementById("add-address").classList.add("hidden");
@@ -385,23 +395,25 @@ async function saveCustomerProfile() {
         document.getElementById("customerPassword").value = ""; // Clear password field
 
         alert("Profile updated successfully!");
+    //Catch errors
     } catch (error) {
         console.error("Error saving profile:", error);
         alert("Failed to save profile changes.");
     }
 }
 
-// Fetch and populate restaurant profile data
+//Function to fetch and populate restaurant profile 
 async function loadRestaurantProfile() {
+    //If restaurant isn't logged in
     const token = localStorage.getItem("restaurantToken");
     if (!token) {
         alert("Please log in first.");
         loadContent('restaurant-login');
         return;
     }
-
+    //Fetch restaurant profile info
     try {
-        console.log("Fetching restaurant profile from API...");
+        console.log("Fetching restaurant profile from API");
 
         const response = await fetch(`${API_URL}/restaurants/profile`, {
             method: "GET",
@@ -423,27 +435,28 @@ async function loadRestaurantProfile() {
                 return;
             }
 
-            alert(`Failed to load profile data. Status: ${response.status}`);
+            console.log(`Failed to load profile data. Status: ${response.status}`);
             return;
         }
 
         const data = JSON.parse(responseText);
         console.log("Parsed Profile Data:", data);
-
+        //Show restaurant info on profile
         populateProfileFields(data);
+    //Catch errors
     } catch (error) {
         console.error("Error fetching profile:", error);
         alert("Network error occurred while loading profile.");
     }
 }
-
+//Function to fill in information on profile page
 function populateProfileFields(data) {
     document.getElementById("OwnerName").value = data.ownerName || "N/A";
     document.getElementById("RestaurantName").value = data.restaurantName || "N/A";
     document.getElementById("Email").value = data.email || "N/A";
     document.getElementById("Phone").value = data.phone || "N/A";
 
-    // Split address into separate fields
+    //Split address data
     const [door = "", road = "", city = "", postcode = ""] = (data.address || "").split(',').map(p => p.trim());
     document.getElementById("Door").value = door;
     document.getElementById("Road").value = road;
@@ -453,16 +466,16 @@ function populateProfileFields(data) {
     document.getElementById("CuisineType").value = data.cuisineType || "N/A";
     document.getElementById("Description").value = data.description || "N/A";
 
-    // Times
+    //Times
     const openingTimes = typeof data.openingTimes === "string" ? JSON.parse(data.openingTimes) : data.openingTimes;
     const closingTimes = typeof data.closingTimes === "string" ? JSON.parse(data.closingTimes) : data.closingTimes;
     populateOperatingHours(openingTimes, closingTimes);
 
-    // Image previews
+    //Image previews
     const coverPreview = document.getElementById("coverPreview");
     const bannerPreview = document.getElementById("bannerPreview");
     
-    // Reset preview containers
+    //Reset preview containers
     coverPreview.style.backgroundImage = '';
     coverPreview.innerHTML = '<span class="text-gray-600 text-center">Upload</span>';
     bannerPreview.style.backgroundImage = '';
@@ -488,24 +501,25 @@ function populateProfileFields(data) {
         bannerPreview.innerHTML = '';
     }
     
-    // Remove any existing event listeners before adding new ones
+    //Remove existing event listeners before adding new ones
     const editButton = document.getElementById("edit-profile");
     const saveButton = document.getElementById("save-profile");
     
     editButton.replaceWith(editButton.cloneNode(true));
     saveButton.replaceWith(saveButton.cloneNode(true));
     
-    // Add event listeners to the new buttons
+    //Add event listeners to the new buttons
     document.getElementById("edit-profile").addEventListener("click", enableProfileEditing);
     document.getElementById("save-profile").addEventListener("click", saveProfile);
 }
 
+//Function to populate opening an dclosing time fields
 function populateOperatingHours(openingTimes, closingTimes) {
     let html = "";
     
     if (!openingTimes || !closingTimes) {
         console.error("Opening or Closing Times are missing:", openingTimes, closingTimes);
-        // Add default days of week if times are missing
+        //Add default days of week if times are missing
         html = `
             <div class="flex gap-4 items-center mb-2">
                 <label class="w-24">Monday:</label>
@@ -519,7 +533,7 @@ function populateOperatingHours(openingTimes, closingTimes) {
     }
 
     const days = Object.keys(openingTimes);
-
+    //For each day display the opening and closing times
     days.forEach(day => {
         const openValue = openingTimes[day] || "";
         const closeValue = closingTimes[day] || "";
@@ -537,31 +551,33 @@ function populateOperatingHours(openingTimes, closingTimes) {
     document.getElementById("opening-times").innerHTML = html;
 }
 
-// Enable profile editing
+//Funciton to enable profile editing
 function enableProfileEditing() {
-    // Enable all editable fields
+    //Enable all editable fields
     document.querySelectorAll(".editable").forEach(input => input.removeAttribute("readonly"));
     
-    // Enable file inputs
+    //Enable file inputs
     document.getElementById("CoverIMG").disabled = false;
     document.getElementById("BannerIMG").disabled = false;
     
-    // Show/hide appropriate buttons
+    //Show/hide appropriate buttons
     document.getElementById("edit-profile").classList.add("hidden");
     document.getElementById("save-profile").classList.remove("hidden");
 }
 
+//Function to save changes to profile
 async function saveProfile() {
+    //Check if a restaurant i slogged in
     const token = localStorage.getItem("restaurantToken");
     if (!token) {
         alert("Please log in first.");
         return;
     }
-
+    //Retrieve all data from all fields
     try {
         const formData = new FormData();
 
-        // Text fields
+        //Text fields
         formData.append("OwnerName", document.getElementById("OwnerName").value);
         formData.append("RestaurantName", document.getElementById("RestaurantName").value);
         formData.append("Email", document.getElementById("Email").value);
@@ -569,7 +585,7 @@ async function saveProfile() {
         formData.append("CuisineType", document.getElementById("CuisineType").value);
         formData.append("Description", document.getElementById("Description").value);
 
-        // Rebuild full address
+        //Rebuild full address
         const door = document.getElementById("Door").value.trim();
         const road = document.getElementById("Road").value.trim();
         const city = document.getElementById("City").value.trim();
@@ -577,13 +593,13 @@ async function saveProfile() {
         const address = [door, road, city, postcode].filter(Boolean).join(", ");
         formData.append("Address", address);
 
-        // Opening/Closing times
+        //Opening and closing times
         const openingTimes = getUpdatedTimes("Open");
         const closingTimes = getUpdatedTimes("Close");
         formData.append("OpeningTimes", JSON.stringify(openingTimes));
         formData.append("ClosingTimes", JSON.stringify(closingTimes));
 
-        // Image uploads - handle them more carefully
+        //Image uploads 
         const coverImg = document.getElementById("CoverIMG").files[0];
         const bannerImg = document.getElementById("BannerIMG").files[0];
         
@@ -597,11 +613,10 @@ async function saveProfile() {
             formData.append("BannerIMG", bannerImg, bannerImg.name);
         }
 
-        // Log the FormData contents for debugging
         for (let pair of formData.entries()) {
             console.log(pair[0] + ': ' + pair[1]);
         }
-
+        //Send new profile details to server
         const response = await fetch(`${API_URL}/restaurants/profile/update`, {
             method: "PUT",
             headers: { 
@@ -616,18 +631,18 @@ async function saveProfile() {
             throw new Error(result.message || "Failed to update profile");
         }
 
-        // Disable editing and reset UI
+        //Disable editing and reset UIafter sending new data to server
         document.querySelectorAll(".editable").forEach(input => input.setAttribute("readonly", true));
         document.getElementById("CoverIMG").disabled = true;
         document.getElementById("BannerIMG").disabled = true;
         document.getElementById("save-profile").classList.add("hidden");
         document.getElementById("edit-profile").classList.remove("hidden");
 
-        // Clear file inputs
+        //Clear file inputs
         document.getElementById("CoverIMG").value = '';
         document.getElementById("BannerIMG").value = '';
 
-        // Reload the profile data
+        //Reload the profile data
         await loadRestaurantProfile();
         
         alert("Profile updated successfully!");
@@ -637,7 +652,7 @@ async function saveProfile() {
     }
 }
 
-// Get updated opening/closing times
+//Get updated opening and closing times
 function getUpdatedTimes(type) {
     let times = {};
     document.querySelectorAll(`[id$='${type}']`).forEach(input => {
@@ -646,5 +661,5 @@ function getUpdatedTimes(type) {
     });
     return times;
 }
-
+//Make "loadProfilePage" function available in other js files
 export { loadProfilePage }; 

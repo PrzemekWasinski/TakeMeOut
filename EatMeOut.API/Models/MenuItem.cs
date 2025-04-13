@@ -6,13 +6,13 @@ namespace EatMeOut.API.Models
     public class MenuItem
     {
         [Key]
-        public int Id { get; set; }  // Unique ID for the menu item
+        public int Id { get; set; }  //Unique ID for the menu item
 
         [Required]
-        public int RestaurantId { get; set; }  // Link to the restaurant this item belongs to
+        public int RestaurantId { get; set; }  //Link to the restaurant this item belongs to
 
         [Required]
-        public int MenuCategoryId { get; set; }  // Foreign key to MenuCategory
+        public int MenuCategoryId { get; set; }  //Foreign key to MenuCategory
 
         [Required]
         [MaxLength(100)]
@@ -24,7 +24,7 @@ namespace EatMeOut.API.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-        public List<string> Ingredients { get; set; } = new(); // Stored as JSON
+        public List<string> Ingredients { get; set; } = new(); //Stored as JSON
 
         public int Calories { get; set; }
 

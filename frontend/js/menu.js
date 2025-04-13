@@ -7,13 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+//Function to load menu 
 async function loadMenuManagement() {
+  //Check if the restaurant has an email to avoid errors
   const email = localStorage.getItem('currentRestaurantEmail');
   if (!email) {
-    alert('Restaurant email missing from localStorage.');
+    console.log('Restaurant email missing from localStorage.');
     return;
   }
-
+  //Fetch menu
   try {
     const res = await fetch(`${API_URL}/menu/${email}`);
     if (!res.ok) {
@@ -29,7 +31,7 @@ async function loadMenuManagement() {
     alert('Failed to load menu. Please try again.');
   }
 
-  // Drag-and-drop sorting for categories
+  //Drag and drop sorting for categories
   const categoryList = document.querySelector("#menu-categories");
   if (categoryList) {
     new Sortable(categoryList, {
@@ -41,7 +43,7 @@ async function loadMenuManagement() {
           .filter(id => !isNaN(id));
 
         const token = localStorage.getItem("restaurantToken");
-
+        //Reorder the menu after user makes a change
         const res = await fetch(`${API_URL}/menu/categories/reorder`, {
           method: 'POST',
           headers: {
@@ -59,50 +61,87 @@ async function loadMenuManagement() {
   }
 }
 
+//Function for adding new categories
 function attachEventHandlers() {
-  // Add new category
   document.getElementById('add-category-btn')?.addEventListener('click', async () => {
-    const name = prompt('Enter new category name:');
-    if (!name) return;
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 transform transition-all">
+        <h2 class="text-xl font-semibold mb-4">Add New Category</h2>
+        <input type="text" id="new-category-name" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 mb-4" placeholder="Category Name">
+        <div class="flex justify-end gap-4">
+          <button id="cancel-category-btn" class="px-4 py-2 text-gray-600 hover:text-gray-800">
+            Cancel
+          </button>
+          <button id="confirm-category-btn" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+            Add Category
+          </button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
 
-    const token = localStorage.getItem("restaurantToken");
-
-    const requestBody = {
-        name: name
-    };
-
-    console.log('Request body:', requestBody);
-
-    const res = await fetch(`${API_URL}/menu/categories`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(requestBody)
+    //Cancel button
+    const cancelBtn = modal.querySelector('#cancel-category-btn');
+    cancelBtn.addEventListener('click', () => {
+      modal.remove();
     });
 
-    if (!res.ok) {
+    //Confirm button
+    const confirmBtn = modal.querySelector('#confirm-category-btn');
+    const input = modal.querySelector('#new-category-name');
+    
+    input.focus();
+
+    //Enter key handling
+    input.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        confirmBtn.click();
+      }
+    });
+    //Listen for confirm button
+    confirmBtn.addEventListener('click', async () => {
+      const name = input.value.trim();
+      if (!name) return;
+
+      const token = localStorage.getItem("restaurantToken");
+      const requestBody = { name };
+
+      console.log('Request body:', requestBody);
+      //Updat ecategories
+      const res = await fetch(`${API_URL}/menu/categories`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!res.ok) {
         const errorData = await res.json();
         console.error('Failed to add category:', errorData);
         alert(errorData.message || 'Failed to add category');
         return;
-    }
+      }
 
-    loadMenuManagement();
+      modal.remove();
+      loadMenuManagement();
+    });
   });
 
-  // Add item to category
+  //Add item to category
   document.querySelectorAll('.add-item-btn').forEach(btn =>
     btn.addEventListener('click', () => showItemForm(null, btn.dataset.categoryId))
   );
 
-  // Edit item
+  //Edit item
   document.querySelectorAll('.edit-item-btn').forEach(btn =>
     btn.addEventListener('click', () => showItemForm(btn.dataset.id, btn.dataset.categoryId))
   );
 
-  // Delete item
+  //Delete item
   document.querySelectorAll('.delete-item-btn').forEach(btn =>
     btn.addEventListener('click', async () => {
       const id = btn.dataset.id;
@@ -124,7 +163,7 @@ function attachEventHandlers() {
     })
   );
 
-  // Edit category
+  //Edit category
   document.querySelectorAll('.edit-category-btn').forEach(btn =>
     btn.addEventListener('click', async () => {
       const id = btn.dataset.categoryId;
@@ -135,7 +174,7 @@ function attachEventHandlers() {
       const token = localStorage.getItem("restaurantToken");
       const email = localStorage.getItem("currentRestaurantEmail");
       const restaurantId = parseInt(localStorage.getItem("restaurantId"));
-
+      //Send new category to backend
       const res = await fetch(`${API_URL}/menu/categories/${id}`, {
         method: 'PUT',
         headers: {
@@ -147,7 +186,7 @@ function attachEventHandlers() {
           name: newName,
           restaurantId,
           restaurantEmail: email,
-          items: [] // or null – backend doesn't use it for updates
+          items: [] 
         })
       });
 
@@ -159,13 +198,14 @@ function attachEventHandlers() {
     })
   );
 
-  // Delete category
+  //Delete category
   document.querySelectorAll('.delete-category-btn').forEach(btn =>
     btn.addEventListener('click', async () => {
       const id = btn.dataset.categoryId;
       if (!confirm("Delete this category and all its items?")) return;
 
       const token = localStorage.getItem("restaurantToken");
+      //Delete category from database
       const res = await fetch(`${API_URL}/menu/categories/${id}`, {
         method: 'DELETE',
         headers: {
@@ -181,7 +221,7 @@ function attachEventHandlers() {
     })
   );
 }
-
+//Function to show item details
 async function showItemForm(itemId = null, categoryId = null) {
   let item = {
     name: '',
@@ -193,7 +233,7 @@ async function showItemForm(itemId = null, categoryId = null) {
     isAvailable: true,
     imageUrl: ''
   };
-
+  //If the item has an id retrieve it form database
   if (itemId) {
     const token = localStorage.getItem("restaurantToken");
     const res = await fetch(`${API_URL}/menu/items/${itemId}`, {
@@ -204,7 +244,7 @@ async function showItemForm(itemId = null, categoryId = null) {
     if (!res.ok) return alert('Failed to load item');
     item = await res.json();
   }
-  
+  //Create a form to display item information
   const formHtml = `
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <form id="item-form" class="bg-white p-6 rounded w-full max-w-lg space-y-4 shadow-lg relative" enctype="multipart/form-data">
@@ -227,10 +267,12 @@ async function showItemForm(itemId = null, categoryId = null) {
 
   document.body.insertAdjacentHTML('beforeend', formHtml);
 
+  //Cancel button
   document.getElementById('cancel-item-btn').addEventListener('click', () => {
     document.querySelector('#item-form').parentElement.remove();
   });
 
+  //Listen for confirm button 
   document.getElementById('item-form').addEventListener('submit', async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -242,7 +284,7 @@ async function showItemForm(itemId = null, categoryId = null) {
     if (imageFile && imageFile.size > 0) {
       const uploadForm = new FormData();
       uploadForm.append('image', imageFile);
-
+      //Upload edited item image to database
       const uploadRes = await fetch(`${API_URL}/menu/items/upload`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
@@ -257,7 +299,7 @@ async function showItemForm(itemId = null, categoryId = null) {
         return alert("Image upload failed.");
       }
     }
-
+    //Get all other item details
     const body = {
       name: formData.get('name'),
       description: formData.get('description'),
@@ -268,7 +310,7 @@ async function showItemForm(itemId = null, categoryId = null) {
       isAvailable: formData.get('isAvailable') === 'on',
       imageUrl
     };
-
+    //Check if item has an ID
     if (!itemId) {
       body.menuCategoryId = parseInt(categoryId);
       if (!body.menuCategoryId || isNaN(body.menuCategoryId)) {
@@ -276,12 +318,12 @@ async function showItemForm(itemId = null, categoryId = null) {
         return;
       }
     }
-
+    //Item URL
     const url = itemId
       ? `${API_URL}/menu/items/${itemId}`
       : `${API_URL}/menu/items`;
     const method = itemId ? 'PUT' : 'POST';
-
+    //Update item details in database
     const res = await fetch(url, {
       method,
       headers: {
@@ -290,7 +332,7 @@ async function showItemForm(itemId = null, categoryId = null) {
       },
       body: JSON.stringify(body),
     });
-
+    //Check response
     if (res.ok) {
       document.querySelector('#item-form').parentElement.remove();
       loadMenuManagement();
@@ -302,31 +344,39 @@ async function showItemForm(itemId = null, categoryId = null) {
   });
 }
 
+//Function to sort items
 function initializeItemSorting() {
   const allSortableLists = document.querySelectorAll('.sortable-items');
 
+  //Apply sortable behavior to each list
   allSortableLists.forEach(list => {
     new Sortable(list, {
       animation: 150,
-      handle: '.drag-handle',
-      onEnd: async (evt) => {
-        const parentCategory = evt.to.closest('.menu-category');
-        if (!parentCategory) return;
+      handle: '.drag-handle', 
 
+      //Callback when drag-and-drop ends
+      onEnd: async (evt) => {
+        //Find the category of the dropped item
+        const parentCategory = evt.to.closest('.menu-category');
+        if (!parentCategory) return; 
+
+        //Create an array of item IDs in their new order
         const reorderedIds = Array.from(evt.to.children)
           .map(li => parseInt(li.getAttribute('data-id')));
 
         try {
+          //Send the new order to the server
           const res = await fetch(`${API_URL}/menu/items/reorder`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("restaurantToken")}`
+              'Authorization': `Bearer ${localStorage.getItem("restaurantToken")}` 
             },
-            body: JSON.stringify(reorderedIds)
+            body: JSON.stringify(reorderedIds) 
           });
-          
-          if (!res.ok) throw new Error('Failed to update item order');          
+
+          //Check server response
+          if (!res.ok) throw new Error('Failed to update item order');
         } catch (err) {
           console.error('Reordering error:', err);
         }
@@ -334,5 +384,6 @@ function initializeItemSorting() {
     });
   });
 }
+
 
 export { loadMenuManagement };

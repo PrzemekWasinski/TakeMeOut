@@ -75,7 +75,7 @@ namespace EatMeOut.API.Controllers
                     return BadRequest(new { message = "Passwords do not match" });
                 }
 
-                // Log the received data for debugging
+                //Log the received data for debugging
                 Console.WriteLine($"Received registration data: Email={restaurantDto.Email}, " +
                     $"Name={restaurantDto.RestaurantName}, " +
                     $"HasCoverImg={restaurantDto.CoverIMG != null}, " +
@@ -89,7 +89,7 @@ namespace EatMeOut.API.Controllers
                     return BadRequest(new { message = "A restaurant with this email already exists" });
                 }
 
-                // Process cover image
+                //Process cover image
                 string coverImgUrl = restaurantDto.CoverIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.CoverIMG) : string.Empty;
                 string bannerImgUrl = restaurantDto.BannerIMG != null ? await FileUploadHelper.SaveFile(restaurantDto.BannerIMG) : string.Empty;
 
@@ -184,7 +184,6 @@ namespace EatMeOut.API.Controllers
                     return NotFound(new { message = "Restaurant profile not found" });
                 }
 
-                // Ensure OpeningTimes & ClosingTimes are properly formatted JSON strings
                 var openingTimes = !string.IsNullOrWhiteSpace(restaurant.OpeningTimes)
                     ? System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(restaurant.OpeningTimes)
                     : new Dictionary<string, string>();
@@ -306,7 +305,6 @@ namespace EatMeOut.API.Controllers
             }
         }
 
-        // By ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRestaurantById(int id)
         {
@@ -332,7 +330,7 @@ namespace EatMeOut.API.Controllers
         }
 
 
-        // Ratings
+        //Ratings
         [HttpPost("{restaurantId}/rate")]
         [Authorize]
         public async Task<IActionResult> RateRestaurant(int restaurantId, [FromBody] int rating)
@@ -344,7 +342,7 @@ namespace EatMeOut.API.Controllers
             if (restaurant == null)
                 return NotFound(new { message = "Restaurant not found." });
 
-            // Update average rating
+            //Update average rating
             restaurant.Rating = ((restaurant.Rating * restaurant.RatingCount) + rating) / (restaurant.RatingCount + 1);
             restaurant.RatingCount++;
 
@@ -363,34 +361,34 @@ namespace EatMeOut.API.Controllers
             if (restaurant == null)
                 return NotFound(new { message = "Restaurant not found." });
 
-            // Collect all category averages
+            //Collect all category averages
             var allCategoryAverages = restaurant.MenuCategories
-                .Where(c => c.Items.Any())  // Only include categories with items
-                .Select(c => c.Items.Average(i => i.Price))  // Average price of items in the category
+                .Where(c => c.Items.Any())  
+                .Select(c => c.Items.Average(i => i.Price)) 
                 .ToList();
 
-            // Log the category averages for debugging
+            //Log the category averages for debugging
             Console.WriteLine($"Category Averages: {string.Join(", ", allCategoryAverages)}");
 
             if (!allCategoryAverages.Any())
                 return Ok(new { message = "No items found to calculate pricing." });
 
-            // Calculate the overall average price across all categories
+            //Calculate the overall average price across all categories
             var overallAverage = allCategoryAverages.Average();
             Console.WriteLine($"Overall Average Price: {overallAverage}");
 
-            // Update the pricing tier based on the average
+            //Update the pricing tier based on the average
             restaurant.PricingTier = overallAverage switch
             {
-                < 10 => "�",   // Budget pricing
-                >= 10 and <= 20 => "��",  // Mid-range pricing
-                > 20 => "���"   // Premium pricing
+                < 10 => "�",   //Budget pricing
+                >= 10 and <= 20 => "��",  //Mid-range pricing
+                > 20 => "���"   //Premium pricing
             };
 
-            // Log the new pricing tier for debugging
+            //Log the new pricing tier for debugging
             Console.WriteLine($"Updated Pricing Tier: {restaurant.PricingTier}");
 
-            // Save changes to the database
+            //Save changes to database
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Pricing tier updated.", tier = restaurant.PricingTier });
@@ -426,13 +424,13 @@ namespace EatMeOut.API.Controllers
 
                 var searchTerm = q.ToLower();
 
-                // Get all restaurants with their menu items
+                //Get all restaurants with their menu items
                 var restaurants = await _context.Restaurants
                     .Include(r => r.MenuCategories)
                         .ThenInclude(c => c.Items)
                     .ToListAsync();
 
-                // Filter restaurants based on search criteria
+                //Filter restaurants based on search criteria
                 var matchingRestaurants = restaurants.Where(r =>
                     r.RestaurantName.ToLower().Contains(searchTerm) ||
                     r.CuisineType.ToLower().Contains(searchTerm) ||
@@ -463,10 +461,67 @@ namespace EatMeOut.API.Controllers
             }
         }
 
+        [HttpPost("{restaurantId}/withdraw")]
+        [Authorize]
+        public async Task<IActionResult> WithdrawFunds(int restaurantId, [FromBody] WithdrawalDto dto)
+        {
+            try
+            {
+                var restaurant = await _context.Restaurants.FindAsync(restaurantId);
+                if (restaurant == null)
+                    return NotFound(new { message = "Restaurant not found" });
+
+                //Calculate total revenue from completed orders
+                var completedOrders = await _context.Orders
+                    .Where(o => o.RestaurantId == restaurantId && o.Status == "Completed")
+                    .ToListAsync();
+
+                var totalRevenue = completedOrders.Sum(o => o.TotalAmount);
+
+                if (dto.Amount <= 0)
+                    return BadRequest(new { message = "Withdrawal amount must be greater than 0" });
+
+                if (dto.Amount > totalRevenue)
+                    return BadRequest(new { message = "Insufficient funds for withdrawal" });
+
+                if (string.IsNullOrWhiteSpace(dto.BankAccount) || string.IsNullOrWhiteSpace(dto.SortCode))
+                    return BadRequest(new { message = "Bank account and sort code are required" });
+
+                //Mark orders as paid up to the withdrawal amount
+                decimal remainingAmount = dto.Amount;
+                foreach (var order in completedOrders.OrderBy(o => o.OrderDate))
+                {
+                    if (remainingAmount <= 0) break;
+
+                    if (!order.IsPaid)
+                    {
+                        order.IsPaid = true;
+                        remainingAmount -= order.TotalAmount;
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+
+                //Calculate new balance 
+                var newBalance = await _context.Orders
+                    .Where(o => o.RestaurantId == restaurantId && 
+                           o.Status == "Completed" && 
+                           !o.IsPaid)
+                    .SumAsync(o => o.TotalAmount);
+
+                return Ok(new { 
+                    message = "Withdrawal initiated successfully",
+                    newBalance = newBalance
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
+            }
+        }
+
     }
 
-
-    // Updated DTO to use IFormFile for images
     public class RestaurantRegisterDto
     {
         public string OwnerName { get; set; } = string.Empty;
@@ -480,8 +535,6 @@ namespace EatMeOut.API.Controllers
         public string Description { get; set; } = string.Empty;
         public string OpeningTimes { get; set; } = string.Empty;
         public string ClosingTimes { get; set; } = string.Empty;
-
-        // Allow file uploads
         public IFormFile? CoverIMG { get; set; }
         public IFormFile? BannerIMG { get; set; }
     }
@@ -490,5 +543,12 @@ namespace EatMeOut.API.Controllers
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+    }
+
+    public class WithdrawalDto
+    {
+        public decimal Amount { get; set; }
+        public string BankAccount { get; set; } = string.Empty;
+        public string SortCode { get; set; } = string.Empty;
     }
 }

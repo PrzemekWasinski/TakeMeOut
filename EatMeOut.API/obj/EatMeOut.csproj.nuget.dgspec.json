@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\EatMeOut.csproj": {}
+    "D:\\Programming\\cSharp\\EatMeOut Working Prototype\\EatMeOut.API\\EatMeOut.csproj": {}
   },
   "projects": {
-    "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\EatMeOut.csproj": {
+    "D:\\Programming\\cSharp\\EatMeOut Working Prototype\\EatMeOut.API\\EatMeOut.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\EatMeOut.csproj",
+        "projectUniqueName": "D:\\Programming\\cSharp\\EatMeOut Working Prototype\\EatMeOut.API\\EatMeOut.csproj",
         "projectName": "EatMeOut",
-        "projectPath": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\EatMeOut.csproj",
+        "projectPath": "D:\\Programming\\cSharp\\EatMeOut Working Prototype\\EatMeOut.API\\EatMeOut.csproj",
         "packagesPath": "C:\\Users\\przem\\.nuget\\packages\\",
-        "outputPath": "D:\\Programming\\cSharp\\EatMeOut\\EatMeOut.API\\obj\\",
+        "outputPath": "D:\\Programming\\cSharp\\EatMeOut Working Prototype\\EatMeOut.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

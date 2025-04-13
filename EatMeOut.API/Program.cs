@@ -6,7 +6,7 @@ using Microsoft.Extensions.FileProviders;
 using System.Text;
 using System.IO;
 
-// Set the content root path explicitly
+//Content root path
 var contentRoot = Directory.GetCurrentDirectory();
 var webApplicationOptions = new WebApplicationOptions
 {
@@ -17,12 +17,12 @@ var webApplicationOptions = new WebApplicationOptions
 
 var builder = WebApplication.CreateBuilder(webApplicationOptions);
 
-// Backend will listen on port 5215
+//Backend will listen on port 5215
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// JWT Authentication Configuration
+//JWT Authentication Configuration
 var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:SecretKey"] ?? "DefaultSecretKey");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -50,15 +50,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Register Controllers once only
+//Register Controllers
 builder.Services.AddControllers();
 
 
-// Swagger for API documentation
+//Swagger 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS Policy
+//CORS 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -66,20 +66,20 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .SetIsOriginAllowed(_ => true)  // Accept all origins explicitly
-            .WithExposedHeaders("Authorization", "Content-Disposition") // Add Content-Disposition header
+            .SetIsOriginAllowed(_ => true)  
+            .WithExposedHeaders("Authorization", "Content-Disposition") 
     );
 });
 
 var app = builder.Build();
 
-// Enable CORS Middleware
+//Enable CORS Middleware
 app.UseCors("AllowAll");
 
-// Enable standard static files
+//Enable standard static files
 app.UseStaticFiles();
 
-// Enable static file serving for images in wwwroot
+//Enable static file serving for images in wwwroot folder
 app.UseStaticFiles(new StaticFileOptions
 {
     RequestPath = "/api/uploads",
@@ -88,7 +88,7 @@ app.UseStaticFiles(new StaticFileOptions
     ),
     OnPrepareResponse = ctx =>
     {
-        // Add CORS headers for the static files
+        //CORS headers for the static files
         ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
         ctx.Context.Response.Headers.Append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     }

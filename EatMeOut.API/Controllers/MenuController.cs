@@ -30,13 +30,13 @@ namespace EatMeOut.API.Controllers
             return User.FindFirst(ClaimTypes.Email)?.Value;
         }
 
-        // Create a DTO class at the bottom of the file
+        //Create a DTO class at the bottom of the file
         public class CreateMenuCategoryDto
         {
             public string Name { get; set; } = string.Empty;
         }
 
-        // 1. Create a new category
+        //Create a new category
         [HttpPost("categories")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateMenuCategoryDto dto)
         {
@@ -57,7 +57,7 @@ namespace EatMeOut.API.Controllers
                 .Where(c => c.RestaurantId == restaurant.Id)
                 .MaxAsync(c => (int?)c.MenuCategoryId) ?? 0;
 
-            // Check for existing category name in same restaurant
+            //Check for existing category name in same restaurant
             var duplicate = await _context.MenuCategories.AnyAsync(c =>
                 c.RestaurantId == restaurant.Id &&
                 c.Name.ToLower() == dto.Name.ToLower());
@@ -79,7 +79,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Category created", category.MenuCategoryId });
         }
 
-        // 2. Create a new item
+        //Create a new item
         [HttpPost("items")]
         public async Task<IActionResult> CreateMenuItem([FromBody] MenuItem item)
         {
@@ -116,7 +116,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Menu item created", item.Id });
         }
 
-        // 3. Upload Image for item
+        //Upload Image for item
         [HttpPost("items/upload")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UploadItemImage([FromForm] IFormFile image)
@@ -177,7 +177,7 @@ namespace EatMeOut.API.Controllers
         }
 
 
-        // 5. Update Category 
+        //Update Category 
         [HttpPut("categories/{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] MenuCategory updated)
         {
@@ -188,7 +188,7 @@ namespace EatMeOut.API.Controllers
             var existing = await _context.MenuCategories.FirstOrDefaultAsync(c => c.Id == id && c.RestaurantId == restaurant.Id);
             if (existing == null) return NotFound(new { message = "Category not found" });
 
-            // Check for duplicate name
+            //Check for duplicate name
             var duplicate = await _context.MenuCategories.AnyAsync(c =>
                 c.RestaurantId == restaurant.Id &&
                 c.Name.ToLower() == updated.Name.ToLower() &&
@@ -206,7 +206,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Category updated" });
         }
 
-        // 6. Update menu item
+        //Update menu item
         [HttpPut("items/{id}")]
         public async Task<IActionResult> UpdateMenuItem(int id, [FromBody] MenuItem updated)
         {
@@ -243,7 +243,7 @@ namespace EatMeOut.API.Controllers
             existing.IsVegan = updated.IsVegan;
             existing.IsAvailable = updated.IsAvailable;
 
-            // Replace old image
+            //Replace old image
             if (!string.IsNullOrEmpty(updated.ImageUrl) && updated.ImageUrl != existing.ImageUrl)
             {
                 FileUploadHelper.DeleteFile(existing.ImageUrl);
@@ -256,7 +256,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Menu item updated" });
         }
 
-        // 7. Delete category
+        //Delete category
         [HttpDelete("categories/{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
@@ -278,7 +278,7 @@ namespace EatMeOut.API.Controllers
 
 
 
-        // 8. Delete menu item
+        //Delete menu item
         [HttpDelete("items/{id}")]
         public async Task<IActionResult> DeleteMenuItem(int id)
         {
@@ -304,7 +304,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Menu item deleted" });
         }
 
-        // 9. Reorder Category
+        //Reorder Category
         [HttpPost("categories/reorder")]
         public async Task<IActionResult> ReorderCategories([FromBody] List<int> orderedIds)
         {
@@ -326,7 +326,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Categories reordered" });
         }
 
-        // 10. Reorder Item
+        //Reorder Item
         [HttpPost("items/reorder")]
         public async Task<IActionResult> ReorderItems([FromBody] List<int> orderedIds)
         {
@@ -348,7 +348,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Items reordered" });
         }
 
-        // 11. Get a single menu item by ID (for editing)
+        //Get a single menu item by ID 
         [HttpGet("items/{id}")]
         public async Task<IActionResult> GetMenuItem(int id)
         {
@@ -367,7 +367,7 @@ namespace EatMeOut.API.Controllers
             return Ok(item);
         }
 
-        // Get Menu by ID
+        //Get Menu by ID
         [HttpGet("by-id/{restaurantId}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetMenuByRestaurantId(int restaurantId)

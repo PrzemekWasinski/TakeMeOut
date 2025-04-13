@@ -1,5 +1,6 @@
 import API_URL from './config.js';
 
+//Function to retrieve all restaurants from db
 async function fetchAllRestaurants() {
     try {
         const response = await fetch(`${API_URL}/restaurants/all`);
@@ -14,6 +15,7 @@ async function fetchAllRestaurants() {
     }
 }
 
+//Search restaurants in db
 async function searchRestaurants(query) {
     try {
         const response = await fetch(`${API_URL}/restaurants/search?q=${encodeURIComponent(query)}`);
@@ -27,7 +29,7 @@ async function searchRestaurants(query) {
         return [];
     }
 }
-
+//Function to check if a restaunt is in user's favourites 
 async function checkFavoriteStatus(restaurantId, token) {
     try {
         const response = await fetch(`${API_URL}/favourites/check/${restaurantId}`, {
@@ -43,7 +45,7 @@ async function checkFavoriteStatus(restaurantId, token) {
         return false;
     }
 }
-
+//Displaying restaurants
 async function displayRestaurants(restaurants) {
     const grid = document.getElementById('restaurants-grid');
     if (!restaurants || restaurants.length === 0) {
@@ -55,14 +57,14 @@ async function displayRestaurants(restaurants) {
     let favoriteStatuses = {};
     
     if (token) {
-        // Fetch favorite status for all restaurants in parallel
+        //Fetch favorite status for all restaurants in parallel
         const statusPromises = restaurants.map(r => checkFavoriteStatus(r.id, token));
         const statuses = await Promise.all(statusPromises);
         restaurants.forEach((r, i) => {
             favoriteStatuses[r.id] = statuses[i];
         });
     }
-
+    //HTML for restaurant cards
     grid.innerHTML = restaurants.map(restaurant => `
         <div class="restaurant-card cursor-pointer bg-white rounded-lg shadow-md overflow-hidden" 
              data-restaurant-id="${restaurant.id}"
@@ -89,14 +91,14 @@ async function displayRestaurants(restaurants) {
         </div>
     `).join('');
 }
-
+//Function to set up search handlers
 function setupSearchHandlers() {
     const searchInput = document.getElementById('restaurant-search');
     const searchButton = document.getElementById('search-button');
     let searchTimeout;
-
+    //If there has been no input
     if (!searchInput || !searchButton) return;
-
+    //Fetch data according to user's input
     const performSearch = async () => {
         const query = searchInput.value.trim();
         if (query) {
@@ -108,23 +110,24 @@ function setupSearchHandlers() {
         }
     };
 
-    // Search on button click
+    //Search on button click
     searchButton.addEventListener('click', performSearch);
 
-    // Search on Enter key
+    //Search on Enter key
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             performSearch();
         }
     });
 
-    // Debounced search as user types
+    //Debounced search as user types
     searchInput.addEventListener('input', () => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(performSearch, 500);
     });
 }
 
+//Make functions available in other JS files
 export { 
     fetchAllRestaurants, 
     displayRestaurants, 

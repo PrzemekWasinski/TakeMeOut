@@ -25,28 +25,28 @@ import './menu.js';
 import { fetchAllRestaurants, displayRestaurants } from './restaurants.js';
 import { loadFavourites, toggleFavourite } from './favourites.js';
 
-// Save original home content when page loads
+//Save home content when page loads
 let originalHomeContent;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Check for existing token in local storage
+    //Check if user is logged in
     const token = localStorage.getItem("token") || localStorage.getItem("restaurantToken");
     updateNavigation(!!token);
     showHome();
     
-    // Handle browser back button
+    //Handle browser back button
     window.onpopstate = function(event) {
         if (event.state === null) {
             showHome();
         }
     };
 
-    // Add event listener for the create order button
+    //Listen for create order button click
     const createOrderBtn = document.getElementById("create-order-btn");
     if (createOrderBtn) {
         createOrderBtn.addEventListener("click", () => {
             const sampleOrderData = {
-                RestaurantId: 1, // Example restaurant ID
+                RestaurantId: 1, 
                 orderItems: [
                     { ItemName: "Sample Item 1", Quantity: 2, UnitPrice: 10.00 },
                     { ItemName: "Sample Item 2", Quantity: 1, UnitPrice: 15.00 }
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Make these functions available globally for HTML onclick handlers
+//Make these functions available globally for HTML onclick handlers
 window.loadContent = loadContent;
 window.showHome = showHome;
 window.selectRestaurant = selectRestaurant;
@@ -67,19 +67,18 @@ window.loadRestaurantOrders = loadRestaurantOrders;
 window.toggleFavourite = toggleFavourite;
 window.animateAndSelectRestaurant = animateAndSelectRestaurant;
 
-// Animate restaurant card and then navigate to restaurant page
+//Animate restaurant card and then navigate to restaurant page
 function animateAndSelectRestaurant(element, restaurantId, restaurantName) {
-    // Add the clicked animation class
     element.classList.add('clicked');
 
-    // Wait for animation to finish before navigating
+    //Wait for animation to finish before navigating
     setTimeout(() => {
-        // Navigate to restaurant page
+        //Navigate to restaurant page
         window.selectRestaurant(restaurantId, restaurantName);
-    }, 400); // Wait slightly less than the full animation time
+    }, 400); 
 }
 
-// Update the restaurant card template to include the favourite button
+//Function to create retaurant cards
 function createRestaurantCard(restaurant) {
     return `
         <div class="restaurant-card" data-restaurant-id="${restaurant.id}">

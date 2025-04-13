@@ -29,6 +29,10 @@ namespace EatMeOut.API.Models
         [MaxLength(500)]
         public string Address { get; set; } = ""; 
 
+        public bool IsPaid { get; set; } = false;
+
+        public bool IsWithdrawn { get; set; } = false;
+
         // Navigation
         [ForeignKey("UserId")]
         public User? User { get; set; }

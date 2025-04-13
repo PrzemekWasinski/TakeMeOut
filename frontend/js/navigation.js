@@ -24,31 +24,35 @@ import { loadUserOrders, updateOrderDisplay, createOrder, loadRestaurantOrders, 
 import { loadSettingsPage } from './settings.js';
 
 
-// Original home content storage
+//Store original template
 let originalHomeContent;
 
-
+//Function to update the navigation bar
 function updateNavigation(isAuthenticated, ownerName = null) {
+    //Get the navigation buttons container
     const navButtons = document.getElementById('nav-buttons');
     if (!navButtons) {
         console.error("Navbar element not found!");
         return;
     }
 
+    //Check if the current user is a restaurant owner
     const isRestaurant = localStorage.getItem("isRestaurant") === "true";
 
-    // Ensure ownerName is retrieved correctly if not passed
+    //If ownerName is not provided and the user is a restaurant, retrieve it from localStorage
     if (!ownerName && isRestaurant) {
         ownerName = localStorage.getItem("ownerName") || "Restaurant Owner";
     }
 
+    //Debug log
     console.log("isAuthenticated:", isAuthenticated);
     console.log("isRestaurant:", isRestaurant);
     console.log("ownerName:", ownerName);
 
+    //If the user is logged in
     if (isAuthenticated) {
         if (isRestaurant) {
-            // Set navigation HTML for restaurant
+            //Navigation for restaurant owner
             navButtons.innerHTML = `
                 <a href="#" onclick="window.loadContent('restaurant-dashboard')" class="text-gray-700 px-4 py-2 hover:text-black">Dashboard</a>
                 <a href="#" onclick="window.loadContent('restaurant-menu')" class="text-gray-700 px-4 py-2 hover:text-black">Menu</a>
@@ -62,14 +66,14 @@ function updateNavigation(isAuthenticated, ownerName = null) {
                     </div>
                 </div>
             `;
-        
-            // Attach event listener to load orders when Orders tab is clicked
+
+            //Listen for load orders
             document.getElementById("restaurant-orders-tab").addEventListener("click", () => {
                 loadRestaurantOrders();
             });
-        
+
         } else {
-            // Customers should use `userName`
+            //Navigation for regular users
             const userName = localStorage.getItem("userName") || "User";
             navButtons.innerHTML = `
                 <a href="#" onclick="window.loadContent('my-orders')" class="text-gray-700 px-4 py-2 hover:text-black">My Orders</a>
@@ -85,25 +89,27 @@ function updateNavigation(isAuthenticated, ownerName = null) {
             `;
         }
 
-        // Add dropdown toggle functionality
+        //Add functionality to toggle dropdown menu on username click
         const userGreeting = document.getElementById('user-greeting');
         const dropdown = document.querySelector('.dropdown');
         
         if (userGreeting && dropdown) {
+            //Toggle the dropdown visibility when greeting is clicked
             userGreeting.addEventListener('click', (e) => {
                 e.stopPropagation();
                 dropdown.classList.toggle('active');
             });
 
-            // Close dropdown when clicking outside
+            //Hide the dropdown if clicked outside of it
             document.addEventListener('click', (e) => {
                 if (!dropdown.contains(e.target)) {
                     dropdown.classList.remove('active');
                 }
             });
         }
+
     } else {
-        // Guest navigation
+        //Navigation for not logged in users
         navButtons.innerHTML = `
             <a href="#" onclick="window.loadContent('login')" class="bg-gray-100 text-black px-4 py-2 rounded-full hover:bg-gray-200">Sign In</a>
             <a href="#" onclick="window.loadContent('register')" class="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800">Sign Up</a>
@@ -111,15 +117,16 @@ function updateNavigation(isAuthenticated, ownerName = null) {
     }
 }
 
+//Function ot inject HTML templates n
 function loadContent(page) {
     const dynamicContent = document.getElementById('dynamic-content');
     dynamicContent.classList.add('page-transition', 'fade-out');
 
     setTimeout(() => {
-        // Show loading spinner
+        //Show loading animation
         dynamicContent.innerHTML = '<div class="flex justify-center items-center min-h-screen"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div></div>';
         dynamicContent.classList.remove('fade-out');
-
+        //Assign different templates to different pages
         setTimeout(() => {
             let content = "";
             switch (page) {
@@ -140,7 +147,7 @@ function loadContent(page) {
                     return;                    
                 case 'favourites':
                     content = favouritesTemplate;
-                    // Load favourites after setting the template
+                    //Load favourites after setting the template
                     setTimeout(() => {
                         loadFavourites();
                     }, 100);
@@ -148,38 +155,38 @@ function loadContent(page) {
                 case 'restaurant-signup':
                     dynamicContent.innerHTML = restaurantSignupTemplate;
                     
-                    // Populate time fields
+                    //Populate time fields
                     document.getElementById("time-fields-container").innerHTML = generateTimeFields();
                 
-                    // Step 1 → Step 2
+                    //Register page 1 → register page 2
                     document.getElementById("next-step").addEventListener("click", function (e) {
                         e.preventDefault();
                         document.getElementById("signup-step-1").classList.add("hidden");
                         document.getElementById("signup-step-2").classList.remove("hidden");
                     });
                 
-                    // Step 2 → Step 3
+                    //Register page 2 → Register page 3
                     document.getElementById("next-to-step-3").addEventListener("click", function (e) {
                         e.preventDefault();
                         document.getElementById("signup-step-2").classList.add("hidden");
                         document.getElementById("signup-step-3").classList.remove("hidden");
                     });
                 
-                    // Step 2 ← Step 1
+                    //Register page 2 ← register page 1
                     document.getElementById("back-to-step-1").addEventListener("click", function (e) {
                         e.preventDefault();
                         document.getElementById("signup-step-2").classList.add("hidden");
                         document.getElementById("signup-step-1").classList.remove("hidden");
                     });
                 
-                    // Step 3 ← Step 2
+                    //register page 3 ← register page 2
                     document.getElementById("back-to-step-2").addEventListener("click", function (e) {
                         e.preventDefault();
                         document.getElementById("signup-step-3").classList.add("hidden");
                         document.getElementById("signup-step-2").classList.remove("hidden");
                     });
                 
-                    // Final submit
+                    //Send register details to server
                     document.getElementById("submit-signup").addEventListener("click", async function () {
                         const result = await registerRestaurant();
                         if (result.success && result.navigateTo) {
@@ -205,7 +212,6 @@ function loadContent(page) {
                     return;
                 case 'all-restaurants':
                     content = allRestaurantsTemplate;
-                    // After setting content, add this to load restaurants
                     setTimeout(async () => {
                         const restaurants = await fetchAllRestaurants();
                         displayRestaurants(restaurants);
@@ -220,18 +226,68 @@ function loadContent(page) {
 
             dynamicContent.innerHTML = content;
 
-            // Check authentication state and update navigation
+            //Check authentication state and update navigation
             const token = localStorage.getItem("token") || localStorage.getItem("restaurantToken");
             updateNavigation(!!token);
 
-            // Add event listeners for forms
+            //Add event listeners for forms
             if (page === 'login') {
                 document.getElementById('login-form').addEventListener('submit', async function(e) {
                     e.preventDefault();
                     const result = await loginUser();
                     if (result.success) {
-                        updateNavigation(true);
-                        showHome();
+                        //Fade out login form
+                        const loginContainer = document.querySelector('.max-w-md');
+                        loginContainer.style.transition = 'opacity 0.5s ease-out';
+                        loginContainer.style.opacity = '0';
+
+                        //Show login success popup
+                        const modal = document.createElement('div');
+                        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transition-all duration-500';
+                        modal.innerHTML = `
+                            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4 transform transition-all duration-500 ease-out">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
+                                    <p class="text-gray-600 mb-4">Successfully logged in</p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        //Wait for login form to disappear before showing success popup
+                        setTimeout(() => {
+                            document.body.appendChild(modal);
+                            
+                            //Start fade out animation
+                            requestAnimationFrame(() => {
+                                const dialog = modal.querySelector('div');
+                                dialog.style.opacity = '0';
+                                dialog.style.transform = 'scale(0.95) translateY(10px)';
+                                
+                                requestAnimationFrame(() => {
+                                    dialog.style.opacity = '1';
+                                    dialog.style.transform = 'scale(1) translateY(0)';
+                                });
+                            });
+
+                            //Update navigation and load home page
+                            setTimeout(() => {
+                                updateNavigation(true);
+                                showHome();
+                                
+                                //Remove Success popup after page has loaded
+                                setTimeout(() => {
+                                    modal.style.opacity = '0';
+                                    setTimeout(() => {
+                                        modal.remove();
+                                    }, 500);
+                                }, 1000);
+                            }, 1500);
+                        }, 500);
                     }
                 });
             } else if (page === 'register') {
@@ -253,16 +309,67 @@ function loadContent(page) {
                     e.preventDefault();
                     const result = await loginRestaurant();
                     if (result.success) {
-                        updateNavigation(true, result.ownerName);
-                        showHome();
+                        //Fade out the login form
+                        const loginContainer = document.querySelector('.max-w-md');
+                        loginContainer.style.transition = 'opacity 0.5s ease-out';
+                        loginContainer.style.opacity = '0';
+
+                        //Show success popup
+                        const modal = document.createElement('div');
+                        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transition-all duration-500';
+                        modal.innerHTML = `
+                            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4 transform transition-all duration-500 ease-out">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
+                                    <p class="text-gray-600 mb-4">Successfully logged in to your restaurant account</p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        //Wait for login form to fade out before showing success popup
+                        setTimeout(() => {
+                            document.body.appendChild(modal);
+                            
+                            //Start fade
+                            requestAnimationFrame(() => {
+                                const dialog = modal.querySelector('div');
+                                dialog.style.opacity = '0';
+                                dialog.style.transform = 'scale(0.95) translateY(10px)';
+                                
+                                requestAnimationFrame(() => {
+                                    dialog.style.opacity = '1';
+                                    dialog.style.transform = 'scale(1) translateY(0)';
+                                });
+                            });
+
+                            //Update navigation and load home page
+                            setTimeout(() => {
+                                updateNavigation(true, result.ownerName);
+                                showHome();
+                                
+                                //Remove popup after page has loaded
+                                setTimeout(() => {
+                                    modal.style.opacity = '0';
+                                    setTimeout(() => {
+                                        modal.remove();
+                                    }, 500);
+                                }, 1000);
+                            }, 1500);
+                        }, 500);
                     }
                 });
             }
         }, 300);
     }, 300);
 }
-
+//Function to randomise arestaurant and dish to order fo rthe user
 async function feelingLucky() {
+    //Fetch all the restaurants
     try {
         const restaurants = await fetchAllRestaurants();
         console.log('Fetched restaurants:', restaurants);
@@ -272,14 +379,14 @@ async function feelingLucky() {
             return;
         }
 
-        // Get a random restaurant
+        //Select a random restaurant
         const randomRestaurant = restaurants[Math.floor(Math.random() * restaurants.length)];
         console.log('Selected random restaurant:', randomRestaurant);
         
-        // Get the auth token
+        //Get the auth token
         const token = localStorage.getItem('token');
         
-        // Fetch the restaurant's menu using the correct endpoint
+        //Fetch the restaurant's menu
         const menuUrl = `${API_URL.replace(/\/api$/, '')}/api/menu/by-id/${randomRestaurant.id}`;
         console.log('Fetching menu from:', menuUrl);
         const response = await fetch(menuUrl, {
@@ -293,7 +400,7 @@ async function feelingLucky() {
             const errorText = await response.text();
             console.error('Menu fetch failed:', response.status, errorText);
             
-            // If unauthorized and user is not logged in, try fetching without auth
+            //If user isnt logged in fetch without auth
             if (response.status === 401 && !token) {
                 console.log('Attempting to fetch menu without authentication...');
                 const publicResponse = await fetch(menuUrl, {
@@ -315,16 +422,15 @@ async function feelingLucky() {
         const menuData = await response.json();
         console.log('Fetched menu data:', menuData);
         return processMenuData(menuData, randomRestaurant);
-        
+    //Error logging
     } catch (error) {
         console.error('Error in feelingLucky:', error);
-        alert("Something went wrong. Please try again later.");
     }
 }
 
-// Helper function to process menu data and show modal
+//Function to get a random item and display it
 function processMenuData(menuData, randomRestaurant) {
-    // Get all available items from all categories
+    //Fetch all available items from all categories of the restaurant
     const allItems = menuData.flatMap(category => 
         category.items.filter(item => item.isAvailable)
     );
@@ -335,11 +441,11 @@ function processMenuData(menuData, randomRestaurant) {
         return;
     }
 
-    // Get a random item
+    //Select a random item
     const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
     console.log('Selected random item:', randomItem);
     
-    // Show the result in a modal
+    //Show results in a popup
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
     modal.innerHTML = `
@@ -367,7 +473,7 @@ function processMenuData(menuData, randomRestaurant) {
     
     document.body.appendChild(modal);
     
-    // Add event listeners for all buttons
+    //Add event listeners for all buttons
     const noThanksBtn = modal.querySelector('.no-thanks-btn');
     const tryAgainBtn = modal.querySelector('.try-again-btn');
     const viewRestaurantBtn = modal.querySelector('.view-restaurant-btn');
@@ -380,14 +486,14 @@ function processMenuData(menuData, randomRestaurant) {
         modal.remove();
         feelingLucky();
     });
-
+    //If user wants to view the restaurnt
     viewRestaurantBtn.addEventListener('click', async () => {
-        modal.remove(); // Remove the modal first
+        modal.remove();
         const dynamicContent = document.getElementById('dynamic-content');
         dynamicContent.innerHTML = '<div class="flex justify-center items-center min-h-screen"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div></div>';
         
         try {
-            // Fetch both restaurant details and menu
+            //Fetch restaurant details and menu
             const [restaurantResponse, menuResponse] = await Promise.all([
                 fetch(`${API_URL.replace(/\/api$/, '')}/api/restaurants/${randomRestaurant.id}`),
                 fetch(`${API_URL.replace(/\/api$/, '')}/api/menu/by-id/${randomRestaurant.id}`)
@@ -400,16 +506,15 @@ function processMenuData(menuData, randomRestaurant) {
             const restaurantDetails = await restaurantResponse.json();
             const menuData = await menuResponse.json();
 
-            // Combine the data we have
             const fullRestaurantData = {
                 ...restaurantDetails,
                 ...randomRestaurant
             };
 
-            // Display the restaurant page
+            //Display restaurant page
             dynamicContent.innerHTML = customerMenuTemplate(fullRestaurantData, menuData);
 
-            // Set up rating functionality
+            //Set up rating functionality
             const ratingStars = document.querySelectorAll('.rating-star');
             ratingStars.forEach((star, index) => {
                 star.addEventListener('click', async () => {
@@ -433,7 +538,6 @@ function processMenuData(menuData, randomRestaurant) {
                         if (response.ok) {
                             const result = await response.json();
                             document.getElementById('rating-feedback').classList.remove('hidden');
-                            // Update the display of all stars
                             ratingStars.forEach((s, i) => {
                                 s.style.color = i < rating ? '#FCD34D' : '#9CA3AF';
                             });
@@ -444,7 +548,7 @@ function processMenuData(menuData, randomRestaurant) {
                     }
                 });
 
-                // Hover effects
+                //Hover effects
                 star.addEventListener('mouseenter', () => {
                     ratingStars.forEach((s, i) => {
                         s.style.color = i <= index ? '#FCD34D' : '#9CA3AF';
@@ -452,7 +556,7 @@ function processMenuData(menuData, randomRestaurant) {
                 });
             });
 
-            // Add to order functionality
+            //Add to order functionality
             const addToOrderButtons = document.querySelectorAll('.add-to-order');
             const orderItems = document.getElementById('order-items');
             const orderTotal = document.getElementById('order-total');
@@ -480,7 +584,7 @@ function processMenuData(menuData, randomRestaurant) {
                 });
             });
 
-            // Place order functionality
+            //Place order functionality
             const placeOrderBtn = document.getElementById('place-order-btn');
             if (placeOrderBtn) {
                 placeOrderBtn.addEventListener('click', async () => {
@@ -523,6 +627,7 @@ function processMenuData(menuData, randomRestaurant) {
     });
 }
 
+//Function to display home page
 function showHome() {
     const dynamicContent = document.getElementById('dynamic-content');
     dynamicContent.classList.add('page-transition', 'fade-out');
@@ -535,11 +640,11 @@ function showHome() {
         } else {
             dynamicContent.innerHTML = homeContentTemplate;
 
-            // Initialize search functionality
+            //Initialize search bar
             setupSearchHandlers();
             fetchAllRestaurants().then(displayRestaurants);
 
-            // Add event listener for the "I'm Feeling Lucky" button
+            //Listen out fo r"Im feeling lucky" button
             const feelingLuckyBtn = document.getElementById('feeling-lucky-btn');
             if (feelingLuckyBtn) {
                 feelingLuckyBtn.addEventListener('click', feelingLucky);
@@ -565,20 +670,20 @@ function showHome() {
 }
 
 
-// Preview uploaded images
+//Preview uploaded images
 function previewImage(event, previewId) {
     const file = event.target.files[0];
     const previewElement = document.getElementById(previewId);
     
-    // Reset the preview first
+    //Reset preview
     previewElement.style.backgroundImage = '';
     previewElement.innerHTML = '<span class="text-gray-600 text-center">Upload</span>';
     
     if (file) {
-        // Validate file type
+        //Make sure file type is valid
         if (!file.type.startsWith('image/')) {
             alert('Please select an image file');
-            event.target.value = ''; // Clear the file input
+            event.target.value = ''; 
             return;
         }
         
@@ -592,21 +697,64 @@ function previewImage(event, previewId) {
         reader.onerror = function(e) {
             console.error('Error reading file:', e);
             alert('Error reading file. Please try again.');
-            event.target.value = ''; // Clear the file input
+            event.target.value = '';
         };
         reader.readAsDataURL(file);
     }
 }
 
-// Handle logout action
+//Handle logout 
 async function handleLogout() {
     const result = await logout();
     if (result.success) {
-        updateNavigation(false);
-        showHome();
+        //Show goodbye popup
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transition-all duration-500';
+        modal.innerHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4 transform transition-all duration-500 ease-out">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">See You Soon!</h2>
+                    <p class="text-gray-600 mb-4">Successfully logged out</p>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        //Start fade in
+        requestAnimationFrame(() => {
+            const dialog = modal.querySelector('div');
+            dialog.style.opacity = '0';
+            dialog.style.transform = 'scale(0.95) translateY(10px)';
+            
+            requestAnimationFrame(() => {
+                dialog.style.opacity = '1';
+                dialog.style.transform = 'scale(1) translateY(0)';
+            });
+        });
+
+        //Update navigation and show home page after delay
+        setTimeout(() => {
+            updateNavigation(false);
+            showHome();
+            
+            //Remove goodbye popup after home page has loaded
+            setTimeout(() => {
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.remove();
+                }, 500);
+            }, 1000);
+        }, 1500);
     }
 }
 
+//Make funcitons available in other js files
 export {
     updateNavigation,
     loadContent,

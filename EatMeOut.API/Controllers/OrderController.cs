@@ -25,7 +25,7 @@ namespace EatMeOut.API.Controllers
         private string? GetUserEmail() =>
             User.FindFirst(ClaimTypes.Email)?.Value;
 
-        // Create a new order
+        //Create a new order
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto dto)
         {
@@ -44,7 +44,7 @@ namespace EatMeOut.API.Controllers
             if (string.IsNullOrWhiteSpace(dto.Address))
                 return BadRequest(new { message = "Address is required." });
 
-            // Deduct credit
+            //Deduct credit
             user.Credit -= total;
 
             // Update address if needed
@@ -62,9 +62,9 @@ namespace EatMeOut.API.Controllers
             };
 
             _context.Orders.Add(order);
-            await _context.SaveChangesAsync(); // Save to get Order ID
+            await _context.SaveChangesAsync();
 
-            // Save each order item (optional, for future querying)
+            //Save each order item 
             var itemEntities = dto.OrderItems.Select(i => new OrderItem
             {
                 OrderId = order.Id,
@@ -79,7 +79,7 @@ namespace EatMeOut.API.Controllers
             return Ok(new { message = "Order placed successfully." });
         }
 
-        // Get current user's orders
+        //Get current user's orders
         [HttpGet("user")]
         public async Task<IActionResult> GetUserOrders()
         {
@@ -110,71 +110,103 @@ namespace EatMeOut.API.Controllers
 
         }
 
-        // Get all orders for a restaurant
+        //Get all orders for a restaurant
         [HttpGet("restaurant/{restaurantId}")]
         public async Task<IActionResult> GetRestaurantOrders(int restaurantId)
         {
-            var orders = await _context.Orders
-                .Where(o => o.RestaurantId == restaurantId)
-                .Include(o => o.Items)
-                .Include(o => o.User)
-                .OrderByDescending(o => o.OrderDate)
-                .ToListAsync();
-
-            var result = orders.Select(o => new OrderResponseDto
+            try
             {
-                Id = o.Id,
-                OrderDate = o.OrderDate,
-                TotalAmount = o.TotalAmount,
-                Status = o.Status,
-                Address = o.Address,
-                CustomerName = $"{o.User?.FirstName} {o.User?.LastName}".Trim(),
-                Items = o.Items.Select(i => new OrderItemDto
+                //Get the restaurant email from the token
+                var restaurantEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+                if (string.IsNullOrEmpty(restaurantEmail))
                 {
-                    ItemName = i.ItemName,
-                    Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
-                }).ToList()
-            }).ToList();
+                    return Unauthorized(new { message = "Invalid authentication token" });
+                }
 
-            return Ok(result);
+                //Verify this restaurant has access to these orders
+                var restaurant = await _context.Restaurants
+                    .FirstOrDefaultAsync(r => r.Email == restaurantEmail);
+
+                if (restaurant == null || restaurant.Id != restaurantId)
+                {
+                    return Unauthorized(new { message = "Not authorized to access these orders" });
+                }
+
+                var orders = await _context.Orders
+                    .Where(o => o.RestaurantId == restaurantId)
+                    .Include(o => o.Items)
+                    .Include(o => o.User)
+                    .OrderByDescending(o => o.OrderDate)
+                    .ToListAsync();
+
+                var result = orders.Select(o => new OrderResponseDto
+                {
+                    Id = o.Id,
+                    OrderDate = o.OrderDate,
+                    TotalAmount = o.TotalAmount,
+                    Status = o.Status,
+                    Address = o.Address,
+                    CustomerName = o.User != null ? $"{o.User.FirstName} {o.User.LastName}".Trim() : "Unknown",
+                    Items = o.Items?.Select(i => new OrderItemDto
+                    {
+                        ItemName = i.ItemName,
+                        Quantity = i.Quantity,
+                        UnitPrice = i.UnitPrice
+                    }).ToList() ?? new List<OrderItemDto>()
+                }).ToList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Failed to retrieve orders: {ex.Message}" });
+            }
         }
 
-        // Update restaurant dashboard
+        //Update restaurant dashboard
         [HttpGet("restaurant/{restaurantId}/dashboard")]
         public async Task<IActionResult> GetRestaurantDashboard(int restaurantId)
         {
-            var now = DateTime.UtcNow;
-            var startOfDay = now.Date;
-
-            var todaysOrders = await _context.Orders
-                .Where(o => o.RestaurantId == restaurantId && o.OrderDate >= startOfDay)
-                .ToListAsync();
-
-            var recentOrders = await _context.Orders
-                .Where(o => o.RestaurantId == restaurantId)
-                .Include(o => o.Items)
-                .Include(o => o.User)
-                .OrderByDescending(o => o.OrderDate)
-                .Take(5)
-                .ToListAsync();
-
-            return Ok(new
+            try
             {
-                totalOrdersToday = todaysOrders.Count,
-                revenueToday = todaysOrders.Sum(o => o.TotalAmount),
-                recent = recentOrders.Select(o => new
+                var now = DateTime.UtcNow;
+                var startOfDay = now.Date;
+
+                var todaysOrders = await _context.Orders
+                    .Where(o => o.RestaurantId == restaurantId && 
+                               o.OrderDate >= startOfDay && 
+                               !o.IsWithdrawn)
+                    .ToListAsync();
+
+                var recentOrders = await _context.Orders
+                    .Where(o => o.RestaurantId == restaurantId)
+                    .Include(o => o.Items)
+                    .Include(o => o.User)
+                    .OrderByDescending(o => o.OrderDate)
+                    .Take(5)
+                    .ToListAsync();
+
+                return Ok(new
                 {
-                    id = o.Id,
-                    customer = $"{o.User?.FirstName} {o.User?.LastName}".Trim(),
-                    total = o.TotalAmount,
-                    status = o.Status,
-                    items = o.Items.Select(i => new {
-                        i.ItemName,
-                        i.Quantity
-                    }).ToList()
-                })
-            });
+                    totalOrdersToday = todaysOrders.Count,
+                    revenueToday = todaysOrders.Sum(o => o.TotalAmount),
+                    recent = recentOrders.Select(o => new
+                    {
+                        id = o.Id,
+                        customer = $"{o.User?.FirstName} {o.User?.LastName}".Trim(),
+                        total = o.TotalAmount,
+                        status = o.Status,
+                        items = o.Items.Select(i => new {
+                            i.ItemName,
+                            i.Quantity
+                        }).ToList()
+                    })
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Failed to retrieve dashboard: {ex.Message}" });
+            }
         }
 
 
@@ -196,7 +228,7 @@ namespace EatMeOut.API.Controllers
         }
 
 
-        // Complete order
+        //Complete order
         [HttpPut("{id}/complete")]
         public async Task<IActionResult> CompleteOrder(int id)
         {
@@ -207,6 +239,86 @@ namespace EatMeOut.API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Order marked as completed." });
+        }
+
+        //Withdraw restaurant balance
+        [HttpPost("restaurant/{restaurantId}/withdraw")]
+        public async Task<IActionResult> WithdrawBalance(int restaurantId, [FromBody] WithdrawalDto dto)
+        {
+            try
+            {
+                //Get the restaurant email from the token
+                var restaurantEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+                if (string.IsNullOrEmpty(restaurantEmail))
+                {
+                    return Unauthorized(new { message = "Invalid authentication token" });
+                }
+
+                //Verify this restaurant has access
+                var restaurant = await _context.Restaurants
+                    .FirstOrDefaultAsync(r => r.Email == restaurantEmail);
+
+                if (restaurant == null || restaurant.Id != restaurantId)
+                {
+                    return Unauthorized(new { message = "Not authorized to withdraw from this restaurant" });
+                }
+
+                if (dto.Amount <= 0)
+                {
+                    return BadRequest(new { message = "Withdrawal amount must be greater than 0" });
+                }
+
+                //Get all non-withdrawn orders
+                var ordersToWithdraw = await _context.Orders
+                    .Where(o => o.RestaurantId == restaurantId && !o.IsWithdrawn)
+                    .OrderBy(o => o.OrderDate)
+                    .ToListAsync();
+
+                if (!ordersToWithdraw.Any())
+                {
+                    return BadRequest(new { message = "No revenue available to withdraw" });
+                }
+
+                //Calculate total available amount
+                var totalAvailable = ordersToWithdraw.Sum(o => o.TotalAmount);
+
+                if (dto.Amount > totalAvailable)
+                {
+                    return BadRequest(new { message = $"Insufficient funds. Available balance is £{totalAvailable}" });
+                }
+
+                //Process orders for withdrawal up to the requested amount
+                decimal remainingAmount = dto.Amount;
+                foreach (var order in ordersToWithdraw)
+                {
+                    if (remainingAmount <= 0) break;
+
+                    if (order.TotalAmount <= remainingAmount)
+                    {
+                        //Withdraw entire order
+                        order.IsWithdrawn = true;
+                        remainingAmount -= order.TotalAmount;
+                    }
+                    else
+                    {
+                        //Partially withdraw this order
+                        order.IsWithdrawn = true;
+                        remainingAmount = 0;
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new { 
+                    message = "Balance withdrawn successfully",
+                    amount = dto.Amount,
+                    remainingBalance = totalAvailable - dto.Amount
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Failed to withdraw balance: {ex.Message}" });
+            }
         }
     }
 
@@ -219,6 +331,7 @@ namespace EatMeOut.API.Controllers
 
     public class OrderItemDto
     {
+        public int MenuItemId { get; set; }
         public string ItemName { get; set; } = string.Empty;
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
@@ -235,4 +348,12 @@ namespace EatMeOut.API.Controllers
         public List<OrderItemDto> Items { get; set; } = new();
     }
 
+    public class OrderDto
+    {
+        public int RestaurantId { get; set; }
+        public List<OrderItemDto> Items { get; set; } = new();
+        public string DeliveryAddress { get; set; } = string.Empty;
+        public string CustomerName { get; set; } = string.Empty;
+        public string CustomerPhone { get; set; } = string.Empty;
+    }
 }
