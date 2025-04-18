@@ -1,0 +1,288 @@
+.page-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #000;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #333;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: #4b5563;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.back-btn:hover {
+  color: #000;
+}
+
+.user-greeting {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+  margin-right: 0.5rem;
+}
+
+.restaurant-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.restaurant-card.clicked {
+  animation: cardClick 0.5s ease forwards;
+}
+
+@keyframes cardClick {
+  0% {
+    transform: scale(1) translateY(-4px);
+  }
+  50% {
+    transform: scale(0.95) translateY(0);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0;
+  }
+}
+
+.page-fade-in {
+  animation: pageFadeIn 0.6s ease-out;
+}
+
+@keyframes pageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse-animation {
+  animation: pulse 0.4s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Image Upload Boxes */
+.image-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 14px;
+  color: #4a5568; /* Tailwind gray-700 */
+  cursor: pointer;
+  border: 2px dashed #a0aec0; /* Tailwind gray-400 */
+  background-color: #edf2f7; /* Tailwind gray-200 */
+  position: relative;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.image-box:hover {
+  border-color: #718096; /* Tailwind gray-600 */
+}
+
+/* Styling for uploaded images */
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Flex container for aligning cover and banner image */
+.image-upload-container {
+  display: flex;
+  gap: 1rem; /* Space between cover and banner image */
+  align-items: center;
+}
+
+/* Cover Image (Square) */
+#coverPreview {
+  width: 8rem; /* 128px */
+  height: 8rem;
+  border-radius: 6px;
+}
+
+/* Banner Image (Longer) */
+#bannerPreview {
+  width: 16rem; /* 256px */
+  height: 8rem;
+  border-radius: 6px;
+}
+
+/* Hide the file input */
+.hidden {
+  display: none;
+}
+
+.restaurant-times span {
+  white-space: nowrap; /* Ensures times don't wrap weirdly */
+}
+
+/* Add better layout handling to the time inputs */
+.restaurant-times {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+/* Prevent tight stacking on smaller screens */
+@media (max-width: 768px) {
+  .restaurant-profile-container {
+    flex-direction: column;
+    max-width: 95%;
+  }
+}
+
+/* Dropdown Menu Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    margin-top: 8px;
+}
+
+.dropdown-content a {
+    color: #4b5563;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f3f4f6;
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+}
+
+.user-greeting {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.user-greeting:after {
+    content: "▼";
+    font-size: 0.8em;
+    margin-left: 4px;
+}
+
+.dropdown.active .user-greeting:after {
+    content: "▲";
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+
+

@@ -1,0 +1,337 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\02ee1c49-4d1d-4d4d-bcf7-2c76e82aa135.jpg",
+      "PackagePath": "staticwebassets\\uploads\\02ee1c49-4d1d-4d4d-bcf7-2c76e82aa135.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\05d64589-d81c-49b8-aae7-429eb77ee452.jpg",
+      "PackagePath": "staticwebassets\\uploads\\05d64589-d81c-49b8-aae7-429eb77ee452.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\08ec35c2-f05c-4d3a-9383-7ce39f893bc8.jpg",
+      "PackagePath": "staticwebassets\\uploads\\08ec35c2-f05c-4d3a-9383-7ce39f893bc8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\0991263d-7e29-464f-860c-86eec2b69a6d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\0991263d-7e29-464f-860c-86eec2b69a6d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\0aa67c7f-bfc1-4724-8409-36b048baf660.jpg",
+      "PackagePath": "staticwebassets\\uploads\\0aa67c7f-bfc1-4724-8409-36b048baf660.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\0d31fd02-5118-4db8-9cb1-1c0c1f1c26b3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\0d31fd02-5118-4db8-9cb1-1c0c1f1c26b3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\10833a46-561f-48ec-92ab-dc93f477baff.webp",
+      "PackagePath": "staticwebassets\\uploads\\10833a46-561f-48ec-92ab-dc93f477baff.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\13019323-982d-409a-9da8-5416125faa63.png",
+      "PackagePath": "staticwebassets\\uploads\\13019323-982d-409a-9da8-5416125faa63.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\13d42303-fe86-47ee-878f-adfa1edfdef5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\13d42303-fe86-47ee-878f-adfa1edfdef5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\1753c782-f77d-4fde-8fb2-be0d8ebc0270.webp",
+      "PackagePath": "staticwebassets\\uploads\\1753c782-f77d-4fde-8fb2-be0d8ebc0270.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\19e6a9d1-70e6-4e3f-879d-e711a65fc644.jpg",
+      "PackagePath": "staticwebassets\\uploads\\19e6a9d1-70e6-4e3f-879d-e711a65fc644.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\1af45e4e-f0c7-43f1-824b-1d603b4849d5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\1af45e4e-f0c7-43f1-824b-1d603b4849d5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\2607bbbf-c5e2-4207-971f-78498040add6.png",
+      "PackagePath": "staticwebassets\\uploads\\2607bbbf-c5e2-4207-971f-78498040add6.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\283d86e5-86fe-4372-b880-b587b0e30dd7.jpg",
+      "PackagePath": "staticwebassets\\uploads\\283d86e5-86fe-4372-b880-b587b0e30dd7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\2ce5d812-b832-4a25-9537-cf7431f0091c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\2ce5d812-b832-4a25-9537-cf7431f0091c.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\3677c19f-9580-419b-a17b-bc05af1d29d9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\3677c19f-9580-419b-a17b-bc05af1d29d9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\3786e86c-7eb4-4ae7-acd8-1a240de61e07.jpg",
+      "PackagePath": "staticwebassets\\uploads\\3786e86c-7eb4-4ae7-acd8-1a240de61e07.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\3aadea24-e5f3-4455-b298-b959dd31333d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\3aadea24-e5f3-4455-b298-b959dd31333d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\3c919bbf-6a51-4bce-b261-de23f6eb0804.webp",
+      "PackagePath": "staticwebassets\\uploads\\3c919bbf-6a51-4bce-b261-de23f6eb0804.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\417b1c39-2e67-48af-bc32-69797175b615.png",
+      "PackagePath": "staticwebassets\\uploads\\417b1c39-2e67-48af-bc32-69797175b615.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\4293f316-49cc-4273-8e58-02ba2ad1ef38.webp",
+      "PackagePath": "staticwebassets\\uploads\\4293f316-49cc-4273-8e58-02ba2ad1ef38.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\457e0ca6-e021-4732-a4e8-189971beb58f.jpg",
+      "PackagePath": "staticwebassets\\uploads\\457e0ca6-e021-4732-a4e8-189971beb58f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\478bbd6a-b20c-476b-a724-fc777a87f86d.webp",
+      "PackagePath": "staticwebassets\\uploads\\478bbd6a-b20c-476b-a724-fc777a87f86d.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\4c0b8146-2365-4f59-a961-06a315b75926.jpg",
+      "PackagePath": "staticwebassets\\uploads\\4c0b8146-2365-4f59-a961-06a315b75926.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\54dcb366-e1bb-4a6c-97a3-2a09fc6671c8.jpg",
+      "PackagePath": "staticwebassets\\uploads\\54dcb366-e1bb-4a6c-97a3-2a09fc6671c8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\54f6322e-7ddd-4731-bf92-78968acc0046.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\54f6322e-7ddd-4731-bf92-78968acc0046.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\5a5181d8-b787-4e86-923f-b7af4ada6299.webp",
+      "PackagePath": "staticwebassets\\uploads\\5a5181d8-b787-4e86-923f-b7af4ada6299.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg",
+      "PackagePath": "staticwebassets\\uploads\\5fb5c328-54ea-4d6a-a041-89fdde384bee.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\6d925a6c-294c-4ade-88d0-483f631ba7c9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\6d925a6c-294c-4ade-88d0-483f631ba7c9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\6f67c38a-43a0-4ada-b451-6f18f2c3babf.webp",
+      "PackagePath": "staticwebassets\\uploads\\6f67c38a-43a0-4ada-b451-6f18f2c3babf.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\701c60f5-547a-405a-b069-9ba54f13ddad.jpg",
+      "PackagePath": "staticwebassets\\uploads\\701c60f5-547a-405a-b069-9ba54f13ddad.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\710b8c1d-929a-4fd9-8143-1ad558d0aed6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\710b8c1d-929a-4fd9-8143-1ad558d0aed6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\76c2a1f4-499a-4660-991f-1fdf1150db18.jpg",
+      "PackagePath": "staticwebassets\\uploads\\76c2a1f4-499a-4660-991f-1fdf1150db18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\78ae4040-4013-4516-bc56-0f6f1bb6a043.png",
+      "PackagePath": "staticwebassets\\uploads\\78ae4040-4013-4516-bc56-0f6f1bb6a043.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\79969e60-cdca-482c-b105-038da5ecb34d.png",
+      "PackagePath": "staticwebassets\\uploads\\79969e60-cdca-482c-b105-038da5ecb34d.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\7ddeb557-71ec-4662-8bcd-9f61d06b9699.webp",
+      "PackagePath": "staticwebassets\\uploads\\7ddeb557-71ec-4662-8bcd-9f61d06b9699.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\864c92bc-1f6d-48d3-a726-a0cfd98376d4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\864c92bc-1f6d-48d3-a726-a0cfd98376d4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\874e17df-8e61-4280-8818-88292f77108d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\874e17df-8e61-4280-8818-88292f77108d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\89bede5a-b248-4379-a36f-5b069a9ce35a.webp",
+      "PackagePath": "staticwebassets\\uploads\\89bede5a-b248-4379-a36f-5b069a9ce35a.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\8f769051-5c78-4fe5-9548-662b88dfc65c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\8f769051-5c78-4fe5-9548-662b88dfc65c.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg",
+      "PackagePath": "staticwebassets\\uploads\\99d37a51-e970-4c66-a5a1-9d85860a9bca.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\9b34ac22-4f1c-4abe-922f-71813d9153b5.png",
+      "PackagePath": "staticwebassets\\uploads\\9b34ac22-4f1c-4abe-922f-71813d9153b5.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\9bc66656-9d70-4168-a3f5-65ce67fd65c9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\9bc66656-9d70-4168-a3f5-65ce67fd65c9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\9edf764a-31ee-4921-b598-cea4979ab435.jpg",
+      "PackagePath": "staticwebassets\\uploads\\9edf764a-31ee-4921-b598-cea4979ab435.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\a34bfaa5-c1ed-4c29-b8a2-5dca7745a457.jpg",
+      "PackagePath": "staticwebassets\\uploads\\a34bfaa5-c1ed-4c29-b8a2-5dca7745a457.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\ace84f08-c822-4c3d-adaa-3616a6fc8464.webp",
+      "PackagePath": "staticwebassets\\uploads\\ace84f08-c822-4c3d-adaa-3616a6fc8464.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b0bb90e6-86a1-4d69-9774-96b74e7247fe.webp",
+      "PackagePath": "staticwebassets\\uploads\\b0bb90e6-86a1-4d69-9774-96b74e7247fe.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b4325821-838f-4e63-87d7-61d6557d4b33.webp",
+      "PackagePath": "staticwebassets\\uploads\\b4325821-838f-4e63-87d7-61d6557d4b33.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b5f1cf2e-33e0-4182-8675-84d5aa38a946.png",
+      "PackagePath": "staticwebassets\\uploads\\b5f1cf2e-33e0-4182-8675-84d5aa38a946.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b666cea3-0bc4-4567-8c5a-16fa5189d6cb.jpg",
+      "PackagePath": "staticwebassets\\uploads\\b666cea3-0bc4-4567-8c5a-16fa5189d6cb.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\b9a47284-3c89-497e-b20b-9cf6338cd64a.webp",
+      "PackagePath": "staticwebassets\\uploads\\b9a47284-3c89-497e-b20b-9cf6338cd64a.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\c2e446ec-ad55-4d6b-bdb2-05cae1dd8b36.jpg",
+      "PackagePath": "staticwebassets\\uploads\\c2e446ec-ad55-4d6b-bdb2-05cae1dd8b36.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\c5335a7a-4184-4777-bd6d-793f3ff8090d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\c5335a7a-4184-4777-bd6d-793f3ff8090d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\c72b3372-1c20-4682-a713-dba1a434fbb9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\c72b3372-1c20-4682-a713-dba1a434fbb9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\c867cbe1-4b19-47a3-919d-e03cdf113387.jpg",
+      "PackagePath": "staticwebassets\\uploads\\c867cbe1-4b19-47a3-919d-e03cdf113387.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\cab82c04-191b-4efc-a5e9-fbdfadc10263.png",
+      "PackagePath": "staticwebassets\\uploads\\cab82c04-191b-4efc-a5e9-fbdfadc10263.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\cce68218-7def-4d47-bf0f-02bdea000c79.webp",
+      "PackagePath": "staticwebassets\\uploads\\cce68218-7def-4d47-bf0f-02bdea000c79.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d056deee-516d-4db2-a744-ac9e632f65a8.jpg",
+      "PackagePath": "staticwebassets\\uploads\\d056deee-516d-4db2-a744-ac9e632f65a8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d40258c5-deee-4553-8a4d-b3d70af71447.jpg",
+      "PackagePath": "staticwebassets\\uploads\\d40258c5-deee-4553-8a4d-b3d70af71447.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d89eec15-fb59-4b92-8aaa-cddd825654d0.webp",
+      "PackagePath": "staticwebassets\\uploads\\d89eec15-fb59-4b92-8aaa-cddd825654d0.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d8ec4dec-3332-4a79-963c-8c5d5c728a53.webp",
+      "PackagePath": "staticwebassets\\uploads\\d8ec4dec-3332-4a79-963c-8c5d5c728a53.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\d99d56f5-26bf-4920-9f32-ac447e6896e6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\d99d56f5-26bf-4920-9f32-ac447e6896e6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\da5082d4-8f2f-46a5-aaa5-8882c4d57c14.jpg",
+      "PackagePath": "staticwebassets\\uploads\\da5082d4-8f2f-46a5-aaa5-8882c4d57c14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\da584f7e-5053-4047-a4b4-294df4a1a301.jpg",
+      "PackagePath": "staticwebassets\\uploads\\da584f7e-5053-4047-a4b4-294df4a1a301.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\da8f0596-5de1-4dcd-8f4d-15308f9d864d.webp",
+      "PackagePath": "staticwebassets\\uploads\\da8f0596-5de1-4dcd-8f4d-15308f9d864d.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\dc08185a-e0c0-40e7-9b3a-384c8b63a0bd.jpg",
+      "PackagePath": "staticwebassets\\uploads\\dc08185a-e0c0-40e7-9b3a-384c8b63a0bd.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\dc77d160-4788-4e53-a483-4aaa195fc94a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\dc77d160-4788-4e53-a483-4aaa195fc94a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\df4bd7c2-3b95-4edb-abea-bc0536a726c2.png",
+      "PackagePath": "staticwebassets\\uploads\\df4bd7c2-3b95-4edb-abea-bc0536a726c2.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\df7b68df-3be1-4ac5-996b-9aa77e38eeaa.jpg",
+      "PackagePath": "staticwebassets\\uploads\\df7b68df-3be1-4ac5-996b-9aa77e38eeaa.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg",
+      "PackagePath": "staticwebassets\\uploads\\e4dfc92b-d38f-43e2-9ab4-4d429c73d226.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\e9f46ad7-b5dd-4ef1-bba5-f19701edc8a3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\e9f46ad7-b5dd-4ef1-bba5-f19701edc8a3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\ec8b4ea0-d7e3-4619-94a3-b47e970c378a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\ec8b4ea0-d7e3-4619-94a3-b47e970c378a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\ee240414-87a5-4972-a6a8-832a380526bc.jpg",
+      "PackagePath": "staticwebassets\\uploads\\ee240414-87a5-4972-a6a8-832a380526bc.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\ef4432d6-d7f7-4dc3-8a3a-dd253dcf4536.webp",
+      "PackagePath": "staticwebassets\\uploads\\ef4432d6-d7f7-4dc3-8a3a-dd253dcf4536.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\f3fcf685-08c5-4cff-8532-1ebfe0e88f1d.png",
+      "PackagePath": "staticwebassets\\uploads\\f3fcf685-08c5-4cff-8532-1ebfe0e88f1d.png"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\f410526b-5e87-475e-a228-f33263bdfaa9.jpg",
+      "PackagePath": "staticwebassets\\uploads\\f410526b-5e87-475e-a228-f33263bdfaa9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\f807636c-b78d-4465-901e-aeadd09bd1a3.webp",
+      "PackagePath": "staticwebassets\\uploads\\f807636c-b78d-4465-901e-aeadd09bd1a3.webp"
+    },
+    {
+      "Id": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\wwwroot\\uploads\\f8444d36-d86b-4ed8-9f03-694e6c02197a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\f8444d36-d86b-4ed8-9f03-694e6c02197a.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EatMeOut.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EatMeOut.props",
+      "PackagePath": "build\\EatMeOut.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EatMeOut.props",
+      "PackagePath": "buildMultiTargeting\\EatMeOut.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EatMeOut.props",
+      "PackagePath": "buildTransitive\\EatMeOut.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

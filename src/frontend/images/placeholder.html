@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Placeholder Image Generator</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            display: block;
+            margin-bottom: 20px;
+        }
+        .button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        p {
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="placeholder" width="400" height="250"></canvas>
+    <button class="button" id="download">Download Placeholder Image</button>
+    <p>Right-click the image and select "Save Image As..." to save it as placeholder.jpg</p>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('placeholder');
+            const ctx = canvas.getContext('2d');
+            
+            // Fill background
+            ctx.fillStyle = '#e0e0e0';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add text
+            ctx.fillStyle = '#888888';
+            ctx.font = 'bold 30px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('EatMeOut', canvas.width / 2, canvas.height / 2 - 15);
+            
+            ctx.fillStyle = '#666666';
+            ctx.font = '20px Arial';
+            ctx.fillText('Image Placeholder', canvas.width / 2, canvas.height / 2 + 20);
+            
+            // Add border
+            ctx.strokeStyle = '#cccccc';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+            
+            // Download button
+            document.getElementById('download').addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = 'placeholder.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.8);
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html> 

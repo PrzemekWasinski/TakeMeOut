@@ -1,0 +1,158 @@
+Earlier (Date Unknown)
+(Przemek)
+- Created desktop app with login and registration
+(Samy)
+- Added Restaurant signup, and profile template
+
+(Przemek)
+- Moved from Desktop to Web App
+(Alex)
+- Designed front end with Registration, Login, Restaurant Signup, Restaurant Login, Orders template, Menu template
+
+
+22/03/2025
+(Samy)
+- Updated Database (Added OwnerName, OpeningTimes, ClosingTimes, CoverIMG, BannerIMG, Menu, Orders)
+- Updated Restaurant Class & Controller to accommodate new entries
+- Updated Orders Controller (temporarily to use the Orders entry in the Restaurants table to prevent errors)
+- Initialised entries with empty string to prevent errors & default secret token (Not Secure, will fix later)
+- Changed Restaurant signup to 2 step process, uses the new fields on the first page, second page has image uploads and operating hours
+- Changed navbar to show owner name instead of restaurant name
+- Added Restaurant Profile which displays info and allows editing and saving
+- Fixed Restaurant Profile alignment
+
+23/03/2025
+(Alex)
+- Made JS modular
+(Przemek) 
+- Updated Restaurant Registration to prevent multiple entries if signup button was clicked too many times whilst loading
+- Added regex for Restaurant signup
+(Samy)
+- Added Address (Door Number, Road, City, Postcode) to Restaurant Signup, changed to 3 pages, concatenates to store in address
+- Fixed clock icon issue on signup
+
+24/03/2025
+(Samy)
+- Updated Database
+(Removed Menu & Orders entry in Restaurants Table)
+(Added MenuCategories table with ID, RestaurantID, RestaurantEmail, Name, DisplayOrder, MenuCategoryID)
+(Added MenuItems table with ID, RestaurantID, MenuCategoryID, Name, Description, Price, Ingredients, Calories, IsVegan, IsAvaliable)
+- Updated RestaurantController (To accommodate removed Menu & Orders)
+- Added menu.js and Added MenuController.cs (Manages adding categories, items, editing, deleting them and getting the full menu)
+- Temporarily commented out OrderController code until further edits
+
+25/03/2025
+(Samy)
+- Added Image upload to menu items
+- Editing & Deletion of menu categories works
+- Editing & Deletion of menu items works
+
+26/03/2025
+(Samy)
+- Reordering of Categories and Menu Items works using drag icon (Updates display order as required)
+- Images display correctly on menu items and profile previews
+- Users cannot create or edit categories or items, in a way that results in duplicate names (local to each restaurant's menu)
+- Updating Menu or Profile images deletes old images from uploads folder
+(Przemek)
+- Added restaurant search by address
+
+27/03/2025
+(Przemek)
+- Added restaurant search by Name, Cuisine type and Description
+- Added favouriting/unfavouriting restaurants
+- Added favourites tab
+- Added error messages for restaurant and signup
+- Added Register restaurant link in register page
+- Added favourites table to store user's favourite restaurants
+commit #2
+- Fixed localStorage not storing details
+
+28/03/2025
+(Przemek)
+- Fixed adding categories!
+
+07/04/2025
+(Samy)
+- Added Restaurant Menu Display: Shows the actual menu when clicking on a restaurant on the user side, instead of a preview.
+- Basket System: Added a shopping basket feature where users can increment or decrement item quantities, with unavailable items greyed out and all item details displayed correctly.
+- Credit and Address: Updated the user table to include fields for credit and address, (assigned manually in the database). Users can enter or reuse their saved address for orders.
+- User Profile: Users can now input their address (separate fields for street, city, postcode) during the order process, similar to restaurant address handling.
+- Updated Restaurant Table with PricingTier, Rating, Rating Count
+- Added Orders Table with ID, UserID, RestaurantID, OrderDate, TotalAmount, Status, Address
+- Added OrderItems Table with ID, OrderID, ItemName, Quantity, Unit Price
+- Overhauled OrderController
+- Overhauled Menu with banner display, including restaurant details such as rating and address, pricing etc, ability to rate restaurants
+- Overhauled User side Orders to display order details and their status
+- Overhauled Dashboard to use actual values for Today's Orders, Revenue and Rating as well as some recent orders and their details
+- Overhauled Restaurant Side orders to display orders and their details, update statuses and tabs for filtering status
+- Added Rating function (average of all ratings)
+- Added Price average function £ or ££ or £££ (average of average of items per category) (needs to be fixed)
+- Removed Preview Restaurants
+
+Alex Changelog 08/04/2025
+- Fixed issue where images wouldn't appear properly
+- Fixed issue where clicking on tile doesn't correctly bring user to restaurant
+- Reorganised the bottom of the page side
+- Fixed a CORS Issue
+- Added a profile page for the user
+- Fixed issue where restaurant banner doesn't show up
+- Removed a majority of those annoying popups and set them to nicer ones
+- Fixed favourites not working properly on login
+- Brought back the revenue (my bad lol)
+- Fixed the issue where you could only put absolute values for menu items
+
+08/04/2025
+(Przemek)
+- Added "I'm feeling lucky" option
+- Danger Zone plays when you hover over Danger Zone setting 😎
+
+12/04/2025
+(Przemek)
+- Commented all the code
+
+09/04/2024
+(Alex)
+- Fixed withdraw not working properly
+- Fixed place order event listeners not working properly 
+- Added a few more nice animations hehe
+- Fixed place order animations
+
+18/04/2025
+(Samy)
+- Fixed an issue with editing categories
+- Fixed an issue with display orders in database 
+
+NOTE: I (Samy) have pushed a version will all additional files. NOT ALL OF THESE FILES ARE MY WORK. The changelog below describes the additions and who they belong to.
+
+(Edwart)
+- Updated final stages of testing reports and test cases and provided to add to repo
+- Final QA & Regression Testing
+
+(Emanuel) 
+- Collaged sketches and designs for report
+
+(Alex & Przemek)
+- Finalised version of report 
+
+
+Get Price Average working correctly
+Display Opening and Closing Times in the banner (only for whatever day it is), show restaurant as closed when outside of those times
+Get images working for everybody
+
+QOL Improvements:
+
+- To Do:
+- Display more details on restaurant front card
+- Implement time-to-delivery estimates using a map API.
+- Add functionality to edit item ingredients. (user side)
+- Create a separate panel for the basket, improving user experience.
+- Plan and start implementing an admin panel for analytics and managing orders.
+- Ensure the entire restaurant icon is clickable, not just the name area
+- Add functionality for manually creating "missing" orders.
+- Replace remaining browser prompts with custom in-app prompts for a smoother experience.
+
+
+
+
+
+
