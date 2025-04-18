@@ -24,20 +24,24 @@ Before being able to run this project, the following tools need to be installed 
 If you are using Windows:
 
     Go into EatMeOut.API and open appsettings.json and make sure the Default Connection string is:
-    Server=localhost;Database=EatMeOutDB;Trusted_Connection=True;TrustServerCertificate=True 
+    Server=localhost;Database=EatMeOutDB;Trusted_Connection=True;TrustServerCertificate=True  
+
+    Make sure you are connected to SQL server first.
 
     Open integrated terminal in EatMeOut\EatMeOut.API and run the following commands:
     
-    dotnet ef migrations add InitialCreate
+    dotnet ef migrations add InitialCreate (If this doesn't work, or the migration already exists, delete everything INSIDE EatMeOut.API/Migrations. )
     dotnet ef database update
     dotnet build
     dotnet run
+
+    This will setup your database.
 
     Open integrated terminal in EatMeOut\frontend:
 
     npx http-server -p 8080 (or any other port)
 
-    Open your browser and navigate to http://127.0.0.1:8080, use Ctrl + Shift + R to clear browser cache
+    Open your browser and navigate to http://127.0.0.1:8080, use Ctrl + Shift + R to clear browser cache 
 
     
 OR
@@ -51,10 +55,12 @@ Run Docker, make sure the SQL Server Image is installed and running. Create a ne
 
     Open integrated terminal in EatMeOut\EatMeOut.API and run the following commands:
     
-    dotnet ef migrations add InitialCreate
+    dotnet ef migrations add InitialCreate If this doesn't work, or the migration already exists, delete everything INSIDE EatMeOut.API/Migrations. )
     dotnet ef database update
     dotnet build
     dotnet run
+
+    This will setup your database.
 
     Open integrated terminal in EatMeOut\frontend:
 

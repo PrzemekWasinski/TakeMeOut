@@ -1,0 +1,20 @@
+{
+  "Version": 1,
+  "Hash": "EWQW8GffvhimeqZZWtUmRd3RheGn+cPl7saN1ep11ng=",
+  "Source": "EatMeOut",
+  "BasePath": "_content/EatMeOut",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "EatMeOut\\wwwroot",
+      "Source": "EatMeOut",
+      "ContentRoot": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\src\\EatMeOut.API\\wwwroot\\",
+      "BasePath": "_content/EatMeOut",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [],
+  "Endpoints": []
+}
