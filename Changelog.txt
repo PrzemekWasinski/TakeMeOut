@@ -104,39 +104,54 @@ Alex Changelog 08/04/2025
 08/04/2025
 (Przemek)
 - Added "I'm feeling lucky" option
-- Danger Zone playes when you hover over Danger Zone setting 😎
+- Danger Zone plays when you hover over Danger Zone setting 😎
 
 12/04/2025
 (Przemek)
 - Commented all the code
 
-To Do:
-Display more details on restaurant front card
+09/04/2024
+(Alex)
+- Fixed withdraw not working properly
+- Fixed place order event listeners not working properly 
+- Added a few more nice animations hehe
+- Fixed place order animations
+
+18/04/2025
+(Samy)
+- Fixed an issue with editing categories
+- Fixed an issue with display orders in database 
+
+NOTE: I (Samy) have pushed a version will all additional files. NOT ALL OF THESE FILES ARE MY WORK. The changelog below describes the additions and who they belong to.
+
+(Edwart)
+- Updated final stages of testing reports and test cases and provided to add to repo
+- Final QA & Regression Testing
+
+(Emanuel) 
+- Collaged sketches and designs for report
+
+(Alex & Przemek)
+- Finalised version of report 
+
+
 Get Price Average working correctly
 Display Opening and Closing Times in the banner (only for whatever day it is), show restaurant as closed when outside of those times
 Get images working for everybody
 
 QOL Improvements:
 
+- To Do:
+- Display more details on restaurant front card
 - Implement time-to-delivery estimates using a map API.
 - Add functionality to edit item ingredients. (user side)
 - Create a separate panel for the basket, improving user experience.
 - Plan and start implementing an admin panel for analytics and managing orders.
 - Ensure the entire restaurant icon is clickable, not just the name area
 - Add functionality for manually creating "missing" orders.
-- Replace browser prompts with custom in-app prompts for a smoother experience.
-
-Cleanup:
-- Refactor code to ensure it’s clean, modular, and well-structured. (For example, use switch-case statements in navigation.js to call functions from templates.js.)
-- Consider separating restaurant profile functionality into its own controller for better organization.
+- Replace remaining browser prompts with custom in-app prompts for a smoother experience.
 
 
-Alex Changelong 09/04/2024
-
-- Fixed withdraw not working properly
-- Fixed place order event listeners not working properly 
-- Added a few more nice animations hehe
-- Fixed place order animations
 
 
 

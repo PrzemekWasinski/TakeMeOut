@@ -163,40 +163,52 @@ function attachEventHandlers() {
     })
   );
 
-  //Edit category
-  document.querySelectorAll('.edit-category-btn').forEach(btn =>
-    btn.addEventListener('click', async () => {
-      const id = btn.dataset.categoryId;
-      const currentName = btn.dataset.name;
-      const newName = prompt("Edit category name:", currentName);
-      if (!newName || newName === currentName) return;
 
-      const token = localStorage.getItem("restaurantToken");
-      const email = localStorage.getItem("currentRestaurantEmail");
-      const restaurantId = parseInt(localStorage.getItem("restaurantId"));
-      //Send new category to backend
-      const res = await fetch(`${API_URL}/menu/categories/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          id: parseInt(id),
-          name: newName,
-          restaurantId,
-          restaurantEmail: email,
-          items: [] 
-        })
-      });
+// Edit category
+document.querySelectorAll('.edit-category-btn').forEach(btn =>
+  btn.addEventListener('click', async () => {
+    const id = parseInt(btn.dataset.categoryId);
+    const currentName = btn.dataset.name;
+    const newName = prompt("Edit category name:", currentName);
+    if (!newName || newName === currentName) return;
 
-      if (res.ok) {
-        loadMenuManagement();
-      } else {
-        alert("Failed to update category");
-      }
-    })
-  );
+    const token = localStorage.getItem("restaurantToken");
+
+    const email = localStorage.getItem("currentRestaurantEmail");
+    const resFetch = await fetch(`${API_URL}/menu/${email}`);
+    if (!resFetch.ok) return alert("Failed to load categories");
+
+    const categories = await resFetch.json();
+    const cat = categories.find(c => c.id === id);
+    if (!cat) return alert("Category not found");
+
+    const updatedCategory = {
+      Id: id,
+      RestaurantId: parseInt(localStorage.getItem("restaurantId")),
+      Name: newName,
+      DisplayOrder: cat.displayOrder,
+      MenuCategoryId: cat.id
+    };
+         
+
+    const res = await fetch(`${API_URL}/menu/categories/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedCategory)
+    });
+
+    if (res.ok) {
+      loadMenuManagement();
+    } else {
+      const err = await res.json();
+      alert(err.message || "Failed to update category");
+    }
+  })
+);
+
 
   //Delete category
   document.querySelectorAll('.delete-category-btn').forEach(btn =>

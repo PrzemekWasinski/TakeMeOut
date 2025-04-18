@@ -21,31 +21,46 @@ Before being able to run this project, the following tools need to be installed 
 
     Then, open SQL Server Management Studio and connect using Windows Authentication, Select encryption as optional and check Trust Server Certificate -> Connect
 
+If you are using Windows:
+
+    Go into EatMeOut.API and open appsettings.json and make sure the Default Connection string is:
+    Server=localhost;Database=EatMeOutDB;Trusted_Connection=True;TrustServerCertificate=True 
+
+    Open integrated terminal in EatMeOut\EatMeOut.API and run the following commands:
+    
+    dotnet ef migrations add InitialCreate
+    dotnet ef database update
+    dotnet build
+    dotnet run
+
+    Open integrated terminal in EatMeOut\frontend:
+
+    npx http-server -p 8080 (or any other port)
+
+    Open your browser and navigate to http://127.0.0.1:8080, use Ctrl + Shift + R to clear browser cache
+
+    
 OR
 
 If you are using MacOS/Linux:
+
+Go into EatMeOut.API and open appsettings.json and make sure the Default Connection string is:
+Server=localhost,1433;Database=EatMeOutDB;User Id=admin;Password=Password123#;TrustServerCertificate=True
 
 Run Docker, make sure the SQL Server Image is installed and running. Create a new Microsoft SQL Server, username: sa and password: YourStrongPassword123 and click Finish.
 
-    Go into Visual Studio 2022/Vistual Studio Code -> Right click EatMeOut.API folder, open integrated terminal then run the following commands:
-        dotnet build
-        dotnet ef database update
-        dotnet run
+    Open integrated terminal in EatMeOut\EatMeOut.API and run the following commands:
+    
+    dotnet ef migrations add InitialCreate
+    dotnet ef database update
+    dotnet build
+    dotnet run
 
-    Go into EatMeOut.API and open appsettings.json and make sure the Default Connection string is:
+    Open integrated terminal in EatMeOut\frontend:
 
-    Server=localhost;Database=EatMeOutDB;Trusted_Connection=True;TrustServerCertificate=True
+    npx http-server -p 8080 (or any other port)
 
-OR
+    Open your browser and navigate to http://127.0.0.1:8080, use Command + Shift + R to clear browser cache
 
-If you are using MacOS/Linux:
+    
 
-Server=localhost,1433;Database=EatMeOutDB;User Id=admin;Password=Password123#;TrustServerCertificate=True
-
-    Open integrated terminal by right clicking on the frontend folder and run:
-
-    npx http-server -p 8080
-
-    Open your browser and navigate to http://127.0.0.1:8080
-
-    212121

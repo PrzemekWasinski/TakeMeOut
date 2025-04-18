@@ -179,27 +179,26 @@ namespace EatMeOut.API.Controllers
 
         //Update Category 
         [HttpPut("categories/{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, [FromBody] MenuCategory updated)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryDto updated)
         {
             var jwtEmail = GetEmailFromToken();
             var restaurant = await _context.Restaurants.FirstOrDefaultAsync(r => r.Email == jwtEmail);
             if (restaurant == null) return Unauthorized();
 
-            var existing = await _context.MenuCategories.FirstOrDefaultAsync(c => c.Id == id && c.RestaurantId == restaurant.Id);
+            var existing = await _context.MenuCategories
+                .FirstOrDefaultAsync(c => c.Id == id && c.RestaurantId == restaurant.Id);
             if (existing == null) return NotFound(new { message = "Category not found" });
 
-            //Check for duplicate name
             var duplicate = await _context.MenuCategories.AnyAsync(c =>
                 c.RestaurantId == restaurant.Id &&
                 c.Name.ToLower() == updated.Name.ToLower() &&
-                c.Id != id
-            );
+                c.Id != id);
             if (duplicate)
-            {
                 return BadRequest(new { message = "Category name already exists." });
-            }
 
             existing.Name = updated.Name;
+            existing.DisplayOrder = updated.DisplayOrder;
+
             _context.MenuCategories.Update(existing);
             await _context.SaveChangesAsync();
 
@@ -318,7 +317,7 @@ namespace EatMeOut.API.Controllers
 
             for (int i = 0; i < orderedIds.Count; i++)
             {
-                var category = categories.FirstOrDefault(c => c.Id == orderedIds[i]);
+                var category = categories.FirstOrDefault(c => c.MenuCategoryId == orderedIds[i]);
                 if (category != null) category.DisplayOrder = i + 1;
             }
 
@@ -408,6 +407,16 @@ namespace EatMeOut.API.Controllers
 
             return Ok(grouped);
         }
+
+        public class UpdateCategoryDto
+        {
+            public int Id { get; set; }
+            public int RestaurantId { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public int DisplayOrder { get; set; }
+            public int MenuCategoryId { get; set; }
+        }
+
 
 
     }

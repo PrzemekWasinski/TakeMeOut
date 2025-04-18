@@ -1,0 +1,157 @@
+EatMeOut Database Creation SQL Statements
+
+Restaurants table - Core table for restaurant information
+CREATE TABLE Restaurants (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    OwnerName NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(MAX) NOT NULL,
+    PasswordHash NVARCHAR(MAX) NOT NULL,
+    RestaurantName NVARCHAR(100) NOT NULL,
+    Address NVARCHAR(200) NOT NULL,
+    Phone NVARCHAR(MAX) NOT NULL,
+    CuisineType NVARCHAR(50) NOT NULL,
+    Description NVARCHAR(500) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL,
+    OpeningTimes NVARCHAR(MAX) NOT NULL,
+    ClosingTimes NVARCHAR(MAX) NOT NULL,
+    CoverIMG NVARCHAR(MAX) NOT NULL,
+    BannerIMG NVARCHAR(MAX) NOT NULL,
+    Rating FLOAT NOT NULL DEFAULT 0.0,
+    RatingCount INT NOT NULL DEFAULT 0,
+    PricingTier NVARCHAR(MAX) NOT NULL DEFAULT '£'
+);
+
+Users table - Stores customer information
+CREATE TABLE Users (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
+    Email NVARCHAR(MAX) NOT NULL,
+    PasswordHash NVARCHAR(MAX) NOT NULL,
+    Address NVARCHAR(MAX) NULL,
+    Credit DECIMAL(18,2) NOT NULL DEFAULT 0.00
+);
+
+Menu Categories table - Organizes menu items into categories
+CREATE TABLE MenuCategories (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    RestaurantId INT NOT NULL,
+    Name NVARCHAR(MAX) NOT NULL,
+    DisplayOrder INT NOT NULL,
+    MenuCategoryId INT NOT NULL,
+    CONSTRAINT AK_MenuCategories_MenuCategoryId_RestaurantId 
+        UNIQUE (MenuCategoryId, RestaurantId),
+    FOREIGN KEY (RestaurantId) 
+        REFERENCES Restaurants(Id) 
+        ON DELETE CASCADE
+);
+
+Menu Items table - Individual food items
+CREATE TABLE MenuItems (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    RestaurantId INT NOT NULL,
+    MenuCategoryId INT NOT NULL,
+    Name NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(500) NOT NULL,
+    Price DECIMAL(18,2) NOT NULL,
+    Ingredients NVARCHAR(MAX) NOT NULL,
+    Calories INT NOT NULL,
+    IsVegan BIT NOT NULL,
+    IsAvailable BIT NOT NULL DEFAULT 1,
+    ImageUrl NVARCHAR(MAX) NULL,
+    DisplayOrder INT NOT NULL,
+    FOREIGN KEY (MenuCategoryId, RestaurantId) 
+        REFERENCES MenuCategories(MenuCategoryId, RestaurantId) 
+        ON DELETE CASCADE
+);
+
+Favourites table - Links users to their favorite restaurants
+CREATE TABLE Favourites (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    RestaurantId INT NOT NULL,
+    CreatedAt DATETIME2 NOT NULL,
+    CONSTRAINT UQ_Favourites_User_Restaurant UNIQUE (UserId, RestaurantId),
+    FOREIGN KEY (RestaurantId) 
+        REFERENCES Restaurants(Id) 
+        ON DELETE CASCADE,
+    FOREIGN KEY (UserId) 
+        REFERENCES Users(Id) 
+        ON DELETE CASCADE
+);
+
+Orders table - Tracks customer orders
+CREATE TABLE Orders (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    RestaurantId INT NOT NULL,
+    OrderDate DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+    TotalAmount DECIMAL(18,2) NOT NULL,
+    Status NVARCHAR(50) NOT NULL DEFAULT 'Pending',
+    Address NVARCHAR(500) NOT NULL,
+    IsPaid BIT NOT NULL DEFAULT 0,
+    IsWithdrawn BIT NOT NULL DEFAULT 0,
+    FOREIGN KEY (UserId) 
+        REFERENCES Users(Id) 
+        ON DELETE CASCADE,
+    FOREIGN KEY (RestaurantId) 
+        REFERENCES Restaurants(Id) 
+        ON DELETE CASCADE
+);
+
+Order Items table - Individual items within an order
+CREATE TABLE OrderItems (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    OrderId INT NOT NULL,
+    ItemName NVARCHAR(MAX) NOT NULL,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(18,2) NOT NULL,
+    FOREIGN KEY (OrderId) 
+        REFERENCES Orders(Id) 
+        ON DELETE CASCADE
+);
+
+Indexes
+
+
+Restaurants indexes
+CREATE INDEX IX_Restaurants_CuisineType ON Restaurants(CuisineType);
+CREATE INDEX IX_Restaurants_Rating ON Restaurants(Rating DESC);
+
+Users indexes
+CREATE INDEX IX_Users_Email ON Users(Email);
+
+Menu items indexes
+CREATE INDEX IX_MenuItems_RestaurantId ON MenuItems(RestaurantId);
+CREATE INDEX IX_MenuItems_IsAvailable ON MenuItems(IsAvailable);
+
+Orders indexes
+CREATE INDEX IX_Orders_UserId ON Orders(UserId);
+CREATE INDEX IX_Orders_RestaurantId ON Orders(RestaurantId);
+CREATE INDEX IX_Orders_Status ON Orders(Status);
+CREATE INDEX IX_Orders_OrderDate ON Orders(OrderDate DESC);
+
+Sample Data
+
+Insert sample restaurant
+INSERT INTO Restaurants (
+    OwnerName, Email, PasswordHash, RestaurantName, 
+    Address, Phone, CuisineType, Description, 
+    CreatedAt, OpeningTimes, ClosingTimes, 
+    CoverIMG, BannerIMG, PricingTier
+) VALUES (
+    'John Doe',
+    'burger.palace@example.com',
+    '$2a$12$eImiTXuWVxfM37uY4JANjQ==',
+    'Burger Palace',
+    '123 Main St',
+    '555-0123',
+    'American',
+    'Best burgers in town!',
+    '2023-01-01 00:00:00',
+    '',
+    '',
+    '',
+    '',
+    '£'
+); 

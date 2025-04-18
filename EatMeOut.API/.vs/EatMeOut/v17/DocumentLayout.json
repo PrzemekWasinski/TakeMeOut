@@ -3,26 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\restaurantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\restaurantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\favouritescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\favouritescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,24 +11,48 @@
       "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\restaurantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\restaurantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\menuitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\menuitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\menucategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\menucategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\favourite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\favourite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\menuitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\menuitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\favouritescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\favouritescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\models\\favourite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:models\\favourite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\eatmeout.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:eatmeout.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|c:\\users\\smaw2\\desktop\\delivery project\\eatmeout\\eatmeout.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A5BE02E2-41EF-45A4-B1E7-E83398712079}|EatMeOut.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,17 +74,65 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAAwDYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAADYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-07T18:53:27.067Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RestaurantController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RestaurantController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs",
+              "RelativeToolTip": "Controllers\\RestaurantController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAKIBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T10:38:41.77Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAByAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-16T11:19:17.126Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAowHUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T11:13:05.535Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "Controllers\\OrderController.cs",
+              "ViewState": "AgIAAE0BAAAAAAAAAAAYwO4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T10:57:37.895Z"
             },
             {
               "$type": "Document",
@@ -94,40 +142,13 @@
               "RelativeDocumentMoniker": "Controllers\\MenuController.cs",
               "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\MenuController.cs",
               "RelativeToolTip": "Controllers\\MenuController.cs",
-              "ViewState": "AgIAAFkBAAAAAAAAAAAqwGoBAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAHQBAAAAAAAAAAAYwJUBAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T11:50:28.726Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T11:50:28.726Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
-              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\OrderController.cs",
-              "RelativeToolTip": "Controllers\\OrderController.cs",
-              "ViewState": "AgIAAMgAAAAAAAAAAAAAAO4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T10:57:37.895Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RestaurantController.cs",
-              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RestaurantController.cs",
-              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\RestaurantController.cs",
-              "RelativeToolTip": "Controllers\\RestaurantController.cs",
-              "ViewState": "AgIAAMEBAAAAAAAAAAAAANgBAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T10:38:41.77Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "Restaurant.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Restaurant.cs",
               "RelativeDocumentMoniker": "Models\\Restaurant.cs",
@@ -135,38 +156,23 @@
               "RelativeToolTip": "Models\\Restaurant.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAiwBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T10:43:12.304Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-16T10:43:12.304Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "FavouritesController.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\FavouritesController.cs",
               "RelativeDocumentMoniker": "Controllers\\FavouritesController.cs",
               "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\FavouritesController.cs",
               "RelativeToolTip": "Controllers\\FavouritesController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T11:50:28.668Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T11:50:28.668Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAcwG8AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T11:13:05.535Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -174,12 +180,11 @@
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T18:59:13.345Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-07T18:59:13.345Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Order.cs",
               "RelativeDocumentMoniker": "Models\\Order.cs",
@@ -187,38 +192,35 @@
               "RelativeToolTip": "Models\\Order.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T11:09:19.075Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-16T11:09:19.075Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "MenuItem.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuItem.cs",
               "RelativeDocumentMoniker": "Models\\MenuItem.cs",
               "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuItem.cs",
               "RelativeToolTip": "Models\\MenuItem.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAuwBQAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-16T11:15:24.907Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-16T11:15:24.907Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
               "Title": "MenuCategory.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuCategory.cs",
               "RelativeDocumentMoniker": "Models\\MenuCategory.cs",
               "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\MenuCategory.cs",
               "RelativeToolTip": "Models\\MenuCategory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T11:50:13.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T11:50:13.416Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Favourite.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Models\\Favourite.cs",
               "RelativeDocumentMoniker": "Models\\Favourite.cs",
@@ -226,12 +228,11 @@
               "RelativeToolTip": "Models\\Favourite.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T11:50:13.352Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T11:50:13.352Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
@@ -239,24 +240,11 @@
               "RelativeToolTip": "Data\\AppDbContext.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAiwEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T19:00:22.344Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-07T19:00:22.344Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-16T11:19:17.126Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
               "Title": "EatMeOut.csproj",
               "DocumentMoniker": "C:\\Users\\smaw2\\Desktop\\Delivery Project\\EatMeOut\\EatMeOut.API\\EatMeOut.csproj",
               "RelativeDocumentMoniker": "EatMeOut.csproj",
