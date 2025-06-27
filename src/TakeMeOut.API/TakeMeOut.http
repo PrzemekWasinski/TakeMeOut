@@ -1,0 +1,6 @@
+@TakeMeOut_HostAddress = http://localhost:5215
+
+GET {{TakeMeOut_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

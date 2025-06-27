@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\src\\TakeMeOut.API\\wwwroot\\.gitkeep",
+      "PackagePath": "staticwebassets\\.gitkeep"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\src\\TakeMeOut.API\\wwwroot\\uploads\\.gitkeep",
+      "PackagePath": "staticwebassets\\uploads\\.gitkeep"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\src\\TakeMeOut.API\\wwwroot\\uploads\\54dcab5e-0c3f-4112-94ce-9a02dc8b9857.png",
+      "PackagePath": "staticwebassets\\uploads\\54dcab5e-0c3f-4112-94ce-9a02dc8b9857.png"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\src\\TakeMeOut.API\\wwwroot\\uploads\\7a37a809-c36f-49c1-927e-2d8a74a9f090.png",
+      "PackagePath": "staticwebassets\\uploads\\7a37a809-c36f-49c1-927e-2d8a74a9f090.png"
+    },
+    {
+      "Id": "D:\\Programming\\cSharp\\EatMeOut\\src\\TakeMeOut.API\\wwwroot\\uploads\\c320a23e-320b-4859-ad57-dcde7ba206de.png",
+      "PackagePath": "staticwebassets\\uploads\\c320a23e-320b-4859-ad57-dcde7ba206de.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TakeMeOut.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.TakeMeOut.props",
+      "PackagePath": "build\\TakeMeOut.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TakeMeOut.props",
+      "PackagePath": "buildMultiTargeting\\TakeMeOut.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.TakeMeOut.props",
+      "PackagePath": "buildTransitive\\TakeMeOut.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

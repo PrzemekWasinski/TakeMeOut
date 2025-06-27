@@ -136,7 +136,7 @@ const aboutTemplate = `
         <h1 class="text-3xl font-bold mb-6">About Us</h1>
         <div class="bg-white rounded-lg shadow-md p-6">
             <div id="about-content" class="prose max-w-none">
-                <p>EatMeOut is a premier food delivery platform connecting hungry customers with their favorite local restaurants.</p>
+                <p>TakeMeOut is a premier food delivery platform connecting hungry customers with their favorite local restaurants.</p>
                 <p>Founded in 2023, we've quickly grown to serve over 50 cities worldwide, with a mission to make food delivery fast, reliable, and affordable for everyone.</p>
                 <p>Our platform features thousands of restaurant partners, from local favorites to national chains, ensuring you can always find exactly what you're craving.</p>
                 <p>With our dedicated delivery network, we ensure your food arrives hot and fresh, exactly when you want it.</p>

@@ -1,5 +1,5 @@
 <svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
   <rect width="400" height="250" fill="#e0e0e0" stroke="#cccccc" stroke-width="10"/>
-  <text x="200" y="110" font-family="Arial" font-size="30" font-weight="bold" fill="#888888" text-anchor="middle">EatMeOut</text>
+  <text x="200" y="110" font-family="Arial" font-size="30" font-weight="bold" fill="#888888" text-anchor="middle">TakeMeOut</text>
   <text x="200" y="150" font-family="Arial" font-size="20" fill="#666666" text-anchor="middle">Image Placeholder</text>
 </svg> 

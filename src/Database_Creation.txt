@@ -1,4 +1,4 @@
-EatMeOut Database Creation SQL Statements
+TakeMeOut Database Creation SQL Statements
 
 Restaurants table - Core table for restaurant information
 CREATE TABLE Restaurants (
