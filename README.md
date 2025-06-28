@@ -1,72 +1,43 @@
+# Take Me Out 
+Take Me Out is a restaurant delivery system where users can login/register search for restaurants near them, sort by food type, menu items, location etc. order, see live updates for their order and rate restaurnats. Restaurant owners can register their restaurant, see their daily revenue, rating, orders etc, update customer's orders, add/remove/edit their menu, items, restaurant info and more.
+
+<img width="874" alt="home" src="https://github.com/user-attachments/assets/81e04f73-8856-44a4-a7e3-56f5391ebd23" />
+
+<img width="867" alt="page" src="https://github.com/user-attachments/assets/a0f1014a-a8b4-43c5-8aa7-cc2376423bbd" />
+
+# Tech stack
+
+    Frontend: Vanilla Javascript, Tailwind CSS
+    Backend: .NET Framework
+    Database: Microsoft SQL
+
+# How to run
+
 Before being able to run this project, the following tools need to be installed on your system:
 
-    For Windows:
-        .NET 9.0 and .NET 8.0
-        SQL Server Management Studio (SMMS)
-        SQL Server (Developer Edition)
-        Visual Studio 2022/ Visual Studio Code
+        .NET 8.0
+        Microsoft SQL Server Management Studio (SSMS)
 
-    For MacOS/Linux
-        .NET 9.0 and .NET 8.0
-        Docker with image of SQL Server Installed
-        Visual Studio Code
+First install the required packages by running the following commands in `src/TakeMeOut.API`:
 
-    First install the required packages by right clicking on the TakeMeOut.API, selected Open In Integrated Terminal and running the following commands:
-        dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-        dotnet add package Microsoft.EntityFrameworkCore.Tools
-        dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
-        dotnet add package Swashbuckle.AspNetCore
-        dotnet add package Microsoft.EntityFrameworkCore.Design
-        dotnet add package Microsoft.AspNetCore.Cors
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add package Microsoft.EntityFrameworkCore.Tools
+    dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+    dotnet add package Swashbuckle.AspNetCore
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+    dotnet add package Microsoft.AspNetCore.Cors
 
-    Then, open SQL Server Management Studio and connect using Windows Authentication, Select encryption as optional and check Trust Server Certificate -> Connect
+Then connect to your SQL Server using `SSMS` and modify the `DefaultConnection` String in `/src/TakeMeOut.API/appsettings.json` 
 
-If you are using Windows:
-
-    Go into TakeMeOut.API and open appsettings.json and make sure the Default Connection string is:
-    Server=localhost;Database=TakeMeOutDB;Trusted_Connection=True;TrustServerCertificate=True  
-
-    Make sure you are connected to SQL server first.
-
-    Open integrated terminal in TakeMeOut\TakeMeOut.API and run the following commands:
+Run the following commands in `/src/TakeMeOut.API`
     
     dotnet ef migrations add InitialCreate (If this doesn't work, or the migration already exists, delete everything INSIDE TakeMeOut.API/Migrations. )
     dotnet ef database update
     dotnet build
     dotnet run
 
-    This will setup your database.
+Run the following command in in `src/frontend:`
 
-    Open integrated terminal in TakeMeOut\frontend:
+    npx http-server -p 
 
-    npx http-server -p 8080 (or any other port)
-
-    Open your browser and navigate to http://127.0.0.1:8080, use Ctrl + Shift + R to clear browser cache 
-
-    
-OR
-
-If you are using MacOS/Linux:
-
-Go into TakeMeOut.API and open appsettings.json and make sure the Default Connection string is:
-Server=localhost,1433;Database=TakeMeOutDB;User Id=admin;Password=Password123#;TrustServerCertificate=True
-
-Run Docker, make sure the SQL Server Image is installed and running. Create a new Microsoft SQL Server, username: sa and password: YourStrongPassword123 and click Finish.
-
-    Open integrated terminal in TakeMeOut\TakeMeOut.API and run the following commands:
-    
-    dotnet ef migrations add InitialCreate If this doesn't work, or the migration already exists, delete everything INSIDE TakeMeOut.API/Migrations. )
-    dotnet ef database update
-    dotnet build
-    dotnet run
-
-    This will setup your database.
-
-    Open integrated terminal in TakeMeOut\frontend:
-
-    npx http-server -p 8080 (or any other port)
-
-    Open your browser and navigate to http://127.0.0.1:8080, use Command + Shift + R to clear browser cache
-
-    
-
+Naviagte to `http://127.0.0.1:8080` in your browser and enjoy!
