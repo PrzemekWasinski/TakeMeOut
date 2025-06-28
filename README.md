@@ -1,9 +1,11 @@
 # Take Me Out 
 Take Me Out is a restaurant delivery system where users can login/register search for restaurants near them, sort by food type, menu items, location etc. order, see live updates for their order and rate restaurnats. Restaurant owners can register their restaurant, see their daily revenue, rating, orders etc, update customer's orders, add/remove/edit their menu, items, restaurant info and more.
 
-<img width="874" alt="home" src="https://github.com/user-attachments/assets/81e04f73-8856-44a4-a7e3-56f5391ebd23" />
+Home Page:
+<img width="940" alt="home" src="https://github.com/user-attachments/assets/81e04f73-8856-44a4-a7e3-56f5391ebd23" />
 
-<img width="867" alt="page" src="https://github.com/user-attachments/assets/a0f1014a-a8b4-43c5-8aa7-cc2376423bbd" />
+Restaurant Owner's dashboard:
+<img width="940" alt="dash-new" src="https://github.com/user-attachments/assets/f28d53bd-d898-47c6-92e6-85c23d0f458c" />
 
 # Tech stack
 
